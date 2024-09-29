@@ -86,8 +86,6 @@ water TEXT
 
 # After completing step 5
 
-data is numerical with 6 place before and 6 places after decimal
-
 ```
 CREATE TABLE clean_food_data (
     id SERIAL PRIMARY KEY,
