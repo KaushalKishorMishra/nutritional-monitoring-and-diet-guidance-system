@@ -12,5 +12,5 @@ columns_to_replace = data.columns.difference(exclude_columns)
 # Replace NaN values with 0 in selected columns
 data[columns_to_replace] = data[columns_to_replace].fillna(0)
 
-# Save the updated DataFrame to a new CSV (optional)
+# Save the updated DataFrame to a new CSV
 data.to_csv('nutrition-2.csv', index=False)
