@@ -4,6 +4,7 @@ df = pd.read_csv("nutrition-2.csv")
 
 # Unit expectations per column
 expected_units = {
+    "serving_size": "g",
     "total_fat": "g",
     "saturated_fat": "g",
     "cholesterol": "mg",
@@ -21,7 +22,7 @@ expected_units = {
     "iron": "mg",
     "magnesium": "mg",
     "manganese": "mg",
-    "phosphorus": "mg",
+    "phosphorous": "mg",
     "potassium": "mg",
     "zinc": "mg",
     "protein": "g",
@@ -46,7 +47,7 @@ expected_units = {
 }
 
 # subtract 4 for id, name, serving_size, calories
-if len(expected_units) != (len(df.columns) - 4):
+if len(expected_units) != (len(df.columns) - 3):
     print("Expected units and columns count mismatch")
     exit()
 
