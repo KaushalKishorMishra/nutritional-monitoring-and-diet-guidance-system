@@ -5,8 +5,8 @@ import Animated, {
   useAnimatedStyle,
   useScrollViewOffset,
 } from "react-native-reanimated";
-import { ThemedView } from "components/ThemedView";
-import { PParallaxScrollView } from "types/props";
+import { ThemedView } from "@/components/ThemedView";
+import { PParallaxScrollView } from "@/types/props";
 const HEADER_HEIGHT = 250;
 
 export default function ParallaxScrollView({
