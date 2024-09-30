@@ -1,8 +1,8 @@
 import { Tabs } from "expo-router";
 import React from "react";
-import { Colors } from "constants/Colors";
-import { useColorScheme } from "hooks/useColorScheme";
-import { TabBarIcon } from "components/navigation/TabBarIcon";
+import { Colors } from "@/constants/Colors";
+import { useColorScheme } from "@/hooks/useColorScheme";
+import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 export default function TabLayout() {
   const colorScheme = useColorScheme();
   return (
@@ -25,9 +25,21 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="daily-track"
         options={{
-          title: "Explore",
+          title: "Daily Track",
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon
+              name={focused ? "code-slash" : "code-slash-outline"}
+              color={color}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="stats"
+        options={{
+          title: "Stats",
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
               name={focused ? "code-slash" : "code-slash-outline"}

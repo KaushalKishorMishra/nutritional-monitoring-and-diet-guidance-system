@@ -1,12 +1,12 @@
 import React from "react";
 import { Text, View } from "react-native";
 
-const HomeScreen = () => {
+const DailyStats = () => {
   return (
     <View className="center">
-      <Text className="text-white">Home Screen</Text>
+      <Text className="text-white">Welcome to stats screen</Text>
     </View>
   );
 };
 
-export default HomeScreen;
+export default DailyStats;

@@ -16,6 +16,12 @@
       ]
     ],
     "name": "nutrition-planner",
-    "slug": "nutrition-planner"
+    "slug": "nutrition-planner-and-diet-tracking-system",
+    "extra": {
+      "eas": {
+        "projectId": "34b5f2fa-8490-4fef-b486-0a4d375cac83"
+      }
+    },
+    "owner": "deadman_k"
   }
 }
