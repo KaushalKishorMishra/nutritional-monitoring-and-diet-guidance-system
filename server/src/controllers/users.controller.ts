@@ -18,6 +18,7 @@ import { Bcrypt } from "@/utils/bcrypt";
 import { FRONTEND_URL } from "@/config";
 import { calculateNutrientsFromCalorie } from "@/utils/nutrition-utils";
 import { queryVectors } from "@/utils/pinecone";
+import { FoodRepository } from "@/repository/food.repository";
 
 export class UserController {
   public user = Container.get(UserService);
@@ -510,6 +511,26 @@ export class UserController {
       res.status(200).json({
         message: "Vector Query successful",
         queryResponse,
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public findFoodById = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) => {
+    const id = req.params.id;
+    try {
+      const foodObj = await FoodRepository.findOne({
+        id: parseInt(id),
+      });
+      console.log(foodObj);
+      res.status(200).json({
+        message: "Fetched food by Id",
+        food: foodObj,
       });
     } catch (error) {
       next(error);
