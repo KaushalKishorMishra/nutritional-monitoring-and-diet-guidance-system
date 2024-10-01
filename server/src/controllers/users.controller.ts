@@ -507,10 +507,21 @@ export class UserController {
       ];
 
       const queryResponse = await queryVectors(vectorEmbedding);
+      const responseData = [];
+
+      const tasks = queryResponse.matches.slice(0, 5).map(async (match) => {
+        const foodId = parseInt(match.id);
+        const food = await FoodRepository.findOne({ id: foodId });
+        responseData.push({ ...food, score: match.score });
+        return 1;
+      });
+
+      await Promise.all(tasks);
 
       res.status(200).json({
         message: "Vector Query successful",
-        queryResponse,
+        response: responseData,
+        // queryResponse,
       });
     } catch (error) {
       next(error);
