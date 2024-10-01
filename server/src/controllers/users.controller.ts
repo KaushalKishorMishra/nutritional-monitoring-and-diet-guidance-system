@@ -16,7 +16,10 @@ import { UserRole } from "@/enums/users.enum";
 import { GetProfile } from "@/interfaces/getProfile.interface";
 import { Bcrypt } from "@/utils/bcrypt";
 import { FRONTEND_URL } from "@/config";
-import { calculateNutrientsFromCalorie } from "@/utils/nutrition-utils";
+import {
+  calculateEmbeddings,
+  calculateNutrientsFromCalorie,
+} from "@/utils/nutrition-utils";
 import { queryVectors } from "@/utils/pinecone";
 import { FoodRepository } from "@/repository/food.repository";
 
@@ -542,6 +545,69 @@ export class UserController {
       res.status(200).json({
         message: "Fetched food by Id",
         food: foodObj,
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public getRecommendation = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) => {
+    const data: {
+      current: {
+        total_fat: number;
+        cholesterol: number;
+        protein: number;
+        carbohydrate: number;
+        fiber: number;
+        sugars: number;
+      };
+      target: {
+        total_fat: number;
+        cholesterol: number;
+        protein: number;
+        carbohydrate: number;
+        fiber: number;
+        sugars: number;
+      };
+    } = req.body;
+    try {
+      const vectorNames = [
+        "carbohydrate",
+        "total_fat",
+        "cholesterol",
+        "protein",
+        "fiber",
+        "sugars",
+      ];
+      const vectorEmbedding = [];
+
+      vectorNames.forEach((name) => {
+        const embedding = calculateEmbeddings(
+          data.current[name],
+          data.target[name],
+        );
+        vectorEmbedding.push(embedding);
+      });
+
+      const queryResponse = await queryVectors(vectorEmbedding);
+      const responseData = [];
+
+      const tasks = queryResponse.matches.slice(0, 5).map(async (match) => {
+        const foodId = parseInt(match.id);
+        const food = await FoodRepository.findOne({ id: foodId });
+        responseData.push({ ...food, score: match.score });
+        return 1;
+      });
+
+      await Promise.all(tasks);
+
+      res.status(200).json({
+        message: "Vector Query successful",
+        response: responseData,
       });
     } catch (error) {
       next(error);

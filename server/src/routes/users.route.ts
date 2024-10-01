@@ -120,5 +120,10 @@ export class UserRoute implements Routes {
       `${this.path}/food/:id`,
       this.user.findFoodById,
     );
+
+    this.router.post(
+      `${this.path}/get-recommendation`,
+      this.user.getRecommendation,
+    );
   }
 }

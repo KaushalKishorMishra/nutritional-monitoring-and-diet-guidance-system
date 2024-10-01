@@ -57,3 +57,11 @@ export function calculateNutrientsFromCalorie(calories) {
     },
   };
 }
+
+export function calculateEmbeddings(current:number, target:number) {
+  if (current > target) return -1;
+  // ratio is 0 to 1
+  const ratio = (target - current) / target;
+  // convert to -1 to 1
+  return ratio * 2 - 1;
+}
