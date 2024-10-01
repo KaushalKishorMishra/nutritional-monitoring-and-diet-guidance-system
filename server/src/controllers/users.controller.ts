@@ -17,6 +17,7 @@ import { GetProfile } from "@/interfaces/getProfile.interface";
 import { Bcrypt } from "@/utils/bcrypt";
 import { FRONTEND_URL } from "@/config";
 import { calculateNutrientsFromCalorie } from "@/utils/nutrition-utils";
+import { queryVectors } from "@/utils/pinecone";
 
 export class UserController {
   public user = Container.get(UserService);
@@ -481,8 +482,35 @@ export class UserController {
       const nutrients = calculateNutrientsFromCalorie(calorie);
       res.status(200).json({
         message: "Target Nutrients Calculated",
-        nutrients: nutrients
-      })
+        nutrients: nutrients,
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public vectorQuery = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) => {
+    const body = req.body;
+    try {
+      const vectorEmbedding = [
+        body.carbohydrate || 0,
+        body.total_fat || 0,
+        body.cholesterol || 0,
+        body.protein || 0,
+        body.fiber || 0,
+        body.sugars || 0,
+      ];
+
+      const queryResponse = await queryVectors(vectorEmbedding);
+
+      res.status(200).json({
+        message: "Vector Query successful",
+        queryResponse,
+      });
     } catch (error) {
       next(error);
     }

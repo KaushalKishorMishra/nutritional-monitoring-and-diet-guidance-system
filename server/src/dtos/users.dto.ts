@@ -4,7 +4,6 @@ import {
   IsNotEmpty,
   MinLength,
   MaxLength,
-  IsNumber,
 } from "class-validator";
 
 export class CreateUserDto {
@@ -76,4 +75,24 @@ export class TargetNutrients {
   @IsString()
   @IsNotEmpty()
   public calorie: number;
+}
+
+export class VectorQuery {
+  @IsNotEmpty()
+  public carbohydrate: number;
+
+  @IsNotEmpty()
+  public total_fat: number;
+
+  @IsNotEmpty()
+  public cholesterol: number;
+
+  @IsNotEmpty()
+  public protein: number;
+
+  @IsNotEmpty()
+  public fiber: number;
+
+  @IsNotEmpty()
+  public sugars: number;
 }
