@@ -115,5 +115,10 @@ export class UserRoute implements Routes {
       ValidationMiddleware(VectorQuery),
       this.user.vectorQuery,
     );
+    
+    this.router.get(
+      `${this.path}/food/:id`,
+      this.user.findFoodById,
+    );
   }
 }

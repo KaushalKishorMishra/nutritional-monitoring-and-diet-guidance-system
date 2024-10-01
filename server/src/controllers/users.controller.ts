@@ -18,6 +18,7 @@ import { Bcrypt } from "@/utils/bcrypt";
 import { FRONTEND_URL } from "@/config";
 import { calculateNutrientsFromCalorie } from "@/utils/nutrition-utils";
 import { queryVectors } from "@/utils/pinecone";
+import { FoodRepository } from "@/repository/food.repository";
 
 export class UserController {
   public user = Container.get(UserService);
@@ -506,10 +507,41 @@ export class UserController {
       ];
 
       const queryResponse = await queryVectors(vectorEmbedding);
+      const responseData = [];
+
+      const tasks = queryResponse.matches.slice(0, 5).map(async (match) => {
+        const foodId = parseInt(match.id);
+        const food = await FoodRepository.findOne({ id: foodId });
+        responseData.push({ ...food, score: match.score });
+        return 1;
+      });
+
+      await Promise.all(tasks);
 
       res.status(200).json({
         message: "Vector Query successful",
-        queryResponse,
+        response: responseData,
+        // queryResponse,
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public findFoodById = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) => {
+    const id = req.params.id;
+    try {
+      const foodObj = await FoodRepository.findOne({
+        id: parseInt(id),
+      });
+      console.log(foodObj);
+      res.status(200).json({
+        message: "Fetched food by Id",
+        food: foodObj,
       });
     } catch (error) {
       next(error);
