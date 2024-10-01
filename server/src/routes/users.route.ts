@@ -5,6 +5,7 @@ import {
   LoginUserDto,
   ResendVerificationDto,
   TargetNutrients,
+  VectorQuery,
   VerifyUserDto,
 } from "@dtos/users.dto";
 import { Routes } from "@interfaces/routes.interface";
@@ -104,9 +105,15 @@ export class UserRoute implements Routes {
     );
 
     this.router.post(
-      `/users/calculate-target-nutrients`,
+      `${this.path}/calculate-target-nutrients`,
       ValidationMiddleware(TargetNutrients),
       this.user.calculateTargetNutrients,
+    );
+    
+    this.router.post(
+      `${this.path}/vector-query`,
+      ValidationMiddleware(VectorQuery),
+      this.user.vectorQuery,
     );
   }
 }
