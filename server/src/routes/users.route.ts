@@ -4,6 +4,7 @@ import {
   CreateUserDto,
   LoginUserDto,
   ResendVerificationDto,
+  TargetNutrients,
   VerifyUserDto,
 } from "@dtos/users.dto";
 import { Routes } from "@interfaces/routes.interface";
@@ -100,6 +101,12 @@ export class UserRoute implements Routes {
       AuthorizationMiddleware.authorization,
       ValidationMiddleware(LoginUserDto),
       this.user.resetPassword,
+    );
+
+    this.router.post(
+      `/users/calculate-target-nutrients`,
+      ValidationMiddleware(TargetNutrients),
+      this.user.calculateTargetNutrients,
     );
   }
 }

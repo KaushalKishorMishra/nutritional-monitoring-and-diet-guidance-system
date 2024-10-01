@@ -4,6 +4,7 @@ import {
   IsNotEmpty,
   MinLength,
   MaxLength,
+  IsNumber,
 } from "class-validator";
 
 export class CreateUserDto {
@@ -69,4 +70,10 @@ export class UpdateUserDto {
   @MinLength(9)
   @MaxLength(32)
   public password: string;
+}
+
+export class TargetNutrients {
+  @IsString()
+  @IsNotEmpty()
+  public calorie: number;
 }
