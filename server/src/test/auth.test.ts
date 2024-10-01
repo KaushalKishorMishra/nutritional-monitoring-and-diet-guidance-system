@@ -1,8 +1,7 @@
 import bcrypt from "bcrypt";
 import request from "supertest";
-import { createConnection, getConnection, Repository } from "typeorm";
+import { getConnection, Repository } from "typeorm";
 import { App } from "@/app";
-import { dbConnection } from "@database";
 import { CreateUserDto } from "@dtos/users.dto";
 import { UserEntity } from "@entities/users.entity";
 import { AuthRoute } from "@routes/auth.route";
@@ -18,7 +17,7 @@ afterAll(async () => {
 describe("Testing Auth", () => {
   describe("[POST] /signup", () => {
     it("response should have the Create userData", async () => {
-      const userData: CreateUserDto = {
+      const userData: Partial<CreateUserDto> = {
         email: "test@email.com",
         password: "q1w2e3r4!",
       };
@@ -43,7 +42,7 @@ describe("Testing Auth", () => {
 
   describe("[POST] /login", () => {
     it("response should have the Set-Cookie header with the Authorization token", async () => {
-      const userData: CreateUserDto = {
+      const userData: Partial<CreateUserDto> = {
         email: "test@email.com",
         password: "q1w2e3r4!",
       };
