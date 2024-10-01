@@ -16,6 +16,7 @@ import { UserRole } from "@/enums/users.enum";
 import { GetProfile } from "@/interfaces/getProfile.interface";
 import { Bcrypt } from "@/utils/bcrypt";
 import { FRONTEND_URL } from "@/config";
+import { calculateNutrientsFromCalorie } from "@/utils/nutrition-utils";
 
 export class UserController {
   public user = Container.get(UserService);
@@ -465,6 +466,23 @@ export class UserController {
       } else {
         throw new HttpException(404, "Jwt not found");
       }
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public calculateTargetNutrients = (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) => {
+    const calorie = req.body.calorie || 2000;
+    try {
+      const nutrients = calculateNutrientsFromCalorie(calorie);
+      res.status(200).json({
+        message: "Target Nutrients Calculated",
+        nutrients: nutrients
+      })
     } catch (error) {
       next(error);
     }
