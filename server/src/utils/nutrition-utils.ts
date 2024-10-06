@@ -58,10 +58,24 @@ export function calculateNutrientsFromCalorie(calories) {
   };
 }
 
-export function calculateEmbeddings(current:number, target:number) {
+export function calculateEmbeddings(current: number, target: number) {
   if (current > target) return -1;
   // ratio is 0 to 1
   const ratio = (target - current) / target;
   // convert to -1 to 1
   return ratio * 2 - 1;
+}
+
+export function cosineSimilarity(vecA, vecB) {
+  // Calculate dot product of vecA and vecB
+  const dotProduct = vecA.reduce((sum, a, idx) => sum + a * vecB[idx], 0);
+
+  // Calculate magnitude of vecA
+  const magnitudeA = Math.sqrt(vecA.reduce((sum, a) => sum + a * a, 0));
+
+  // Calculate magnitude of vecB
+  const magnitudeB = Math.sqrt(vecB.reduce((sum, b) => sum + b * b, 0));
+
+  // Return cosine similarity (dotProduct / (magnitudeA * magnitudeB))
+  return magnitudeA && magnitudeB ? dotProduct / (magnitudeA * magnitudeB) : 0;
 }
