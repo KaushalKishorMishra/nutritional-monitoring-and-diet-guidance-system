@@ -20,7 +20,7 @@ async function errorResponse(
 	stackData: {
 		message: string;
 		[key: string]: any;
-	},
+	}
 ) {
 	logger.log.error({
 		message: stackData.message,

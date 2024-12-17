@@ -30,7 +30,7 @@ async function registerUser(req: any, res: any, next: any) {
 			return res.json(
 				await apiResponse.errorResponse(req, res, {
 					message: 'User already exists with this email',
-				}),
+				})
 			);
 		}
 
@@ -52,7 +52,7 @@ async function registerUser(req: any, res: any, next: any) {
 		mailTemplates.sendEmailVerificationEmail(
 			userRes.email,
 			tokenData.value,
-			userRes.firstName + ' ' + userRes.lastName,
+			userRes.firstName + ' ' + userRes.lastName
 		);
 
 		const successResp = await successResponse.appResponse(res, userRes);
@@ -84,7 +84,7 @@ async function verifyEmail(req: any, res: any, next: any) {
 			return res.json(
 				await apiResponse.errorResponse(req, res, {
 					message: 'User not found with this email',
-				}),
+				})
 			);
 		}
 
@@ -94,7 +94,7 @@ async function verifyEmail(req: any, res: any, next: any) {
 			return res.json(
 				await apiResponse.errorResponse(req, res, {
 					message: 'Email already verified',
-				}),
+				})
 			);
 		}
 
@@ -108,7 +108,7 @@ async function verifyEmail(req: any, res: any, next: any) {
 			return res.json(
 				await apiResponse.errorResponse(req, res, {
 					message: 'Token not found',
-				}),
+				})
 			);
 		}
 
@@ -117,14 +117,14 @@ async function verifyEmail(req: any, res: any, next: any) {
 			return res.json(
 				await apiResponse.errorResponse(req, res, {
 					message: 'Token expired',
-				}),
+				})
 			);
 		} else if (emailVerificationToken !== tokenObj.value) {
 			res.statusCode = 401;
 			return res.json(
 				await apiResponse.errorResponse(req, res, {
 					message: 'Invalid token',
-				}),
+				})
 			);
 		}
 		const updatedUser = await userRepository.activateAccount(userObj.id);
@@ -144,7 +144,7 @@ async function verifyEmail(req: any, res: any, next: any) {
 			return res.json(
 				await apiResponse.errorResponse(req, res, {
 					message: 'Failed to verify email',
-				}),
+				})
 			);
 		}
 	} catch (err) {
@@ -169,7 +169,7 @@ async function resendVerificationEmail(req: any, res: any, next: any) {
 			return res.json(
 				await apiResponse.errorResponse(req, res, {
 					message: 'User not found with this email',
-				}),
+				})
 			);
 		}
 
@@ -178,7 +178,7 @@ async function resendVerificationEmail(req: any, res: any, next: any) {
 			return res.json(
 				await apiResponse.errorResponse(req, res, {
 					message: 'Email already verified',
-				}),
+				})
 			);
 		}
 
@@ -202,7 +202,7 @@ async function resendVerificationEmail(req: any, res: any, next: any) {
 			mailTemplates.sendEmailVerificationEmail(
 				userObj.email,
 				newToken.value,
-				userObj.firstName + ' ' + userObj.lastName,
+				userObj.firstName + ' ' + userObj.lastName
 			);
 			const successResp = await successResponse.appResponse(res, {
 				message: 'Email verification resent successfully',
@@ -217,7 +217,7 @@ async function resendVerificationEmail(req: any, res: any, next: any) {
 			return res.json(
 				await apiResponse.errorResponse(req, res, {
 					message: 'Failed to resend verification email',
-				}),
+				})
 			);
 		}
 	} catch (err) {
@@ -242,7 +242,7 @@ async function userLogin(req: any, res: any, next: any) {
 			return res.json(
 				await apiResponse.errorResponse(req, res, {
 					message: 'No user found with this email',
-				}),
+				})
 			);
 		}
 		if (!userObj.isActive) {
@@ -250,12 +250,12 @@ async function userLogin(req: any, res: any, next: any) {
 			return res.json(
 				await apiResponse.errorResponse(req, res, {
 					message: 'User account is not verified',
-				}),
+				})
 			);
 		}
 		const isValidPwd = await pwdHashService.comparePassword(
 			password,
-			userObj.password,
+			userObj.password
 		);
 		if (isValidPwd) {
 			const secret = config.jwtSecret;
@@ -292,7 +292,7 @@ async function userLogin(req: any, res: any, next: any) {
 		return res.json(
 			await apiResponse.errorResponse(req, res, {
 				message: 'Invalid username or password',
-			}),
+			})
 		);
 	} catch (err) {
 		logger.log.error({ reqId: req.id, message: err });
@@ -347,7 +347,7 @@ async function forgotPassword(req: any, res: any, next: any) {
 			return res.json(
 				await apiResponse.errorResponse(req, res, {
 					message: 'No user found with this email',
-				}),
+				})
 			);
 		}
 
@@ -371,7 +371,7 @@ async function forgotPassword(req: any, res: any, next: any) {
 		mailTemplates.sendForgotPasswordEmail(
 			userObj.email,
 			tokenData.value,
-			userObj.firstName + ' ' + userObj.lastName,
+			userObj.firstName + ' ' + userObj.lastName
 		);
 
 		const successResp = await successResponse.appResponse(res, {
@@ -404,7 +404,7 @@ async function resetPassword(req: any, res: any, next: any) {
 			return res.json(
 				await apiResponse.errorResponse(req, res, {
 					message: 'No user found with this email',
-				}),
+				})
 			);
 		}
 
@@ -418,7 +418,7 @@ async function resetPassword(req: any, res: any, next: any) {
 			return res.json(
 				await apiResponse.errorResponse(req, res, {
 					message: 'Token not found',
-				}),
+				})
 			);
 		}
 
@@ -427,21 +427,21 @@ async function resetPassword(req: any, res: any, next: any) {
 			return res.json(
 				await apiResponse.errorResponse(req, res, {
 					message: 'Token expired',
-				}),
+				})
 			);
 		} else if (passwordResetToken !== tokenObj.value) {
 			res.statusCode = 401;
 			return res.json(
 				await apiResponse.errorResponse(req, res, {
 					message: 'Invalid token',
-				}),
+				})
 			);
 		}
 
 		const hashedPassword = await pwdHashService.generateHash(password);
 		const updatedUser = await userRepository.updateUserPassword(
 			userObj.id,
-			hashedPassword,
+			hashedPassword
 		);
 
 		if (updatedUser) {
@@ -459,7 +459,7 @@ async function resetPassword(req: any, res: any, next: any) {
 			return res.json(
 				await apiResponse.errorResponse(req, res, {
 					message: 'Failed to reset password',
-				}),
+				})
 			);
 		}
 	} catch (err) {

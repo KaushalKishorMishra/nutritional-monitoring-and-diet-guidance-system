@@ -9,7 +9,7 @@ function buildLogger() {
 			timestamp(),
 			errors({ stack: true }),
 			prettyPrint(),
-			json(),
+			json()
 		),
 		transports: [
 			new transports.File({

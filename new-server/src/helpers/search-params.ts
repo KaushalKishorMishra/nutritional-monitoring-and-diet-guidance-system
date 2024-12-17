@@ -27,7 +27,7 @@ function getPaginationParams(query: any): TPaginationParams {
 function getFilters(
 	filter: string | null,
 	validFilters: string[],
-	defaultFilters: string[],
+	defaultFilters: string[]
 ): string[] {
 	if (!filter) return defaultFilters;
 	else if (filter.includes('ALL')) {
@@ -35,7 +35,7 @@ function getFilters(
 	} else {
 		const filters = filter.split(',');
 		const invalidFilters = filters.filter(
-			(filter: string) => !validFilters.includes(filter),
+			(filter: string) => !validFilters.includes(filter)
 		);
 		if (invalidFilters.length > 0) {
 			throw new Error(`Invalid filters: ${invalidFilters.join(', ')}`);

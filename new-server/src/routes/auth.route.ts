@@ -18,7 +18,7 @@ router
 	.route('/resend-verification-email/:email')
 	.get(
 		validate(authValidation.resendVerificationEmail),
-		authController.resendVerificationEmail,
+		authController.resendVerificationEmail
 	);
 
 router
@@ -33,7 +33,7 @@ router
 	.route('/forgot-password')
 	.post(
 		validate(authValidation.forgotPassword),
-		authController.forgotPassword,
+		authController.forgotPassword
 	);
 
 router

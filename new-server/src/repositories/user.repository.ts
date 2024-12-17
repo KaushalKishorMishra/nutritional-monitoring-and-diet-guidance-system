@@ -1,14 +1,9 @@
 import db from '../../config/sequelize';
-import { Op } from 'sequelize';
 import { TPaginationParams, TPaginationResponse } from '../types/searchParams';
-import {
-	TUserListDetails,
-	TUserListDetailsForAdmin,
-	TUserPublicDetailsWithExperienceAndExperience,
-} from '../types/user';
+import { TUserListDetailsForAdmin } from '../types/user';
 
 const DB: any = db;
-const { User, Business, BusinessUser, Education, Experience } = DB;
+const { User } = DB;
 
 function createNewUser(data: any) {
 	return User.create(data);
@@ -21,7 +16,7 @@ function activateAccount(userId: string) {
 			where: {
 				id: userId,
 			},
-		},
+		}
 	);
 }
 
@@ -60,20 +55,6 @@ function findActiveUserByEmail(email: string) {
 			email,
 			isActive: true,
 		},
-		include: [
-			{
-				model: BusinessUser,
-				attributes: ['businessId', 'role'],
-				as: 'usersInBusiness',
-				include: [
-					{
-						model: Business,
-						attributes: ['id', 'name'],
-						as: 'businessUserInBusiness',
-					},
-				],
-			},
-		],
 	});
 }
 
@@ -91,78 +72,6 @@ function findUserById(userId: string) {
 		where: {
 			id: userId,
 		},
-		include: [
-			{
-				model: BusinessUser,
-				attributes: ['businessId', 'role'],
-				as: 'usersInBusiness',
-				include: [
-					{
-						model: Business,
-						attributes: ['id', 'name'],
-						as: 'businessUserInBusiness',
-					},
-				],
-			},
-		],
-	});
-}
-
-function findPublicProfileById(
-	userId: string,
-): Promise<TUserPublicDetailsWithExperienceAndExperience> {
-	return User.findOne({
-		attributes: [
-			'id',
-			'firstName',
-			'lastName',
-			'email',
-			'bio',
-			'createdAt',
-		],
-		where: {
-			id: userId,
-		},
-		include: [
-			{
-				model: Education,
-			},
-			{
-				model: Experience,
-			},
-		],
-		order: [['Education', 'startDate', 'ASC']],
-	});
-}
-
-function findUserByIdForBusiness(userId: string) {
-	return User.findOne({
-		attributes: [
-			'id',
-			'firstName',
-			'lastName',
-			'email',
-			'phone',
-			'role',
-			'bio',
-		],
-		where: {
-			id: userId,
-		},
-		include: [
-			{
-				model: BusinessUser,
-				attributes: ['businessId', 'role'],
-				as: 'usersInBusiness',
-				include: [
-					{
-						model: Business,
-						attributes: ['id', 'name'],
-						as: 'businessUserInBusiness',
-					},
-				],
-			},
-		],
 	});
 }
 
@@ -174,20 +83,6 @@ function findUserPasswordByEmail(email: string) {
 			email,
 			isActive: true,
 		},
-		include: [
-			{
-				model: BusinessUser,
-				attributes: ['businessId'],
-				as: 'usersInBusiness',
-				include: [
-					{
-						model: Business,
-						attributes: ['id', 'name'],
-						as: 'businessUserInBusiness',
-					},
-				],
-			},
-		],
 	});
 }
 

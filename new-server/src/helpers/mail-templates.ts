@@ -6,11 +6,11 @@ import path from 'path';
 async function sendEmailVerificationEmail(
 	email: string,
 	token: string,
-	name: string,
+	name: string
 ) {
 	const templatePath = path.join(
 		__dirname,
-		'../templates/email-templates/email-verification.html',
+		'../templates/email-templates/email-verification.html'
 	);
 	const emailVerificationTemplate = fs.readFileSync(templatePath, 'utf8');
 
@@ -25,7 +25,7 @@ async function sendEmailVerificationEmail(
 			.replace(/{{NAME}}/g, name)
 			.replace(
 				/{{VERIFICATION_LINK}}/g,
-				`${config.frontEndUrl}/verify-email?email=${encryptedEmail}&otp=${encryptedToken}`,
+				`${config.frontEndUrl}/verify-email?email=${encryptedEmail}&otp=${encryptedToken}`
 			)
 			.replace(/{{VERIFICATION_TOKEN}}/g, token),
 	};
@@ -35,11 +35,11 @@ async function sendEmailVerificationEmail(
 async function sendForgotPasswordEmail(
 	email: string,
 	token: string,
-	name: string,
+	name: string
 ) {
 	const templatePath = path.join(
 		__dirname,
-		'../templates/email-templates/reset-password.html',
+		'../templates/email-templates/reset-password.html'
 	);
 	const passwordResetTemplate = fs.readFileSync(templatePath, 'utf8');
 
@@ -53,7 +53,7 @@ async function sendForgotPasswordEmail(
 			.replace(/{{USER_NAME}}/g, name)
 			.replace(
 				/{{PASSWORD_RESET_LINK}}/g,
-				`${config.frontEndUrl}/reset-password?email=${encryptedEmail}&otp=${encryptedToken}`,
+				`${config.frontEndUrl}/reset-password?email=${encryptedEmail}&otp=${encryptedToken}`
 			)
 			.replace(/{{PASSWORD_RESET_TOKEN}}/g, token),
 	};
