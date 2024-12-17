@@ -63,7 +63,10 @@ const OnBoarding: React.FC = () => {
           )}
           {currentStep === 3 && (
             <div className="flex w-full flex-col items-center justify-center gap-4 px-5 py-5">
-              <button className="btn btn-primary w-full font-nunito-sans text-lg font-bold text-white">
+              <button
+                onClick={() => navigate("/register")}
+                className="btn btn-primary w-full font-nunito-sans text-lg font-bold text-white"
+              >
                 Get Started
               </button>
               <div>
