@@ -13,7 +13,7 @@ interface TGettingStartedState {
     setAge: (age: string) => void;
     setActivityLevel: (activityLevel: string) => void;
     setStep: (step: number) => void;
-    getAllData: () => { gender: string; weight: string; height: string; activityLevel: string };
+    getAllData: () => { gender: string; weight: string; height: string; activityLevel: string, age: string };
     clearAllData: () => void;
 };
 

@@ -7,6 +7,7 @@ import {
   capitalizeFirstLetter,
   formatString,
 } from "../../../utils/randomUtils";
+import { useNavigate } from "react-router";
 
 interface PGettingStartedForm {
   onSubmit: (e: React.MouseEvent<HTMLButtonElement>) => void;
@@ -48,6 +49,8 @@ const GettingStartedInputField: React.FC<PGettingStartedInputField> = ({
 };
 
 const GettingStartedForm: React.FC<PGettingStartedForm> = ({ onSubmit }) => {
+  const navigate = useNavigate();
+
   const {
     gender,
     weight,
@@ -229,7 +232,12 @@ const GettingStartedForm: React.FC<PGettingStartedForm> = ({ onSubmit }) => {
             Back
           </button>
         ) : (
-          <div></div>
+          <button
+            onClick={() => navigate("/login")}
+            className="hover:text-primary"
+          >
+            Back to login.
+          </button>
         )}
         {currentStep <= inputFields.length && (
           <button

@@ -1,6 +1,7 @@
-import React from "react";
-import { useNavigate } from "react-router";
+import React, { useState } from "react";
 import InputField from "../InputField";
+import { reSendToken } from "../../../api/auth.api";
+import Loading from "../../lodaing/Loading";
 
 interface PVerifyEmailForm {
   verifyEmailFormValues: {
@@ -21,9 +22,11 @@ const VerifyEmailForm: React.FC<PVerifyEmailForm> = ({
   verifyEmailFormValues,
   setVerifyEmailFormValues,
 }) => {
-  const navigate = useNavigate();
+  const [loading, setLoading] = useState<boolean>(false);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  // Array of input field configurations
+  // Input fields configuration
   const inputFields = [
     {
       label: "Email:",
@@ -41,7 +44,7 @@ const VerifyEmailForm: React.FC<PVerifyEmailForm> = ({
     },
   ];
 
-  // Helper function to handle input changes
+  // Handle input changes dynamically
   const handleChange =
     (field: keyof typeof verifyEmailFormValues) =>
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,8 +54,35 @@ const VerifyEmailForm: React.FC<PVerifyEmailForm> = ({
       }));
     };
 
+  // Resend verification token logic
+  const resendVerificationToken = async (email: string | null) => {
+    if (!email) {
+      setErrorMessage("Email is required to resend token.");
+      return;
+    }
+
+    setLoading(true);
+    setErrorMessage(null);
+    setSuccessMessage(null);
+
+    try {
+      const response = await reSendToken(email);
+      setSuccessMessage("Verification token resent successfully!");
+      console.log("Success:", response);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      setErrorMessage(
+        err.response?.data?.message || "Failed to resend verification token.",
+      );
+      console.error("Error:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <form onSubmit={onSubmit} className="form-container">
+      {/* Input fields */}
       {inputFields.map((field) => (
         <InputField
           key={field.id}
@@ -67,6 +97,18 @@ const VerifyEmailForm: React.FC<PVerifyEmailForm> = ({
           required
         />
       ))}
+
+      {/* Error or success messages */}
+      {errorMessage && (
+        <p className="text-center font-dm-sans text-red-600">{errorMessage}</p>
+      )}
+      {successMessage && (
+        <p className="text-center font-dm-sans text-green-600">
+          {successMessage}
+        </p>
+      )}
+
+      {/* Submit and Resend Button */}
       <div className="flex w-full flex-col items-center justify-center gap-4">
         <button
           type="submit"
@@ -78,14 +120,21 @@ const VerifyEmailForm: React.FC<PVerifyEmailForm> = ({
           <p className="text-center font-dm-sans text-[#6e7179]">
             Didn't get token?{" "}
             <span
-              onClick={() => navigate("/register")}
-              className="px-2 text-primary underline-offset-2 hover:underline"
+              onClick={() =>
+                resendVerificationToken(
+                  localStorage.getItem("email") || verifyEmailFormValues.email,
+                )
+              }
+              className={`cursor-pointer px-2 text-primary underline-offset-2 ${
+                loading ? "cursor-not-allowed opacity-50" : "hover:underline"
+              }`}
             >
               Resend Token
             </span>
           </p>
         </div>
       </div>
+      {loading && <Loading />}
     </form>
   );
 };
