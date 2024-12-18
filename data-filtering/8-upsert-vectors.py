@@ -22,12 +22,18 @@ data = pd.read_csv("nutrition-6.csv")
 # Select the relevant columns
 selected_columns = [
     "id",
+    "calories",
     "carbohydrate",
     "total_fat",
     "cholesterol",
     "protein",
     "fiber",
     "sugars",
+    "sodium",
+    "vitamin_d",
+    "calcium",
+    "iron",
+    "caffeine",
 ]
 filtered_data = data[selected_columns]
 
