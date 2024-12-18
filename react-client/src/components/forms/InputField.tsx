@@ -1,7 +1,7 @@
 import React from "react";
 
 interface PInputField {
-  label: string;
+  label?: string;
   type: string;
   id: string;
   name: string;
@@ -21,7 +21,7 @@ const InputField: React.FC<PInputField> = ({
 }) => {
   return (
     <div className="input-container">
-      <label htmlFor={id}>{label}</label>
+      {label && <label htmlFor={id}>{label}</label>}
       <input
         type={type}
         id={id}

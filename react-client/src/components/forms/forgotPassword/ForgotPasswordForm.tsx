@@ -1,59 +1,45 @@
 import React from "react";
 import { useNavigate } from "react-router";
-import { TRegisterFromValues } from "../../../types/credientialsType";
 import InputField from "../InputField";
 
-interface PRegisterForm {
-  registerFormValues: TRegisterFromValues;
-  setRegisterFormValues: React.Dispatch<
-    React.SetStateAction<TRegisterFromValues>
+interface PForgotPasswordForm {
+  forgotPasswordFormValues: {
+    email: string;
+  };
+  setForgotPasswordFormValues: React.Dispatch<
+    React.SetStateAction<{
+      email: string;
+    }>
   >;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
-const RegisterForm: React.FC<PRegisterForm> = ({
-  registerFormValues,
-  setRegisterFormValues,
+const ForgotPasswordForm: React.FC<PForgotPasswordForm> = ({
   onSubmit,
+  forgotPasswordFormValues,
+  setForgotPasswordFormValues,
 }) => {
   const navigate = useNavigate();
 
+  // Array of input field configurations
   const inputFields = [
     {
-      label: "Name:",
-      type: "text",
-      id: "name",
-      name: "name",
-      value: registerFormValues.name,
-    },
-    {
       label: "Email:",
-      type: "email",
+      type: "text",
       id: "email",
       name: "email",
-      value: registerFormValues.email,
-    },
-    {
-      label: "Password:",
-      type: "password",
-      id: "password",
-      name: "password",
-      value: registerFormValues.password,
-    },
-    {
-      label: "Confirm Password:",
-      type: "password",
-      id: "confirmPassword",
-      name: "confirmPassword",
-      value: registerFormValues.confirmPassword,
+      value: forgotPasswordFormValues.email,
     },
   ];
 
   // Helper function to handle input changes
   const handleChange =
-    (field: keyof TRegisterFromValues) =>
+    (field: keyof typeof forgotPasswordFormValues) =>
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setRegisterFormValues((prev) => ({ ...prev, [field]: e.target.value }));
+      setForgotPasswordFormValues((prev) => ({
+        ...prev,
+        [field]: e.target.value,
+      }));
     };
 
   return (
@@ -66,7 +52,9 @@ const RegisterForm: React.FC<PRegisterForm> = ({
           id={field.id}
           name={field.name}
           value={field.value}
-          onChange={handleChange(field.name as keyof TRegisterFromValues)}
+          onChange={handleChange(
+            field.name as keyof typeof forgotPasswordFormValues,
+          )}
           required
         />
       ))}
@@ -75,16 +63,16 @@ const RegisterForm: React.FC<PRegisterForm> = ({
           type="submit"
           className="btn btn-primary w-full font-dm-sans text-lg text-white"
         >
-          Register
+          Reset Password
         </button>
         <div>
           <p className="text-center font-dm-sans text-[#6e7179]">
-            Already have an account?{" "}
+            Didn't get token?{" "}
             <span
-              onClick={() => navigate("/login")}
+              onClick={() => navigate("/register")}
               className="px-2 text-primary underline-offset-2 hover:underline"
             >
-              Sign In
+              Resend Token
             </span>
           </p>
         </div>
@@ -93,4 +81,4 @@ const RegisterForm: React.FC<PRegisterForm> = ({
   );
 };
 
-export default RegisterForm;
+export default ForgotPasswordForm;

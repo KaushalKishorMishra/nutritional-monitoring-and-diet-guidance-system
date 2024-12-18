@@ -49,7 +49,7 @@ const LoginForm: React.FC<PLoginForm> = ({
     };
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} className="form-container">
       {inputFields.map((field) => (
         <InputField
           key={field.id}
@@ -77,6 +77,14 @@ const LoginForm: React.FC<PLoginForm> = ({
               className="px-2 text-primary underline-offset-2 hover:underline"
             >
               Get Started
+            </span>
+          </p>
+          <p className="text-center font-dm-sans text-[#6e7179]">
+            <span
+              onClick={() => navigate("/register")}
+              className="px-2 text-primary underline-offset-2 hover:underline"
+            >
+              Forgot Password?{" "}
             </span>
           </p>
         </div>

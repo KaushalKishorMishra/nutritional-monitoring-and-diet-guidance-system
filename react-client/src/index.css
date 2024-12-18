@@ -17,8 +17,8 @@
     @apply px-3;
   }
   .form-body {
-    form {
-      @apply mx-auto my-auto flex min-w-[380px] flex-col items-center justify-center gap-6 rounded-xl border px-5 py-3 shadow-lg;
+    .form-container {
+      @apply mx-auto my-auto flex min-w-[380px] flex-col items-center justify-center gap-6 rounded-xl px-5 py-3;
       .input-container {
         @apply mx-auto flex w-full flex-col gap-1;
         label {
@@ -29,5 +29,15 @@
         }
       }
     }
+  }
+}
+
+.input-container {
+  @apply mx-auto flex w-full flex-col gap-1;
+  label {
+    @apply font-dm-sans text-lg font-semibold;
+  }
+  input {
+    @apply rounded-md border-2 border-gray-300 p-2;
   }
 }

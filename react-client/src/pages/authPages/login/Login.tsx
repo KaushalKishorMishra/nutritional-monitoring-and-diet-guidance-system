@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import LoginForm from "../../../components/forms/login/LoginForm";
+import { useNavigate } from "react-router";
 
 const Login: React.FC = () => {
+  const navigate = useNavigate();
+
   const [loginFormValues, setLoginFormValues] = useState({
     email: "",
     password: "",
@@ -9,6 +12,9 @@ const Login: React.FC = () => {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setTimeout(() => {
+      navigate("/verify-email");
+    }, 2000);
     console.log(loginFormValues);
   };
 

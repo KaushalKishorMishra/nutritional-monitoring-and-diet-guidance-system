@@ -1,59 +1,54 @@
 import React from "react";
 import { useNavigate } from "react-router";
-import { TRegisterFromValues } from "../../../types/credientialsType";
 import InputField from "../InputField";
 
-interface PRegisterForm {
-  registerFormValues: TRegisterFromValues;
-  setRegisterFormValues: React.Dispatch<
-    React.SetStateAction<TRegisterFromValues>
+interface PVerifyEmailForm {
+  verifyEmailFormValues: {
+    email: string;
+    emailVerificationToken: string;
+  };
+  setVerifyEmailFormValues: React.Dispatch<
+    React.SetStateAction<{
+      email: string;
+      emailVerificationToken: string;
+    }>
   >;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
-const RegisterForm: React.FC<PRegisterForm> = ({
-  registerFormValues,
-  setRegisterFormValues,
+const VerifyEmailForm: React.FC<PVerifyEmailForm> = ({
   onSubmit,
+  verifyEmailFormValues,
+  setVerifyEmailFormValues,
 }) => {
   const navigate = useNavigate();
 
+  // Array of input field configurations
   const inputFields = [
     {
-      label: "Name:",
-      type: "text",
-      id: "name",
-      name: "name",
-      value: registerFormValues.name,
-    },
-    {
       label: "Email:",
-      type: "email",
+      type: "text",
       id: "email",
       name: "email",
-      value: registerFormValues.email,
+      value: verifyEmailFormValues.email,
     },
     {
-      label: "Password:",
-      type: "password",
-      id: "password",
-      name: "password",
-      value: registerFormValues.password,
-    },
-    {
-      label: "Confirm Password:",
-      type: "password",
-      id: "confirmPassword",
-      name: "confirmPassword",
-      value: registerFormValues.confirmPassword,
+      label: "Token:",
+      type: "text",
+      id: "emailVerificationToken",
+      name: "emailVerificationToken",
+      value: verifyEmailFormValues.emailVerificationToken,
     },
   ];
 
   // Helper function to handle input changes
   const handleChange =
-    (field: keyof TRegisterFromValues) =>
+    (field: keyof typeof verifyEmailFormValues) =>
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setRegisterFormValues((prev) => ({ ...prev, [field]: e.target.value }));
+      setVerifyEmailFormValues((prev) => ({
+        ...prev,
+        [field]: e.target.value,
+      }));
     };
 
   return (
@@ -66,7 +61,9 @@ const RegisterForm: React.FC<PRegisterForm> = ({
           id={field.id}
           name={field.name}
           value={field.value}
-          onChange={handleChange(field.name as keyof TRegisterFromValues)}
+          onChange={handleChange(
+            field.name as keyof typeof verifyEmailFormValues,
+          )}
           required
         />
       ))}
@@ -75,16 +72,16 @@ const RegisterForm: React.FC<PRegisterForm> = ({
           type="submit"
           className="btn btn-primary w-full font-dm-sans text-lg text-white"
         >
-          Register
+          Verify Email
         </button>
         <div>
           <p className="text-center font-dm-sans text-[#6e7179]">
-            Already have an account?{" "}
+            Didn't get token?{" "}
             <span
-              onClick={() => navigate("/login")}
+              onClick={() => navigate("/register")}
               className="px-2 text-primary underline-offset-2 hover:underline"
             >
-              Sign In
+              Resend Token
             </span>
           </p>
         </div>
@@ -93,4 +90,4 @@ const RegisterForm: React.FC<PRegisterForm> = ({
   );
 };
 
-export default RegisterForm;
+export default VerifyEmailForm;
