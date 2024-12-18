@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router";
+import InputField from "../InputField";
 
 interface PLoginForm {
   loginFormValues: {
@@ -21,42 +22,50 @@ const LoginForm: React.FC<PLoginForm> = ({
   setLoginFromValues,
 }) => {
   const navigate = useNavigate();
+
+  // Array of input field configurations
+  const inputFields = [
+    {
+      label: "Email:",
+      type: "text",
+      id: "email",
+      name: "email",
+      value: loginFormValues.email,
+    },
+    {
+      label: "Password:",
+      type: "password",
+      id: "password",
+      name: "password",
+      value: loginFormValues.password,
+    },
+  ];
+
+  // Helper function to handle input changes
+  const handleChange =
+    (field: keyof typeof loginFormValues) =>
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setLoginFromValues((prev) => ({ ...prev, [field]: e.target.value }));
+    };
+
   return (
     <form onSubmit={onSubmit}>
-      <div className="input-container">
-        <label htmlFor="email">Email:</label>
-        <input
-          type="text"
-          id="email"
-          name="email"
+      {inputFields.map((field) => (
+        <InputField
+          key={field.id}
+          label={field.label}
+          type={field.type}
+          id={field.id}
+          name={field.name}
+          value={field.value}
+          onChange={handleChange(field.name as keyof typeof loginFormValues)}
           required
-          value={loginFormValues.email}
-          onChange={(e) =>
-            setLoginFromValues((prev) => {
-              return { ...prev, email: e.target.value };
-            })
-          }
         />
-      </div>
-      <div className="input-container">
-        <label htmlFor="password">Password:</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          required
-          value={loginFormValues.password}
-          onChange={(e) =>
-            setLoginFromValues((prev) => {
-              return { ...prev, password: e.target.value };
-            })
-          }
-        />
-      </div>
+      ))}
       <div className="flex w-full flex-col items-center justify-center gap-4">
         <button
           type="submit"
-          className="btn btn-primary font-dm-sans text-lg text-white w-full"
+          className="btn btn-primary w-full font-dm-sans text-lg text-white"
         >
           Login
         </button>

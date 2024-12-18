@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import LoginForm from "../../components/layouts/forms/login/LoginForm";
+import LoginForm from "../../../components/forms/login/LoginForm";
 
 const Login: React.FC = () => {
   const [loginFormValues, setLoginFormValues] = useState({

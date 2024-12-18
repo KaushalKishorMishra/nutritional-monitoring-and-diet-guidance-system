@@ -1,9 +1,9 @@
 import React from "react";
-import RegisterForm from "../../components/layouts/forms/register/RegisterForm";
+import RegisterForm from "../../../components/forms/register/RegisterForm";
 
 const Register: React.FC = () => {
   const [registerFromValues, setRegisterFormValues] = React.useState({
-    username: "",
+    name: "",
     email: "",
     password: "",
     confirmPassword: "",
