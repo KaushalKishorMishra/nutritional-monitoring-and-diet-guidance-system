@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router";
-import { TRegisterFromValues } from "../../../types/credientialsType";
+import { TRegisterFromValues } from "../../../types/credientials";
 import InputField from "../InputField";
 
 interface PRegisterForm {

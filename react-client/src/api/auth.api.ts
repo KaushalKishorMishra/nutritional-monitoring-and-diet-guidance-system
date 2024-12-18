@@ -9,7 +9,7 @@ export const login = async (email: string, password: string) => {
 
     localStorage.setItem("email", response.data.payload.email)
     localStorage.setItem("name", response.data.payload.name)
-    localStorage.setItem("id", response.data.payload.id)
+    localStorage.setItem("userId", response.data.payload.id)
     localStorage.setItem("token", response.data.payload.token)
 
     return response.data;
@@ -24,7 +24,7 @@ export const register = async (name: string, email: string, password: string) =>
 
     localStorage.setItem("email", response.data.payload.email)
     localStorage.setItem("name", response.data.payload.name)
-    localStorage.setItem("id", response.data.payload.id)
+    localStorage.setItem("userId", response.data.payload.id)
 
     return response.data;
 };
