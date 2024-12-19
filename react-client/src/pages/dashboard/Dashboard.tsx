@@ -12,7 +12,6 @@ import FoodVisualization from "../../components/visulation/FoodVisulation";
 import { LuApple } from "react-icons/lu";
 import { HiOutlineDocumentReport } from "react-icons/hi";
 import FoodList from "../foods/foodList";
-import { TFoodMinimal } from "../../types/food";
 
 const Dashboard: React.FC = () => {
   const [date, setDate] = useState<Date>(new Date());
@@ -24,7 +23,6 @@ const Dashboard: React.FC = () => {
   const totalIntake: TotalIntake | null = dashboardRes?.totalIntake || null;
   const recommendation: Recommendation[] = dashboardRes?.recommendation || [];
 
-  const [showRecommendation, setShowRecommendation] = useState<boolean>(false);
   const [bottomNav, setBottomNav] = useState<string>("food");
 
   useEffect(() => {
