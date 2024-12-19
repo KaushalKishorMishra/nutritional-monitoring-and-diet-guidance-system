@@ -2,6 +2,8 @@ import axios from "axios";
 import { BACKEND_API_URL } from "../config";
 import { User } from "../types/user";
 import { NutritionResponse } from "../types/nutrients";
+import { TUserFoodIntakeWithFood } from "../types/userFoodIntake";
+import { TFoodMinimal, TFoodRecommendationNutrients } from "../types/food";
 
 export const getProfile = async () => {
   const userId = localStorage.getItem("userId");
@@ -49,7 +51,17 @@ export const listFoods = async (page: number, limit: number) => {
   return responseData;
 };
 
-export const getDailyIntake = async (date: Date) => {
+export const getDailyIntake = async (
+  date: Date,
+): Promise<{
+  dailyIntakeObj: TUserFoodIntakeWithFood[];
+  totalIntake: TFoodRecommendationNutrients;
+  recommendedIntake: TFoodRecommendationNutrients;
+  recommendation: {
+    food: TFoodMinimal;
+    score: number;
+  }[];
+}> => {
   const today = date.toISOString().split("T")[0];
   const userId = localStorage.getItem("userId");
   const response = await axios.post(

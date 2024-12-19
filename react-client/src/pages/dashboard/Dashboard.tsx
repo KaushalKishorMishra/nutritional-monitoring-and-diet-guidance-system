@@ -3,6 +3,7 @@ import { getProfile, userDashboard } from "../../api/user.api";
 import { User } from "../../types/user";
 import {
   NutritionResponse,
+  Recommendation,
   RecommendedIntake,
   TotalIntake,
 } from "../../types/nutrients";
@@ -11,6 +12,7 @@ import FoodVisualization from "../../components/visulation/FoodVisulation";
 import { LuApple } from "react-icons/lu";
 import { HiOutlineDocumentReport } from "react-icons/hi";
 import FoodList from "../foods/foodList";
+import { TFoodMinimal } from "../../types/food";
 
 const Dashboard: React.FC = () => {
   const [date, setDate] = useState<Date>(new Date());
@@ -20,7 +22,9 @@ const Dashboard: React.FC = () => {
   const recommendedIntake: RecommendedIntake | null =
     dashboardRes?.recommendedIntake || null;
   const totalIntake: TotalIntake | null = dashboardRes?.totalIntake || null;
+  const recommendation: Recommendation[] = dashboardRes?.recommendation || [];
 
+  const [showRecommendation, setShowRecommendation] = useState<boolean>(false);
   const [bottomNav, setBottomNav] = useState<string>("food");
 
   useEffect(() => {
@@ -40,6 +44,20 @@ const Dashboard: React.FC = () => {
     };
     fetchDashboardData();
   }, [date]);
+
+  const convertUnits = (value: number | string, unit: string): string => {
+    if (typeof value === "string") {
+      value = parseFloat(value);
+    }
+    switch (unit) {
+      case "g":
+        return `${value.toFixed(2)} g`;
+      case "kcal":
+        return `${value} kcal`;
+      default:
+        return `${value}`;
+    }
+  };
 
   return (
     <div className="relative h-screen">
@@ -83,10 +101,40 @@ const Dashboard: React.FC = () => {
         </div>
         {bottomNav === "food" && <FoodList />}
         {bottomNav === "report" && recommendedIntake && totalIntake && (
-          <FoodVisualization
-            recommendedIntake={recommendedIntake}
-            totalIntake={totalIntake}
-          />
+          <>
+            <FoodVisualization
+              recommendedIntake={recommendedIntake}
+              totalIntake={totalIntake}
+            />
+            <div className="my-4 flex flex-col gap-4">
+              {recommendation.map((recommendation, index) => (
+                <div key={index} className="w-full rounded border p-4">
+                  <h2 className="mb-2 border-b text-lg font-semibold">
+                    {recommendation.food.name}&nbsp;&nbsp;&nbsp;
+                    <span className="text-sm font-normal">
+                      {recommendation.score.toFixed(2)}
+                    </span>
+                  </h2>
+                  <p>
+                    <strong>Serving Size:</strong>{" "}
+                    {convertUnits(recommendation.food.serving_size, "g")}
+                  </p>
+                  <p>
+                    <strong>Calories:</strong>{" "}
+                    {convertUnits(recommendation.food.calories, "kcal")}
+                  </p>
+                  <p>
+                    <strong>Protein:</strong>{" "}
+                    {convertUnits(recommendation.food.protein, "g")}
+                  </p>
+                  <p>
+                    <strong>Total Fat:</strong>{" "}
+                    {convertUnits(recommendation.food.total_fat, "g")}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </>
         )}
       </div>
       {/* bottom nav */}
