@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import useGettingStartedStore from "../../hooks/store/gettingStarted.store";
 import GettingStartedForm from "../../components/forms/gettingStarted/GettingStartedForm";
 import { gettingStarted } from "../../api/gettingStarted.api";
+import { useNavigate } from "react-router";
 
 const GettingStarted: React.FC = () => {
   const { getAllData, clearAllData } = useGettingStartedStore();
-
+  const navigate = useNavigate();
   // State to track the loading, error, and success states
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -34,6 +35,7 @@ const GettingStarted: React.FC = () => {
       // Set success message
       setSuccessMessage("Data successfully updated!");
 
+      navigate("/login");
       // Optionally clear the store data after API call
       clearAllData();
     } catch (error) {
