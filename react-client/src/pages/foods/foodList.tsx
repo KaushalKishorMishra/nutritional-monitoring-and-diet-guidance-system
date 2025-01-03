@@ -10,7 +10,7 @@ const FoodList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await listFoods(1, 30);
+        const data = await listFoods(1, 100);
         console.log(data);
         setFoods(data.rows);
       } catch (err) {
