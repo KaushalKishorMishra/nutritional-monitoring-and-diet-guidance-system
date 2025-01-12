@@ -63,12 +63,16 @@ const Dashboard: React.FC = () => {
     <div className="relative h-screen">
       <div className="mb-20 px-3 py-5">
         <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+
+          <img src="/apple.svg" className="w-12 aspect-square border-2 p-1 rounded-full" />
           {profileRes && (
             <h1 className="font-dm-sans font-semibold capitalize">
               {" "}
               {profileRes.name}
             </h1>
           )}
+          </div>
           <div className="flex items-center justify-end gap-5">
             <label htmlFor="" className="">
               {date.toISOString().split("T")[0]}
