@@ -1,10 +1,10 @@
 import { useState } from "react";
 import MyRoutes from "./routes/MyRoutes";
-import RootLayout from "./components/layouts/RootLayout";
+import RootLayout from "./components/layouts/Root.layout";
 
 const App = () => {
   const [theme, setTheme] = useState<"customLight" | "customDark">(
-    "customLight"
+    "customDark",
   );
 
   return (

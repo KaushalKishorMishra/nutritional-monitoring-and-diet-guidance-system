@@ -8,11 +8,10 @@ import {
   RecommendedIntake,
   TotalIntake,
 } from "../../types/nutrients";
-import { FaCalendarAlt, FaRegUser } from "react-icons/fa";
-import { LuApple } from "react-icons/lu";
-import { HiOutlineDocumentReport } from "react-icons/hi";
+import { FaCalendarAlt } from "react-icons/fa";
 import FoodList from "../foods/foodList";
 import NutrientProgress from "../../components/NutrientProgress";
+import BottomNav from "../../components/bottom-nav/BottomNav";
 
 const Dashboard: React.FC = () => {
   const [date, setDate] = useState<Date>(new Date());
@@ -25,7 +24,7 @@ const Dashboard: React.FC = () => {
   const recommendation: Recommendation[] = dashboardRes?.recommendation || [];
   const dailyIntake: DailyIntake[] = dashboardRes?.dailyIntakeObj || [];
 
-  const [bottomNav, setBottomNav] = useState<string>("food");
+  const [bottomNav, setBottomNav] = useState<string>("report");
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -64,14 +63,16 @@ const Dashboard: React.FC = () => {
       <div className="mb-20 px-3 py-5">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-
-          <img src="/apple.svg" className="w-12 aspect-square border-2 p-1 rounded-full" />
-          {profileRes && (
-            <h1 className="font-dm-sans font-semibold capitalize">
-              {" "}
-              {profileRes.name}
-            </h1>
-          )}
+            <img
+              src="/apple.svg"
+              className="aspect-square w-12 rounded-full border-2 p-1"
+            />
+            {profileRes && (
+              <h1 className="font-dm-sans font-semibold capitalize">
+                {" "}
+                {profileRes.name}
+              </h1>
+            )}
           </div>
           <div className="flex items-center justify-end gap-5">
             <label htmlFor="" className="">
@@ -199,29 +200,7 @@ const Dashboard: React.FC = () => {
         {bottomNav == "profile" && localStorage.getItem("userId")}
       </div>
       {/* bottom nav */}
-      <div className="fixed bottom-0 left-0 flex h-20 w-full flex-row items-center justify-evenly bg-[#dbfbed]">
-        <div
-          className={`flex h-16 w-16 flex-col items-center justify-center gap-1 rounded-full ${bottomNav === "food" ? "bg-[#2fcb8d] text-white" : "text-[#2fcb8d]"}`}
-          onClick={() => setBottomNav("food")}
-        >
-          <LuApple className="text-xl font-bold" />
-          <span className="text-sm font-bold">Food</span>
-        </div>
-        <div
-          className={`flex h-16 w-16 flex-col items-center justify-center gap-1 rounded-full ${bottomNav === "report" ? "bg-[#2fcb8d] text-white" : "text-[#2fcb8d]"}`}
-          onClick={() => setBottomNav("report")}
-        >
-          <HiOutlineDocumentReport className="text-xl font-bold" />
-          <span className="text-sm font-bold">Report</span>
-        </div>
-        <div
-          className={`flex h-16 w-16 flex-col items-center justify-center gap-1 rounded-full ${bottomNav === "profile" ? "bg-[#2fcb8d] text-white" : "text-[#2fcb8d]"}`}
-          onClick={() => setBottomNav("profile")}
-        >
-          <FaRegUser className="text-xl font-bold" />
-          <span className="text-sm font-bold">Profile</span>
-        </div>
-      </div>
+      <BottomNav setBottomNav={setBottomNav} bottomNav={bottomNav} />
     </div>
   );
 };

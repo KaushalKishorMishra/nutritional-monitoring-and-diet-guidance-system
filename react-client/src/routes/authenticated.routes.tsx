@@ -1,4 +1,4 @@
-import RootLayout from "../components/layouts/RootLayout";
+import RootLayout from "../components/layouts/Root.layout";
 import { Outlet } from "react-router";
 
 const AuthenticatedRoutes = () => {
