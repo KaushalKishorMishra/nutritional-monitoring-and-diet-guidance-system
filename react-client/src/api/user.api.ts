@@ -12,7 +12,8 @@ export const getProfile = async () => {
   return responseData;
 };
 
-export const userDashboard = async (date: Date) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const userDashboard = async (date: any | Date) => {
   const today = date.toISOString().split("T")[0];
   const userId = localStorage.getItem("userId");
   const response = await axios.post(

@@ -8,10 +8,11 @@ import {
   RecommendedIntake,
   TotalIntake,
 } from "../../types/nutrients";
-import { FaCalendarAlt } from "react-icons/fa";
 import FoodList from "../foods/foodList";
 import NutrientProgress from "../../components/NutrientProgress";
 import BottomNav from "../../components/bottom-nav/BottomNav";
+import DashboardTopNav from "../../components/top-nav/Dashboard.topNav";
+import { convertUnits } from "../../utils/randomUtils";
 
 const Dashboard: React.FC = () => {
   const [date, setDate] = useState<Date>(new Date());
@@ -38,72 +39,20 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     const fetchDashboardData = async () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const dashBoardResponse: any = await userDashboard(date);
+      const dashBoardResponse: any = await userDashboard(date!);
       setDashboardRes(dashBoardResponse);
     };
     fetchDashboardData();
   }, [date, bottomNav]);
 
-  const convertUnits = (value: number | string, unit: string): string => {
-    if (typeof value === "string") {
-      value = parseFloat(value);
-    }
-    switch (unit) {
-      case "g":
-        return `${value.toFixed(2)} g`;
-      case "kcal":
-        return `${value} kcal`;
-      default:
-        return `${value}`;
-    }
-  };
-
   return (
     <div className="relative h-screen">
       <div className="mb-20 px-3 py-5">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <img
-              src="/apple.svg"
-              className="aspect-square w-12 rounded-full border-2 p-1"
-            />
-            {profileRes && (
-              <h1 className="font-dm-sans font-semibold capitalize">
-                {" "}
-                {profileRes.name}
-              </h1>
-            )}
-          </div>
-          <div className="flex items-center justify-end gap-5">
-            <label htmlFor="" className="">
-              {date.toISOString().split("T")[0]}
-            </label>
-            <div className="relative">
-              <input
-                type="date"
-                value={date.toISOString()}
-                onChange={(e) => setDate(new Date(e.target.value))}
-                className="absolute right-0 hidden rounded-lg border-b-2 border-gray-400 bg-white px-4 py-2 focus:outline-primary"
-              />
-              <FaCalendarAlt
-                className="cursor-pointer text-primary"
-                onClick={() => {
-                  const dateInput = document.querySelector(
-                    'input[type="date"]',
-                  ) as HTMLInputElement;
-
-                  if (dateInput) {
-                    // Add a custom class to the input element
-                    dateInput.classList.add("custom-date-input");
-
-                    // Trigger the date picker
-                    dateInput.showPicker();
-                  }
-                }}
-              />
-            </div>
-          </div>
-        </div>
+        <DashboardTopNav
+          profileRes={profileRes}
+          date={date}
+          setDate={setDate}
+        />
         {bottomNav === "food" && <FoodList />}
         {bottomNav === "report" && recommendedIntake && totalIntake && (
           <>

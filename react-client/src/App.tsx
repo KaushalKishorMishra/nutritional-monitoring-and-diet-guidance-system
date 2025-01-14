@@ -4,7 +4,7 @@ import RootLayout from "./components/layouts/Root.layout";
 
 const App = () => {
   const [theme, setTheme] = useState<"customLight" | "customDark">(
-    "customDark",
+    "customLight",
   );
 
   return (

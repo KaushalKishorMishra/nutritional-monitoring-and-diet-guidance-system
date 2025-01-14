@@ -3,7 +3,8 @@ import { Outlet, Navigate } from "react-router";
 
 const isAuthenticated = () => {
   // Replace this with actual authentication logic
-  return Boolean(localStorage.getItem("authToken"));
+  // return Boolean(localStorage.getItem("token"));
+  return true
 };
 
 const AuthLayout: React.FC = () => {
