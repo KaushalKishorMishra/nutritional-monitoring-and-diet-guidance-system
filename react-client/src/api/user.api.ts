@@ -27,7 +27,7 @@ export const userDashboard = async (date: any | Date) => {
 };
 
 export const addFoodIntake = async (
-  foodId: number,
+  foodId: string,
   quantity: number,
   date: Date,
 ) => {

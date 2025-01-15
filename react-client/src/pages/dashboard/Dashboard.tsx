@@ -12,7 +12,8 @@ import FoodList from "../foods/foodList";
 import NutrientProgress from "../../components/NutrientProgress";
 import BottomNav from "../../components/bottom-nav/BottomNav";
 import DashboardTopNav from "../../components/top-nav/Dashboard.topNav";
-import { convertUnits } from "../../utils/randomUtils";
+import { convertUnits } from "../../utils/randomUtils.utils";
+import DailyTrack from "../dailyTrack/DailyTrack";
 
 const Dashboard: React.FC = () => {
   const [date, setDate] = useState<Date>(new Date());
@@ -146,6 +147,7 @@ const Dashboard: React.FC = () => {
             </div>
           </>
         )}
+        <DailyTrack />
         {bottomNav == "profile" && localStorage.getItem("userId")}
       </div>
       {/* bottom nav */}
