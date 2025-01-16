@@ -3,11 +3,12 @@ import { IoChevronBack } from "react-icons/io5";
 import { MdOutlineDarkMode } from "react-icons/md";
 import useAppSettingsStore, {
   Theme,
-} from "../../hooks/store/appSettings.store";
+} from "../../../hooks/store/appSettings.store";
 import { CiSun } from "react-icons/ci";
 
 const ProfilePage: React.FC = () => {
   const { setTheme, theme } = useAppSettingsStore();
+  console.log(theme)
 
   return (
     <div>
@@ -27,7 +28,7 @@ const ProfilePage: React.FC = () => {
       </div>
       <div>
         <div>
-          {theme === Theme.Light ? <MdOutlineDarkMode /> : <CiSun />}
+          {theme === Theme.Light ? <CiSun /> : <MdOutlineDarkMode />}
           {theme === Theme.Light ? "Light" : "Dark"}
           <input
             type="checkbox"
@@ -35,17 +36,15 @@ const ProfilePage: React.FC = () => {
             onClick={() =>
               setTheme(theme === Theme.Light ? Theme.Dark : Theme.Light)
             }
-            className={`toggle ${
-              theme === Theme.Light
-                ? "!bg-black !text-white"
-                : "!bg-white !text-black"
-            } p-2`}
+            className={`toggle`}
+            data-theme={theme}
           />
         </div>
         <div>Contact Us</div>
         <div>About App</div>
         <div>Setting</div>
       </div>
+      <div>Version</div>
     </div>
   );
 };

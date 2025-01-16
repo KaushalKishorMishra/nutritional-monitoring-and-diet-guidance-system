@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 export enum Theme {
     Light = "customLight",
@@ -10,9 +11,17 @@ interface TAppSettingsState {
     setTheme: (theme: Theme) => void;
 }
 
-const useAppSettingsStore = create<TAppSettingsState>((set) => ({
-    theme: Theme.Light,
-    setTheme: (theme: Theme) => set({ theme }),
-}))
+const useAppSettingsStore = create<TAppSettingsState>()(
+    persist(
+        (set) => ({
+            theme: Theme.Light,
+            setTheme: (theme: Theme) => set(() => ({ theme })),
+        }),
+        {
+            name: "app-settings", // Key for localStorage
+            storage: createJSONStorage(() => localStorage),
+        }
+    )
+);
 
-export default useAppSettingsStore
+export default useAppSettingsStore;

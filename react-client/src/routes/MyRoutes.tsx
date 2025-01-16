@@ -16,7 +16,7 @@ import OnBoarding from "../pages/onboarding/OnBoarding";
 
 // authenticated users pages
 import Dashboard from "../pages/Dashboard/Dashboard";
-import ProfilePage from "../pages/user/ProfilePage";
+import ProfilePage from "../pages/user/profile/ProfilePage";
 
 // error pages
 import NotFound from "../components/error/NotFound";
