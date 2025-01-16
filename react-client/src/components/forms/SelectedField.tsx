@@ -1,5 +1,5 @@
 import React from "react";
-import { capitalizeFirstLetter, formatString } from "../../utils/randomUtils";
+import { capitalizeFirstLetter, formatString } from "../../utils/randomUtils.utils";
 
 interface PSelectedField {
   options: string[];

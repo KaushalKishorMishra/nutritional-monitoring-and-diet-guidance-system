@@ -6,7 +6,7 @@ import SelectedField from "../SelectedField";
 import {
   capitalizeFirstLetter,
   formatString,
-} from "../../../utils/randomUtils";
+} from "../../../utils/randomUtils.utils";
 import { useNavigate } from "react-router";
 
 interface PGettingStartedForm {

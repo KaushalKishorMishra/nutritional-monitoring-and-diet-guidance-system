@@ -12,3 +12,18 @@ export const formatString = (str: string) => {
         )
         .join(" ");                  // Join the words back together
 };
+
+
+export const convertUnits = (value: number | string, unit: string): string => {
+    if (typeof value === "string") {
+        value = parseFloat(value);
+    }
+    switch (unit) {
+        case "g":
+            return `${value.toFixed(2)} g`;
+        case "kcal":
+            return `${value} kcal`;
+        default:
+            return `${value}`;
+    }
+};
