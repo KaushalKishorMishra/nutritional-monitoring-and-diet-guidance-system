@@ -1,9 +1,10 @@
 import React from "react";
+import CustomDatePicker from "../forms/DatePicker";
 
 interface PDashboardTopNav {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   profileRes: any;
-  date: Date | null;
+  date: Date;
   setDate: React.Dispatch<React.SetStateAction<Date | null>>;
 }
 
@@ -27,12 +28,8 @@ const DashboardTopNav: React.FC<PDashboardTopNav> = ({
             </h1>
           )}
         </div>
-        <div className="customized-datepicker">
-          <input
-            type="date"
-            value={date?.toISOString().slice(0, 10)}
-            onChange={(e) => setDate(new Date(e.target.value))}
-          />
+        <div>
+          <CustomDatePicker date={date} setDate={setDate} />
         </div>
       </div>
     </div>
