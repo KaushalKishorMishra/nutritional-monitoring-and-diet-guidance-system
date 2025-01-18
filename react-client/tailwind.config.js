@@ -1,9 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 import daisyui from "daisyui"
+const flowbite = require("flowbite-react/tailwind");
 
 
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}",],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}", flowbite.content(),],
   theme: {
     extend: {
       fontFamily: {
@@ -12,7 +13,7 @@ export default {
       },
     },
   },
-  plugins: [daisyui],
+  plugins: [daisyui, flowbite.plugin(),],
   daisyui: {
     themes: [{
       customLight: {
@@ -24,7 +25,7 @@ export default {
         "accent-content": "#0e0e0e",
         "base-100": "#ffffff",
         "base-200": "#f7f7f7",
-        "base-300": "#0d1229",
+        "base-300": "#6e7179",
         // neutral: {
         //   dark: '#6e7179', // OnBackgroundVariant
         //   DEFAULT: '#cccccc', // SurfaceVariant

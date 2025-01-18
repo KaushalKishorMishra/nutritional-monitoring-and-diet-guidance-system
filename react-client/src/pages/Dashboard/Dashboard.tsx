@@ -9,14 +9,14 @@ import {
   TotalIntake,
 } from "../../types/nutrients";
 import FoodList from "../foods/foodList";
-import NutrientProgress from "../../components/NutrientProgress";
 import BottomNav from "../../components/bottom-nav/BottomNav";
 import DashboardTopNav from "../../components/top-nav/Dashboard.topNav";
 import { convertUnits } from "../../utils/randomUtils.utils";
 import DailyTrack from "../dailyTrack/DailyTrack";
+import NutrientsVisitation from "../../components/visulation/NutrientsVisitation";
 
 const Dashboard: React.FC = () => {
-  const [date, setDate] = useState<Date>(new Date());
+  const [date, setDate] = useState<Date | null>(new Date());
   const [profileRes, setProfileRes] = useState<User>();
   const [dashboardRes, setDashboardRes] = useState<NutritionResponse>();
 
@@ -60,13 +60,16 @@ const Dashboard: React.FC = () => {
             {/* <FoodVisualization
               recommendedIntake={recommendedIntake}
               totalIntake={totalIntake}
-            /> */}
+              /> */}
 
             {/* custom foods visuals */}
-            <div className="mt-4 flex flex-wrap items-center justify-evenly gap-2">
-              <NutrientProgress
-                totalIntake={totalIntake}
+            <div className="mt-4">
+              <h4 className="ps-1 text-start font-nunito-sans font-semibold">
+                Nutrients Indicator
+              </h4>
+              <NutrientsVisitation
                 recommendedIntake={recommendedIntake}
+                totalIntake={totalIntake}
               />
             </div>
 

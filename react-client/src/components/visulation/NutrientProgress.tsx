@@ -25,7 +25,10 @@ const NutrientProgress = ({
   recommendedIntake,
 }: ProgressProps) => {
   const createRadialProgress = (key: keyof Intake, label: string) => {
-    const value = (totalIntake[key] / recommendedIntake[key]) * 100;
+    const value = Math.min(
+      (totalIntake[key] / recommendedIntake[key]) * 100,
+      100,
+    );
 
     return (
       <div
