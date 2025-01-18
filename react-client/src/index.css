@@ -4,6 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Header styles */
 .title {
   @apply text-center font-dm-sans text-2xl font-semibold;
 }
@@ -11,38 +12,38 @@
   @apply py-2 text-center font-nunito-sans text-lg text-[#6e7179];
 }
 
+/* Form container styles */
 .form {
   @apply flex h-screen w-full flex-col items-center justify-center;
-  .form-header {
-    @apply px-3;
-  }
-  .form-body {
-    .form-container {
-      @apply mx-auto my-auto flex min-w-[380px] flex-col items-center justify-center gap-6 rounded-xl px-5 py-3;
-      .input-container {
-        @apply mx-auto flex w-full flex-col gap-1;
-        label {
-          @apply font-dm-sans text-lg font-semibold;
-        }
-        input {
-          @apply rounded-md border-2 border-gray-300 p-2;
-        }
-      }
-    }
-  }
 }
-
+.form-header {
+  @apply px-3;
+}
+.form-body {
+  @apply flex flex-col;
+}
+.form-container {
+  @apply mx-auto my-auto flex min-w-[380px] flex-col items-center justify-center gap-6 rounded-xl px-5 py-3;
+}
 .input-container {
   @apply mx-auto flex w-full flex-col gap-1;
-  label {
-    @apply font-dm-sans text-lg font-semibold;
-  }
-  input {
-    @apply rounded-md border-2 border-gray-300 p-2;
-  }
+}
+.input-container label {
+  @apply font-dm-sans text-lg font-semibold;
+}
+.input-container input {
+  @apply rounded-md border-2 border-gray-300 p-2;
 }
 
-.custom-date-input {
-  border: 2px solid #2563eb;
-  background-color: #e0f7fa;
+/* Customized datepicker styles */
+.customized-datepicker input {
+  @apply border-none outline-none hover:border-gray-400 focus:ring-accent;
+}
+
+.rdp-months {
+  @apply !block !max-w-full;
+}
+
+.rdp-month_grid {
+  @apply !w-full;
 }

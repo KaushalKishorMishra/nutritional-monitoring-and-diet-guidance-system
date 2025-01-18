@@ -1,15 +1,13 @@
-import { useState } from "react";
 import MyRoutes from "./routes/MyRoutes";
 import RootLayout from "./components/layouts/Root.layout";
+import useAppSettingsStore from "./hooks/store/appSettings.store";
 
 const App = () => {
-  const [theme, setTheme] = useState<"customLight" | "customDark">(
-    "customLight",
-  );
+  const { theme } = useAppSettingsStore();
 
   return (
     <div data-theme={theme}>
-      <RootLayout setTheme={setTheme} theme={theme}>
+      <RootLayout>
         <MyRoutes />
       </RootLayout>
     </div>

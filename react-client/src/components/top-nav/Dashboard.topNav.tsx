@@ -1,11 +1,11 @@
 import React from "react";
-import { FaCalendarAlt } from "react-icons/fa";
+import CustomDatePicker from "../forms/DatePicker";
 
 interface PDashboardTopNav {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   profileRes: any;
   date: Date;
-  setDate: React.Dispatch<React.SetStateAction<Date>>;
+  setDate: React.Dispatch<React.SetStateAction<Date | null>>;
 }
 
 const DashboardTopNav: React.FC<PDashboardTopNav> = ({
@@ -28,34 +28,8 @@ const DashboardTopNav: React.FC<PDashboardTopNav> = ({
             </h1>
           )}
         </div>
-        <div className="flex items-center justify-end gap-5">
-          <label htmlFor="" className="">
-            {date.toISOString().split("T")[0]}
-          </label>
-          <div className="relative">
-            <input
-              type="date"
-              value={date.toISOString()}
-              onChange={(e) => setDate(new Date(e.target.value))}
-              className="absolute right-0 rounded-lg border-b-2 border-gray-400 bg-white px-4 py-2 focus:outline-primary"
-            />
-            <FaCalendarAlt
-              className="cursor-pointer text-primary"
-              onClick={() => {
-                const dateInput = document.querySelector(
-                  'input[type="date"]',
-                ) as HTMLInputElement;
-
-                if (dateInput) {
-                  // Add a custom class to the input element
-                  dateInput.classList.add("custom-date-input");
-
-                  // Trigger the date picker
-                  dateInput.showPicker();
-                }
-              }}
-            />
-          </div>
+        <div>
+          <CustomDatePicker date={date} setDate={setDate} />
         </div>
       </div>
     </div>

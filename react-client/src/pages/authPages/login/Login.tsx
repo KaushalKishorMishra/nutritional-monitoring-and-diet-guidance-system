@@ -32,7 +32,7 @@ const Login: React.FC = () => {
       localStorage.setItem("token", response.token);
 
       setSuccessMessage("Logged in successful!");
-      navigate("/dashboard");
+      navigate("/user/dashboard");
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {

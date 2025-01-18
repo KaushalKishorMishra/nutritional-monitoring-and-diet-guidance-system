@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { LuSearch } from "react-icons/lu";
 
 interface SearchFieldProps<T> {
   label?: string;

@@ -4,6 +4,7 @@ import { User } from "../types/user";
 import { NutritionResponse } from "../types/nutrients";
 import { TUserFoodIntakeWithFood } from "../types/userFoodIntake";
 import { TFoodMinimal, TFoodRecommendationNutrients } from "../types/food";
+import { monthDayYearFormatForAPI } from "../utils/dateFormator.utils";
 
 export const getProfile = async () => {
   const userId = localStorage.getItem("userId");
@@ -14,7 +15,8 @@ export const getProfile = async () => {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const userDashboard = async (date: any | Date) => {
-  const today = date.toISOString().split("T")[0];
+  console.log(date)
+  const today = monthDayYearFormatForAPI(date);
   const userId = localStorage.getItem("userId");
   const response = await axios.post(
     `${BACKEND_API_URL}/user/track/daily-intake/${today}`,
