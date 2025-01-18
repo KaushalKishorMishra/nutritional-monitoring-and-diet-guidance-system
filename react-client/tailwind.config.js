@@ -1,10 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 import daisyui from "daisyui"
-const flowbite = require("flowbite-react/tailwind");
 
 
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}", flowbite.content(),],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}",],
   theme: {
     extend: {
       fontFamily: {
@@ -13,7 +12,7 @@ export default {
       },
     },
   },
-  plugins: [daisyui, flowbite.plugin(),],
+  plugins: [daisyui,],
   daisyui: {
     themes: [{
       customLight: {
