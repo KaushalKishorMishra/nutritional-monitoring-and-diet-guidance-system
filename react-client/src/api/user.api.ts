@@ -7,7 +7,8 @@ import { TFoodMinimal, TFoodRecommendationNutrients } from "../types/food";
 import { monthDayYearFormatForAPI } from "../utils/dateFormator.utils";
 
 export const getProfile = async () => {
-  const userId = localStorage.getItem("userId");
+  const userData = localStorage.getItem("user-data");
+  const userId = JSON.parse(userData!).state.userId;
   const response = await axios.get(`${BACKEND_API_URL}/user/profile/${userId}`);
   const responseData: User = response.data.payload;
   return responseData;
@@ -17,7 +18,7 @@ export const getProfile = async () => {
 export const userDashboard = async (date: any | Date) => {
   console.log(date)
   const today = monthDayYearFormatForAPI(date);
-  const userId = localStorage.getItem("userId");
+  const userId = JSON.parse(localStorage.getItem("user-data")!).state.userId
   const response = await axios.post(
     `${BACKEND_API_URL}/user/track/daily-intake/${today}`,
     {

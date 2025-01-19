@@ -20,6 +20,7 @@ import ProfilePage from "../pages/user/profile/ProfilePage";
 
 // error pages
 import NotFound from "../components/error/NotFound";
+import ProfileEditPage from "../pages/user/profile/ProfileEditPage";
 
 const MyRoutes = () => {
   return (
@@ -36,6 +37,7 @@ const MyRoutes = () => {
         <Route path="user" element={<AuthLayout />}>
           <Route path="profile" element={<ProfilePage />} />
           <Route path="dashboard" element={<Dashboard />} />
+          <Route path="profile/edit" element={<ProfileEditPage />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

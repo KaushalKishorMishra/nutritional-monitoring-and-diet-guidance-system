@@ -1,11 +1,12 @@
 import React from "react";
 import CustomDatePicker from "../forms/DatePicker";
+import { useNavigate } from "react-router";
 
 interface PDashboardTopNav {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   profileRes: any;
   date: Date;
-  setDate: React.Dispatch<React.SetStateAction<Date | null>>;
+  setDate: React.Dispatch<React.SetStateAction<Date>>;
 }
 
 const DashboardTopNav: React.FC<PDashboardTopNav> = ({
@@ -13,6 +14,7 @@ const DashboardTopNav: React.FC<PDashboardTopNav> = ({
   date,
   setDate,
 }) => {
+  const navigate = useNavigate();
   return (
     <div>
       <div className="flex items-center justify-between">
@@ -22,7 +24,10 @@ const DashboardTopNav: React.FC<PDashboardTopNav> = ({
             className="aspect-square w-12 rounded-full border-2 p-1"
           />
           {profileRes && (
-            <h1 className="font-dm-sans font-semibold capitalize">
+            <h1
+              className="font-dm-sans font-semibold capitalize hover:cursor-pointer"
+              onClick={() => navigate("/user/profile")}
+            >
               {" "}
               {profileRes.name}
             </h1>

@@ -1,6 +1,7 @@
 import MyRoutes from "./routes/MyRoutes";
 import RootLayout from "./components/layouts/Root.layout";
 import useAppSettingsStore from "./hooks/store/appSettings.store";
+import Modal from "./components/modal/Modal";
 
 const App = () => {
   const { theme } = useAppSettingsStore();
@@ -9,6 +10,7 @@ const App = () => {
     <div data-theme={theme}>
       <RootLayout>
         <MyRoutes />
+        <Modal />
       </RootLayout>
     </div>
   );
