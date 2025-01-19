@@ -16,7 +16,7 @@ import DailyTrack from "../dailyTrack/DailyTrack";
 import NutrientsVisitation from "../../components/visulation/NutrientsVisitation";
 
 const Dashboard: React.FC = () => {
-  const [date, setDate] = useState<Date | null>(new Date());
+  const [date, setDate] = useState<Date>(new Date());
   const [profileRes, setProfileRes] = useState<User>();
   const [dashboardRes, setDashboardRes] = useState<NutritionResponse>();
 

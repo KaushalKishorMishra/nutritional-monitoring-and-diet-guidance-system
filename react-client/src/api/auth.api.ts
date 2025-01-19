@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { BACKEND_API_URL } from '../config';
+import useUserDataStore from '../hooks/store/userData.store';
 
 export const login = async (email: string, password: string) => {
     const response = await axios.post(`${BACKEND_API_URL}/auth/login`, {
@@ -7,10 +8,8 @@ export const login = async (email: string, password: string) => {
         password,
     });
 
-    localStorage.setItem("email", response.data.payload.email)
-    localStorage.setItem("name", response.data.payload.name)
-    localStorage.setItem("userId", response.data.payload.id)
-    localStorage.setItem("token", response.data.payload.token)
+    useUserDataStore.getState().setUserData({ ...response.data.payload, userId: response.data.payload.id })
+    console.log(response.data.payload)
 
     return response.data;
 };

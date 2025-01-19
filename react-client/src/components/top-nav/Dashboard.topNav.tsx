@@ -5,7 +5,7 @@ interface PDashboardTopNav {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   profileRes: any;
   date: Date;
-  setDate: React.Dispatch<React.SetStateAction<Date | null>>;
+  setDate: React.Dispatch<React.SetStateAction<Date>>;
 }
 
 const DashboardTopNav: React.FC<PDashboardTopNav> = ({

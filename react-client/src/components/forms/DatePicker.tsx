@@ -6,7 +6,7 @@ import "react-day-picker/style.css";
 
 interface CustomDatePickerProps {
   date: Date;
-  setDate: React.Dispatch<React.SetStateAction<Date | null>>;
+  setDate: React.Dispatch<React.SetStateAction<Date>>;
 }
 
 const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
