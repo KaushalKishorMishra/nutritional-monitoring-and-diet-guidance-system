@@ -14,12 +14,8 @@ selected_columns = [
     "cholesterol",
     "protein",
     "fiber",
-    "sugars",
     "sodium",
-    "vitamin_d",
     "calcium",
-    "iron",
-    "caffeine",
 ]
 filtered_data = data[selected_columns]
 
@@ -34,12 +30,8 @@ columns_to_scale = [
     "cholesterol",
     "protein",
     "fiber",
-    "sugars",
     "sodium",
-    "vitamin_d",
     "calcium",
-    "iron",
-    "caffeine",
 ]
 filtered_data.loc[:, columns_to_scale] = scaler.fit_transform(
     filtered_data[columns_to_scale]

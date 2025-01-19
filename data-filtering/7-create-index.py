@@ -16,7 +16,7 @@ namespace = "iter5"
 if pc.has_index(index_name) == False:
     pc.create_index(
         name=index_name,
-        dimension=12,
+        dimension=8,
         metric="cosine",  # model metric
         spec=ServerlessSpec(cloud="aws", region="us-east-1"),
     )
