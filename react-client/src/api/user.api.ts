@@ -18,7 +18,7 @@ export const getProfile = async () => {
 export const userDashboard = async (date: any | Date) => {
   console.log(date)
   const today = monthDayYearFormatForAPI(date);
-  const userId = localStorage.getItem("userId");
+  const userId = JSON.parse(localStorage.getItem("user-data")!).state.userId
   const response = await axios.post(
     `${BACKEND_API_URL}/user/track/daily-intake/${today}`,
     {
