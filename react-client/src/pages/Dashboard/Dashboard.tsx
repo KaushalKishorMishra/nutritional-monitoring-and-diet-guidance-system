@@ -12,7 +12,6 @@ import FoodList from "../foods/foodList";
 import BottomNav from "../../components/bottom-nav/BottomNav";
 import DashboardTopNav from "../../components/top-nav/Dashboard.topNav";
 import { convertUnits } from "../../utils/randomUtils.utils";
-import DailyTrack from "../dailyTrack/DailyTrack";
 import NutrientsVisitation from "../../components/visulation/NutrientsVisitation";
 import ListItemsCard from "../../components/cards/ListItemsCard";
 import useUserDataStore from "../../hooks/store/userData.store";
@@ -42,6 +41,7 @@ const Dashboard: React.FC = () => {
       });
     };
     fetchProfile();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bottomNav]);
 
   useEffect(() => {
@@ -61,107 +61,108 @@ const Dashboard: React.FC = () => {
           date={date}
           setDate={setDate}
         />
-        {bottomNav === "food" && <FoodList />}
-        {bottomNav === "report" && recommendedIntake && totalIntake && (
-          <>
-            {/* <FoodVisualization
+        <div>
+          {bottomNav === "food" && <FoodList />}
+          {bottomNav === "report" && recommendedIntake && totalIntake && (
+            <>
+              {/* <FoodVisualization
               recommendedIntake={recommendedIntake}
               totalIntake={totalIntake}
               /> */}
 
-            {/* custom foods visuals */}
-            <div className="mt-4">
-              <h4 className="ps-1 text-start font-nunito-sans font-semibold mb-2">
-                Nutrients Indicator
-              </h4>
-              <NutrientsVisitation
-                recommendedIntake={recommendedIntake}
-                totalIntake={totalIntake}
-              />
-            </div>
+              {/* custom foods visuals */}
+              <div className="mt-4">
+                <h4 className="mb-2 ps-1 text-start font-nunito-sans font-semibold">
+                  Nutrients Indicator
+                </h4>
+                <NutrientsVisitation
+                  recommendedIntake={recommendedIntake}
+                  totalIntake={totalIntake}
+                />
+              </div>
 
-            <div className="collapse collapse-arrow bg-base-200">
-              <input type="radio" name="my-accordion-2" defaultChecked />
-              <div className="collapse-title text-xl font-medium">
-                <div className="text-lg">Daily Intakes:</div>
-              </div>
-              <div className="collapse-content">
-                <div className="my-4 flex flex-col gap-4">
-                  {dailyIntake.length === 0 && <p>No Intakes today.</p>}
-                  {dailyIntake.map((intake, index) => (
-                    <div key={index} className="w-full rounded border p-4">
-                      <ListItemsCard
-                        title={intake.Food.name}
-                        cal={convertUnits(intake.Food.calories, "kcl")}
-                      />
-                      <h2 className="mb-2 border-b text-lg font-semibold">
-                        {intake.Food.name}&nbsp;&nbsp;&nbsp;
-                      </h2>
-                      <p>
-                        <strong>Quantity Eaten:</strong>{" "}
-                        {intake.quantity * intake.Food.serving_size}
-                      </p>
-                      <p>
-                        <strong>Serving Size:</strong>{" "}
-                        {convertUnits(intake.Food.serving_size, "g")}
-                      </p>
-                      <p>
-                        <strong>Calories:</strong>{" "}
-                        {convertUnits(intake.Food.calories, "kcal")}
-                      </p>
-                      <p>
-                        <strong>Protein:</strong>{" "}
-                        {convertUnits(intake.Food.protein, "g")}
-                      </p>
-                      <p>
-                        <strong>Total Fat:</strong>{" "}
-                        {convertUnits(intake.Food.total_fat, "g")}
-                      </p>
-                    </div>
-                  ))}
+              <div className="collapse collapse-arrow bg-base-200">
+                <input type="radio" name="my-accordion-2" defaultChecked />
+                <div className="collapse-title text-xl font-medium">
+                  <div className="text-lg">Daily Intakes:</div>
+                </div>
+                <div className="collapse-content">
+                  <div className="my-4 flex flex-col gap-4">
+                    {dailyIntake.length === 0 && <p>No Intakes today.</p>}
+                    {dailyIntake.map((intake, index) => (
+                      <div key={index} className="w-full rounded border p-4">
+                        <ListItemsCard
+                          title={intake.Food.name}
+                          cal={convertUnits(intake.Food.calories, "kcl")}
+                        />
+                        <h2 className="mb-2 border-b text-lg font-semibold">
+                          {intake.Food.name}&nbsp;&nbsp;&nbsp;
+                        </h2>
+                        <p>
+                          <strong>Quantity Eaten:</strong>{" "}
+                          {intake.quantity * intake.Food.serving_size}
+                        </p>
+                        <p>
+                          <strong>Serving Size:</strong>{" "}
+                          {convertUnits(intake.Food.serving_size, "g")}
+                        </p>
+                        <p>
+                          <strong>Calories:</strong>{" "}
+                          {convertUnits(intake.Food.calories, "kcal")}
+                        </p>
+                        <p>
+                          <strong>Protein:</strong>{" "}
+                          {convertUnits(intake.Food.protein, "g")}
+                        </p>
+                        <p>
+                          <strong>Total Fat:</strong>{" "}
+                          {convertUnits(intake.Food.total_fat, "g")}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="collapse collapse-arrow mb-20 bg-base-200">
-              <input type="radio" name="my-accordion-2" />
-              <div className="collapse-title text-xl font-medium">
-                <div className="text-lg">Recommendations</div>
-              </div>
-              <div className="collapse-content">
-                <div className="my-4 flex flex-col gap-4">
-                  {recommendation.length === 0 && <p>No recommendations.</p>}
-                  {recommendation.map((recommendation, index) => (
-                    <div key={index} className="w-full rounded border p-4">
-                      <h2 className="mb-2 border-b text-lg font-semibold">
-                        {recommendation.food.name}&nbsp;&nbsp;&nbsp;
-                        <span className="text-sm font-normal">
-                          {recommendation.score.toFixed(2)}
-                        </span>
-                      </h2>
-                      <p>
-                        <strong>Serving Size:</strong>{" "}
-                        {convertUnits(recommendation.food.serving_size, "g")}
-                      </p>
-                      <p>
-                        <strong>Calories:</strong>{" "}
-                        {convertUnits(recommendation.food.calories, "kcal")}
-                      </p>
-                      <p>
-                        <strong>Protein:</strong>{" "}
-                        {convertUnits(recommendation.food.protein, "g")}
-                      </p>
-                      <p>
-                        <strong>Total Fat:</strong>{" "}
-                        {convertUnits(recommendation.food.total_fat, "g")}
-                      </p>
-                    </div>
-                  ))}
+              <div className="collapse collapse-arrow mb-20 bg-base-200">
+                <input type="radio" name="my-accordion-2" />
+                <div className="collapse-title text-xl font-medium">
+                  <div className="text-lg">Recommendations</div>
+                </div>
+                <div className="collapse-content">
+                  <div className="my-4 flex flex-col gap-4">
+                    {recommendation.length === 0 && <p>No recommendations.</p>}
+                    {recommendation.map((recommendation, index) => (
+                      <div key={index} className="w-full rounded border p-4">
+                        <h2 className="mb-2 border-b text-lg font-semibold">
+                          {recommendation.food.name}&nbsp;&nbsp;&nbsp;
+                          <span className="text-sm font-normal">
+                            {recommendation.score.toFixed(2)}
+                          </span>
+                        </h2>
+                        <p>
+                          <strong>Serving Size:</strong>{" "}
+                          {convertUnits(recommendation.food.serving_size, "g")}
+                        </p>
+                        <p>
+                          <strong>Calories:</strong>{" "}
+                          {convertUnits(recommendation.food.calories, "kcal")}
+                        </p>
+                        <p>
+                          <strong>Protein:</strong>{" "}
+                          {convertUnits(recommendation.food.protein, "g")}
+                        </p>
+                        <p>
+                          <strong>Total Fat:</strong>{" "}
+                          {convertUnits(recommendation.food.total_fat, "g")}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
-          </>
-        )}
-        <DailyTrack />
+            </>
+          )}
+        </div>
       </div>
       {/* bottom nav */}
       <BottomNav setBottomNav={setBottomNav} bottomNav={bottomNav} />

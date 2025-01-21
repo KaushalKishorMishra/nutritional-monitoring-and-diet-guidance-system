@@ -18,7 +18,7 @@ const DashboardTopNav: React.FC<PDashboardTopNav> = ({
   return (
     <div>
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
+        <div className="flex w-1/2 items-center gap-2">
           <img
             src="/apple.svg"
             className="aspect-square w-12 rounded-full border-2 p-1"
@@ -33,7 +33,7 @@ const DashboardTopNav: React.FC<PDashboardTopNav> = ({
             </h1>
           )}
         </div>
-        <div>
+        <div className="w-1/2">
           <CustomDatePicker date={date} setDate={setDate} />
         </div>
       </div>

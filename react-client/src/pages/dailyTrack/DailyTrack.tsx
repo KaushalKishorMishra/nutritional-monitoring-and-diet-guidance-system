@@ -12,6 +12,7 @@ const DailyTrack: React.FC = () => {
     foodName: "",
     quantity: "",
     date: new Date(),
+    mealTime: "BREAKFAST",
   });
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -28,6 +29,7 @@ const DailyTrack: React.FC = () => {
         foodIntakeFormValues.foodName,
         parseInt(foodIntakeFormValues.quantity, 10),
         foodIntakeFormValues.date,
+        mealTime,
       );
 
       setSuccessMessage("Food intake added successfully!");
