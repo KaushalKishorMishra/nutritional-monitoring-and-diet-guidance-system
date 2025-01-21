@@ -29,7 +29,9 @@ const Dashboard: React.FC = () => {
   const recommendation: Recommendation[] = dashboardRes?.recommendation || [];
   const dailyIntake: DailyIntake[] = dashboardRes?.dailyIntakeObj || [];
 
-  const [bottomNav, setBottomNav] = useState<string>("report");
+  const [bottomNav, setBottomNav] = useState<"food" | "report" | "diary">(
+    "diary",
+  );
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -60,10 +62,11 @@ const Dashboard: React.FC = () => {
           profileRes={profileRes}
           date={date}
           setDate={setDate}
+          onPage={bottomNav}
         />
         <div>
           {bottomNav === "food" && <FoodList />}
-          {bottomNav === "report" && recommendedIntake && totalIntake && (
+          {bottomNav === "diary" && recommendedIntake && totalIntake && (
             <>
               {/* <FoodVisualization
               recommendedIntake={recommendedIntake}
@@ -161,6 +164,18 @@ const Dashboard: React.FC = () => {
                 </div>
               </div>
             </>
+          )}
+          {bottomNav === "report" && (
+            <div className="flex flex-col gap-4">
+              <div className="w-full rounded border p-4">
+                <h2 className="mb-2 border-b text-lg font-semibold">
+                  {profileRes?.name}&nbsp;&nbsp;&nbsp;
+                </h2>
+                <p>
+                  <strong>Age:</strong> {profileRes?.age}
+                </p>
+              </div>
+            </div>
           )}
         </div>
       </div>
