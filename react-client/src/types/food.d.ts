@@ -8,7 +8,6 @@ export type TFoodMinimal = {
   cholesterol: string;
   protein: string;
   fiber: string;
-  sugars: string;
   sodium: string;
   vitamin_d: string;
   calcium: string;

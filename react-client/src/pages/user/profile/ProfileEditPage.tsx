@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoChevronBack } from "react-icons/io5";
 import { useNavigate } from "react-router";
 import { useModalStore } from "../../../hooks/store/modal.store";
-import useGettingStartedStore from "../../../hooks/store/gettingStarted.store";
 import PopUpForm from "../../../components/forms/popUpForm/PopUpForm";
 import PopUpSelectedField from "../../../components/forms/PopUpSelectedField";
+import useUserDataStore from "../../../hooks/store/userData.store";
 
 interface ProfileEditPageData {
   id: keyof FormValues;
@@ -19,92 +19,106 @@ export interface FormValues {
   Age: string;
   Height: string;
   Weight: string;
-  Gender: string;
-  Lifestyle: string;
+  Gender: "MALE" | "FEMALE" | "OTHER";
+  ActivityLevel:
+    | "SEDENTARY"
+    | "LIGHTLY_ACTIVE"
+    | "MODERATELY_ACTIVE"
+    | "VERY_ACTIVE"
+    | "SUPER_ACTIVE";
 }
-
-const ProfileEditPageData: ProfileEditPageData[] = [
-  { id: "Age", label: "Age", name: "age", required: true, type: "number" },
-  {
-    id: "Height",
-    label: "Height",
-    name: "height",
-    required: true,
-    type: "number",
-  },
-  {
-    id: "Weight",
-    label: "Weight",
-    name: "weight",
-    required: true,
-    type: "number",
-  },
-  {
-    id: "Gender",
-    label: "Gender",
-    name: "gender",
-    required: true,
-    type: "dropdown" as const,
-    options: ["Male", "Female", "Other"],
-  },
-  {
-    type: "dropdown" as const,
-    id: "Lifestyle",
-    label: "Lifestyle",
-    name: "lifestyle",
-    required: true,
-    options: [
-      "Sedentary",
-      "Lightly Active",
-      "Moderately Active",
-      "Very Active",
-      "Super Active",
-    ],
-  },
-];
 
 const ProfileEditPage: React.FC = () => {
   const navigate = useNavigate();
   const { openModal } = useModalStore();
 
-  const {
-    setAge,
-    setHeight,
-    setWeight,
-    setGender,
-    setActivityLevel,
-    age,
-    height,
-    weight,
-    gender,
-    activityLevel,
-  } = useGettingStartedStore();
+  const { age, height, weight, gender, activityLevel, setUserData } =
+    useUserDataStore();
 
-  // Initial form values with type-safety
   const [formValues, setFormValues] = useState<FormValues>({
-    Age: age || "",
-    Height: height || "",
-    Weight: weight || "",
-    Gender: gender || "",
-    Lifestyle: activityLevel || "",
+    Age: "",
+    Height: "",
+    Weight: "",
+    Gender: "MALE",
+    ActivityLevel: "SEDENTARY",
   });
 
-  // Saving data to global store
+  // Sync localStorage data once on component mount
+  useEffect(() => {
+    const storedUserData = JSON.parse(localStorage.getItem("user-data")!);
+
+    if (storedUserData?.state) {
+      setFormValues({
+        Age: age || storedUserData.state.age || "",
+        Height: height || storedUserData.state.height || "",
+        Weight: weight || storedUserData.state.weight || "",
+        Gender: gender || storedUserData.state.gender || "",
+        ActivityLevel:
+          activityLevel || storedUserData.state.activityLevel || "",
+      });
+    }
+  }, []); // Empty dependency array ensures this runs only once
+
+  const ProfileEditPageData: ProfileEditPageData[] = [
+    {
+      id: "Age",
+      label: "Age",
+      name: "age",
+      required: true,
+      type: "number",
+    },
+    {
+      id: "Height",
+      label: "Height",
+      name: "height",
+      required: true,
+      type: "number",
+    },
+    {
+      id: "Weight",
+      label: "Weight",
+      name: "weight",
+      required: true,
+      type: "number",
+    },
+    {
+      id: "Gender",
+      label: "Gender",
+      name: "gender",
+      required: true,
+      type: "dropdown" as const,
+      options: ["Male", "Female", "Other"],
+    },
+    {
+      type: "dropdown" as const,
+      id: "ActivityLevel",
+      label: "ActivityLevel",
+      name: "ActivityLevel",
+      required: true,
+      options: [
+        "SEDENTARY",
+        "LIGHTLY_ACTIVE",
+        "MODERATELY_ACTIVE",
+        "VERY_ACTIVE",
+        "SUPER_ACTIVE",
+      ],
+    },
+  ];
+
   const handleSave = () => {
     try {
-      setAge(formValues.Age);
-      setHeight(formValues.Height);
-      setWeight(formValues.Weight);
-      setActivityLevel(formValues.Lifestyle);
-      setGender(formValues.Gender);
-
+      setUserData({
+        age: parseInt(formValues.Age),
+        height: parseInt(formValues.Height),
+        weight: parseInt(formValues.Weight),
+        gender: formValues.Gender,
+        activityLevel: formValues.ActivityLevel,
+      });
       navigate("/user/profile");
     } catch (error) {
       console.error("Error saving profile data:", error);
     }
   };
-
-  // Find the current field based on currentStep
 
   return (
     <div className="flex h-screen flex-col justify-between pb-5">
@@ -117,47 +131,43 @@ const ProfileEditPage: React.FC = () => {
           <span className="col-span-1 text-center">Edit Profile</span>
         </div>
         <div className="flex flex-col gap-3 font-dm-sans text-lg">
-          {ProfileEditPageData.map((data) => {
-            return (
-              <div
-                key={data.id}
-                className="flex cursor-pointer justify-between border-b px-5 pb-3"
-                onClick={() =>
-                  openModal(
-                    `${data.label}`,
-                    <>
-                      {data.type !== "dropdown" ? (
-                        <PopUpForm
-                          id={data.id}
-                          apiValue={formValues[data.id]}
-                          type={data.type}
-                          setFormValues={setFormValues}
-                        />
-                      ) : (
-                        <PopUpSelectedField
-                          options={data.options!}
-                          selectedOption={activityLevel}
-                          onChange={(value) =>
-                            setFormValues((prevValues) => ({
-                              ...prevValues,
-                              [data.id]: value,
-                            }))
-                          }
-                        />
-                      )}
-                    </>,
-                    "bottom",
-                    false,
-                  )
-                }
-              >
-                <span>{data.label}</span>
-                <span className="text-primary">
-                  {formValues[data.id] || "Add"}
-                </span>
-              </div>
-            );
-          })}
+          {ProfileEditPageData.map((data) => (
+            <div
+              key={data.id}
+              className="flex cursor-pointer justify-between border-b px-5 pb-3"
+              onClick={() =>
+                openModal(
+                  `${data.label}`,
+                  <>
+                    {data.type !== "dropdown" ? (
+                      <PopUpForm
+                        id={data.id}
+                        apiValue={formValues[data.id]}
+                        type={data.type}
+                        setFormValues={setFormValues}
+                      />
+                    ) : (
+                      <PopUpSelectedField
+                        options={data.options!}
+                        selectedOption={formValues.ActivityLevel}
+                        onChange={(value) =>
+                          setFormValues((prevValues) => ({
+                            ...prevValues,
+                            [data.id]: value,
+                          }))
+                        }
+                      />
+                    )}
+                  </>,
+                  "bottom",
+                  false,
+                )
+              }
+            >
+              <span>{data.label}</span>
+              <span className="text-primary">{formValues[data.id]}</span>
+            </div>
+          ))}
         </div>
       </div>
       <button

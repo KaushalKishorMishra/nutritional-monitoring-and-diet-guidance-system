@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { getProfile, userDashboard } from "../../api/user.api";
-import { User } from "../../types/user";
+import { getDailyIntake, getProfile } from "../../api/user.api";
+import { TUser } from "../../types/user";
 import {
   DailyIntake,
   NutritionResponse,
@@ -14,11 +14,15 @@ import DashboardTopNav from "../../components/top-nav/Dashboard.topNav";
 import { convertUnits } from "../../utils/randomUtils.utils";
 import DailyTrack from "../dailyTrack/DailyTrack";
 import NutrientsVisitation from "../../components/visulation/NutrientsVisitation";
+import ListItemsCard from "../../components/cards/ListItemsCard";
+import useUserDataStore from "../../hooks/store/userData.store";
 
 const Dashboard: React.FC = () => {
   const [date, setDate] = useState<Date>(new Date());
-  const [profileRes, setProfileRes] = useState<User>();
+  const [profileRes, setProfileRes] = useState<TUser>();
   const [dashboardRes, setDashboardRes] = useState<NutritionResponse>();
+
+  const { setUserData } = useUserDataStore();
 
   const recommendedIntake: RecommendedIntake | null =
     dashboardRes?.recommendedIntake || null;
@@ -31,8 +35,11 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const profileResponse: any = await getProfile();
-      setProfileRes(profileResponse);
+      await getProfile().then((response: any) => {
+        console.log("Profile Response: ", response);
+        setUserData({ ...response });
+        setProfileRes(response);
+      });
     };
     fetchProfile();
   }, [bottomNav]);
@@ -40,7 +47,7 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     const fetchDashboardData = async () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const dashBoardResponse: any = await userDashboard(date!);
+      const dashBoardResponse: any = await getDailyIntake(date);
       setDashboardRes(dashBoardResponse);
     };
     fetchDashboardData();
@@ -64,7 +71,7 @@ const Dashboard: React.FC = () => {
 
             {/* custom foods visuals */}
             <div className="mt-4">
-              <h4 className="ps-1 text-start font-nunito-sans font-semibold">
+              <h4 className="ps-1 text-start font-nunito-sans font-semibold mb-2">
                 Nutrients Indicator
               </h4>
               <NutrientsVisitation
@@ -83,6 +90,10 @@ const Dashboard: React.FC = () => {
                   {dailyIntake.length === 0 && <p>No Intakes today.</p>}
                   {dailyIntake.map((intake, index) => (
                     <div key={index} className="w-full rounded border p-4">
+                      <ListItemsCard
+                        title={intake.Food.name}
+                        cal={convertUnits(intake.Food.calories, "kcl")}
+                      />
                       <h2 className="mb-2 border-b text-lg font-semibold">
                         {intake.Food.name}&nbsp;&nbsp;&nbsp;
                       </h2>
@@ -151,7 +162,6 @@ const Dashboard: React.FC = () => {
           </>
         )}
         <DailyTrack />
-        {bottomNav == "profile" && localStorage.getItem("userId")}
       </div>
       {/* bottom nav */}
       <BottomNav setBottomNav={setBottomNav} bottomNav={bottomNav} />
