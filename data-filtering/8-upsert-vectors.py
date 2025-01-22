@@ -28,12 +28,8 @@ selected_columns = [
     "cholesterol",
     "protein",
     "fiber",
-    "sugars",
     "sodium",
-    "vitamin_d",
     "calcium",
-    "iron",
-    "caffeine",
 ]
 filtered_data = data[selected_columns]
 
