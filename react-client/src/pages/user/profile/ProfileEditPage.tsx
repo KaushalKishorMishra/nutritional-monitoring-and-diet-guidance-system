@@ -57,6 +57,7 @@ const ProfileEditPage: React.FC = () => {
           activityLevel || storedUserData.state.activityLevel || "",
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Empty dependency array ensures this runs only once
 
   const ProfileEditPageData: ProfileEditPageData[] = [

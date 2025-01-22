@@ -23,9 +23,9 @@ const NavItem: React.FC<{
   Icon: React.ElementType;
 }> = ({ isActive, onClick, label, Icon }) => (
   <div
-    className={`flex h-16 w-16 flex-col items-center justify-center gap-1 rounded-full transition-all duration-300 ${
+    className={`flex h-16 w-16 flex-col items-center justify-center gap-1 rounded-full transition-all duration-200 ${
       isActive
-        ? "translate-y-[-10%] bg-[#2fcb8d] text-white shadow-[0_0_0_12px_#dbfbed]"
+        ? "translate-y-[-10%] bg-[#2fcb8d] text-white shadow-[0_0_0_20px_#dbfbed]"
         : "translate-y-0 text-[#2fcb8d]"
     }`}
     onClick={onClick}
@@ -43,7 +43,7 @@ const BottomNav: React.FC<PBottomNav> = ({ bottomNav, setBottomNav }) => {
   ];
 
   return (
-    <div className="fixed bottom-0 left-0 flex h-20 w-full items-center justify-evenly bg-[#dbfbed]">
+    <div className="fixed bottom-0 left-0 flex h-20 w-full items-center justify-evenly rounded-t-3xl bg-[#dbfbed]">
       {navItems.map(({ id, label, Icon }) => (
         <NavItem
           key={id}

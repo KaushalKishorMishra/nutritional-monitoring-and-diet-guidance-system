@@ -13,6 +13,6 @@ export const getRecommendationByNutrition = async (date: Date) => {
         }
     }
     );
-    const responseData = response.data;
+    const responseData = response.data.payload.recommendation;
     return responseData;
 }

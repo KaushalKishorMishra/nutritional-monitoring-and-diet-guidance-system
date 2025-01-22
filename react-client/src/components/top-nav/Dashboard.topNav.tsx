@@ -18,7 +18,7 @@ const DashboardTopNav: React.FC<PDashboardTopNav> = ({
 }) => {
   const navigate = useNavigate();
   return (
-    <div className="shadow-md p-3 bg-white">
+    <div className="bg-white p-3 shadow-md ">
       <div className="flex items-center justify-between">
         <div className="flex w-1/2 items-center gap-2">
           <img
@@ -27,11 +27,11 @@ const DashboardTopNav: React.FC<PDashboardTopNav> = ({
           />
           {profileRes && (
             <h1
-              className="font-dm-sans font-semibold capitalize hover:cursor-pointer"
+              className="font-dm-sans text-lg font-semibold capitalize hover:cursor-pointer"
               onClick={() => navigate("/user/profile")}
             >
               {" "}
-              {profileRes.name}
+              {profileRes.name.split(" ")[0]}
             </h1>
           )}
         </div>

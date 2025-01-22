@@ -57,13 +57,15 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="relative h-screen bg-white">
-      <div className="mb-20 py-5">
-        <DashboardTopNav
-          profileRes={profileRes}
-          date={date}
-          setDate={setDate}
-          onPage={bottomNav}
-        />
+      <div className="mb-20 ">
+        <div className="sticky top-0 z-10">
+          <DashboardTopNav
+            profileRes={profileRes}
+            date={date}
+            setDate={setDate}
+            onPage={bottomNav}
+          />
+        </div>
         <div>
           {bottomNav === "food" && <FoodList />}
           {bottomNav === "diary" && recommendedIntake && totalIntake && (

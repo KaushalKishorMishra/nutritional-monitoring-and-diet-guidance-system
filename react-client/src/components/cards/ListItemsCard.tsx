@@ -5,7 +5,7 @@ interface PListItemsCard {
   title: string;
   time?: string;
   cal?: string;
-  type?: "dailyIntake" | "food";
+  type?: "dailyIntake" | "foodList";
   desc?: string;
 }
 
