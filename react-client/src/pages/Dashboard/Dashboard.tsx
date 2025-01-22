@@ -8,7 +8,7 @@ import {
   RecommendedIntake,
   TotalIntake,
 } from "../../types/nutrients";
-import FoodList from "../foods/foodList";
+import FoodList from "../foods/FoodList";
 import BottomNav from "../../components/bottom-nav/BottomNav";
 import DashboardTopNav from "../../components/top-nav/Dashboard.topNav";
 import useUserDataStore from "../../hooks/store/userData.store";
@@ -56,8 +56,8 @@ const Dashboard: React.FC = () => {
   }, [date, bottomNav]);
 
   return (
-    <div className="relative h-screen bg-white">
-      <div className="mb-20 ">
+    <div className="h-screen bg-white">
+      <div className="mb-20">
         <div className="sticky top-0 z-10">
           <DashboardTopNav
             profileRes={profileRes}

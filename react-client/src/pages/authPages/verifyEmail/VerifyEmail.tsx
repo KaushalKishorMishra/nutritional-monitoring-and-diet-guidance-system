@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import VerifyEmailForm from "../../../components/forms/verifyEmail/VerifyEmailForm";
 import { verifyEmail } from "../../../api/auth.api";
-import Loading from "../../../components/lodaing/Loading";
+import Loading from "../../../components/loading/Loading";
 import { useNavigate } from "react-router";
 
 const VerifyEmail: React.FC = () => {

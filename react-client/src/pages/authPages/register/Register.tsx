@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import RegisterForm from "../../../components/forms/register/RegisterForm";
 import { register } from "../../../api/auth.api";
-import Loading from "../../../components/lodaing/Loading";
+import Loading from "../../../components/loading/Loading";
 import { useNavigate } from "react-router";
 
 const Register: React.FC = () => {

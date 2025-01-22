@@ -60,11 +60,12 @@ const Modal: React.FC = () => {
             className={`flex h-fit w-screen flex-col bg-base-200 shadow-lg ${
               type === "bottom"
                 ? "fixed bottom-0 left-0 rounded-t-2xl"
-                : "modal-box fixed left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center"
+                : "fixed left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center"
             }`}
           >
+            {/* top draggable notch */}
             {type === "bottom" && (
-              <div className="mt-3 h-1 w-5 self-center bg-base-300 rounded-xl"></div>
+              <div className="mt-3 h-1 w-5 self-center rounded-xl bg-base-300/60"></div>
             )}
 
             {/* Header section */}

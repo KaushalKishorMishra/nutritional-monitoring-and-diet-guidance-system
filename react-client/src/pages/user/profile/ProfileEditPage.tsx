@@ -5,6 +5,11 @@ import { useModalStore } from "../../../hooks/store/modal.store";
 import PopUpForm from "../../../components/forms/popUpForm/PopUpForm";
 import PopUpSelectedField from "../../../components/forms/PopUpSelectedField";
 import useUserDataStore from "../../../hooks/store/userData.store";
+import {
+  capitalizeFirstLetter,
+  formatString,
+} from "../../../utils/randomUtils.utils";
+import ConfirmSaveChanges from "../../../components/modal/confirmation/ConfirmSaveChanges";
 
 interface ProfileEditPageData {
   id: keyof FormValues;
@@ -88,7 +93,7 @@ const ProfileEditPage: React.FC = () => {
       name: "gender",
       required: true,
       type: "dropdown" as const,
-      options: ["Male", "Female", "Other"],
+      options: ["MALE", "FEMALE", "OTHER"],
     },
     {
       type: "dropdown" as const,
@@ -106,6 +111,10 @@ const ProfileEditPage: React.FC = () => {
     },
   ];
 
+  const updateProfile = async () => {
+    console.log("succesfully saved");
+  };
+
   const handleSave = () => {
     try {
       setUserData({
@@ -115,7 +124,12 @@ const ProfileEditPage: React.FC = () => {
         gender: formValues.Gender,
         activityLevel: formValues.ActivityLevel,
       });
-      navigate("/user/profile");
+      openModal(
+        "Save Changes",
+        <ConfirmSaveChanges confirmation={updateProfile} id="Save Changes" navigationPathTo="/user/profile" />,
+        "bottom",
+        true,
+      );
     } catch (error) {
       console.error("Error saving profile data:", error);
     }
@@ -127,7 +141,7 @@ const ProfileEditPage: React.FC = () => {
         <div className="grid grid-cols-3 items-center p-5 font-nunito-sans text-xl font-semibold">
           <IoChevronBack
             className="col-span-1 cursor-pointer"
-            onClick={() => navigate("/user/profile")}
+            onClick={() => navigate("user/profile")}
           />
           <span className="col-span-1 text-center">Edit Profile</span>
         </div>
@@ -150,13 +164,14 @@ const ProfileEditPage: React.FC = () => {
                     ) : (
                       <PopUpSelectedField
                         options={data.options!}
-                        selectedOption={formValues.ActivityLevel}
+                        selectedOption={formValues[data.id]}
                         onChange={(value) =>
                           setFormValues((prevValues) => ({
                             ...prevValues,
                             [data.id]: value,
                           }))
                         }
+                        id={data.id}
                       />
                     )}
                   </>,
@@ -166,7 +181,11 @@ const ProfileEditPage: React.FC = () => {
               }
             >
               <span>{data.label}</span>
-              <span className="text-primary">{formValues[data.id]}</span>
+              <span className="text-primary">
+                {data.type === "dropdown"
+                  ? capitalizeFirstLetter(formatString(formValues[data.id]))
+                  : formValues[data.id]}
+              </span>
             </div>
           ))}
         </div>

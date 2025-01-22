@@ -3,19 +3,25 @@ import {
   capitalizeFirstLetter,
   formatString,
 } from "../../utils/randomUtils.utils";
+import { useModalStore } from "../../hooks/store/modal.store";
 
 interface PPopUpSelectedField {
+  id: string;
   options: string[];
   selectedOption: string;
   onChange: (value: string) => void;
 }
 
 const PopUpSelectedField: React.FC<PPopUpSelectedField> = ({
+  id,
   options,
   selectedOption,
   onChange,
 }) => {
   const [isSelected, setIsSelected] = useState(selectedOption);
+  console.log(selectedOption)
+
+  const { closeModal } = useModalStore();
 
   // Synchronize isSelected state with selectedOption if props change
   useEffect(() => {
@@ -23,7 +29,7 @@ const PopUpSelectedField: React.FC<PPopUpSelectedField> = ({
   }, [selectedOption]);
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center py-5 px-10">
       {options.map((option, index) => (
         <button
           key={index}
@@ -43,7 +49,7 @@ const PopUpSelectedField: React.FC<PPopUpSelectedField> = ({
         className="btn btn-primary mt-4 w-full text-white"
         onClick={() => {
           onChange(isSelected);
-          console.log("Selected Option:", isSelected);
+          closeModal(id);
         }}
       >
         Done

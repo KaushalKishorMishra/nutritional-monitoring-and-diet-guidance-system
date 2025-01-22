@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import LoginForm from "../../../components/forms/login/LoginForm";
 import { useNavigate } from "react-router";
 import { login } from "../../../api/auth.api";
-import Loading from "../../../components/lodaing/Loading";
+import Loading from "../../../components/loading/Loading";
 import useUserDataStore from "../../../hooks/store/userData.store";
 
 const Login: React.FC = () => {
