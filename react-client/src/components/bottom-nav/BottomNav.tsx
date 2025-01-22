@@ -25,7 +25,7 @@ const NavItem: React.FC<{
   <div
     className={`flex h-16 w-16 flex-col items-center justify-center gap-1 rounded-full transition-all duration-300 ${
       isActive
-        ? "translate-y-[-30%] bg-[#2fcb8d] text-white shadow-[0_0_0_12px_#dbfbed]"
+        ? "translate-y-[-10%] bg-[#2fcb8d] text-white shadow-[0_0_0_12px_#dbfbed]"
         : "translate-y-0 text-[#2fcb8d]"
     }`}
     onClick={onClick}

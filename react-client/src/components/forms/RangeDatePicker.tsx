@@ -15,14 +15,9 @@ interface PRangeDatePicker {
       to: Date;
     }>
   >;
-  fetchData: () => void;
 }
 
-const RangeDatePicker: React.FC<PRangeDatePicker> = ({
-  date,
-  setDate,
-  fetchData,
-}) => {
+const RangeDatePicker: React.FC<PRangeDatePicker> = ({ date, setDate }) => {
   const { openModal, closeModal } = useModalStore();
 
   const handleDateChange = (newDate: { from: Date; to: Date }) => {
@@ -36,6 +31,7 @@ const RangeDatePicker: React.FC<PRangeDatePicker> = ({
           <input
             type="text"
             value={
+              
               monthDayYearFormatForAPI(date.from.toISOString()) +
               " - " +
               monthDayYearFormatForAPI(date.to.toISOString())
@@ -86,10 +82,9 @@ const RangeDatePicker: React.FC<PRangeDatePicker> = ({
                     <button
                       className="btn btn-success w-20 text-white"
                       onClick={() => {
-                        fetchData();
-                        // closeModal(
-                        //   `Selected Data: ${monthDayYearFormatForAPI(date.from.toISOString())} - ${monthDayYearFormatForAPI(date.to.toISOString())}`,
-                        // );
+                        closeModal(
+                          `Selected Data: ${monthDayYearFormatForAPI(date.from.toISOString())} - ${monthDayYearFormatForAPI(date.to.toISOString())}`,
+                        );
                       }}
                     >
                       Ok

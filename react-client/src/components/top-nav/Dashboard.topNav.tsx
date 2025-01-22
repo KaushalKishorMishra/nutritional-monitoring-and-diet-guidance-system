@@ -7,16 +7,18 @@ interface PDashboardTopNav {
   profileRes: any;
   date: Date;
   setDate: React.Dispatch<React.SetStateAction<Date>>;
+  onPage: "food" | "report" | "diary";
 }
 
 const DashboardTopNav: React.FC<PDashboardTopNav> = ({
   profileRes,
   date,
   setDate,
+  onPage,
 }) => {
   const navigate = useNavigate();
   return (
-    <div>
+    <div className="shadow-md p-3 bg-white">
       <div className="flex items-center justify-between">
         <div className="flex w-1/2 items-center gap-2">
           <img
@@ -33,9 +35,11 @@ const DashboardTopNav: React.FC<PDashboardTopNav> = ({
             </h1>
           )}
         </div>
-        <div className="w-1/2">
-          <CustomDatePicker date={date} setDate={setDate} />
-        </div>
+        {onPage === "diary" && (
+          <div className="w-1/2">
+            <CustomDatePicker date={date} setDate={setDate} />
+          </div>
+        )}
       </div>
     </div>
   );

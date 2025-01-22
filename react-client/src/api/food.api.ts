@@ -29,3 +29,16 @@ export const searchFoodWithNutritionix = async (query: string) => {
     const responseData = response.data
     return responseData;
 }
+
+export const getFoodByNameFromDataBase = async (query: string) => {
+    const response = await axios.get(
+        `${BACKEND_API_URL}/f/search`,
+        {
+            params: {
+                name: query
+            }
+        }
+    );
+    const responseData = response.data.payload;
+    return responseData;
+}

@@ -4,17 +4,18 @@ import { TUser } from "../../types/user";
 import {
   DailyIntake,
   NutritionResponse,
-  Recommendation,
+  // Recommendation,
   RecommendedIntake,
   TotalIntake,
 } from "../../types/nutrients";
 import FoodList from "../foods/foodList";
 import BottomNav from "../../components/bottom-nav/BottomNav";
 import DashboardTopNav from "../../components/top-nav/Dashboard.topNav";
-import { convertUnits } from "../../utils/randomUtils.utils";
-import NutrientsVisitation from "../../components/visulation/NutrientsVisitation";
-import ListItemsCard from "../../components/cards/ListItemsCard";
 import useUserDataStore from "../../hooks/store/userData.store";
+import DailyIntakeComponent from "../../components/meals/DailyIntake";
+import { MdAdd } from "react-icons/md";
+import { IoAddCircleOutline } from "react-icons/io5";
+import NutrientsVisualization from "../../components/visualization/NutrientsVisualization";
 
 const Dashboard: React.FC = () => {
   const [date, setDate] = useState<Date>(new Date());
@@ -26,7 +27,7 @@ const Dashboard: React.FC = () => {
   const recommendedIntake: RecommendedIntake | null =
     dashboardRes?.recommendedIntake || null;
   const totalIntake: TotalIntake | null = dashboardRes?.totalIntake || null;
-  const recommendation: Recommendation[] = dashboardRes?.recommendation || [];
+  // const recommendation: Recommendation[] = dashboardRes?.recommendation || [];
   const dailyIntake: DailyIntake[] = dashboardRes?.dailyIntakeObj || [];
 
   const [bottomNav, setBottomNav] = useState<"food" | "report" | "diary">(
@@ -37,7 +38,6 @@ const Dashboard: React.FC = () => {
     const fetchProfile = async () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       await getProfile().then((response: any) => {
-        console.log("Profile Response: ", response);
         setUserData({ ...response });
         setProfileRes(response);
       });
@@ -56,8 +56,8 @@ const Dashboard: React.FC = () => {
   }, [date, bottomNav]);
 
   return (
-    <div className="relative h-screen">
-      <div className="mb-20 px-3 py-5">
+    <div className="relative h-screen bg-white">
+      <div className="mb-20 py-5">
         <DashboardTopNav
           profileRes={profileRes}
           date={date}
@@ -67,66 +67,35 @@ const Dashboard: React.FC = () => {
         <div>
           {bottomNav === "food" && <FoodList />}
           {bottomNav === "diary" && recommendedIntake && totalIntake && (
-            <>
-              {/* <FoodVisualization
-              recommendedIntake={recommendedIntake}
-              totalIntake={totalIntake}
-              /> */}
-
+            <div className="px-5">
               {/* custom foods visuals */}
-              <div className="mt-4">
+              <div className="my-4">
                 <h4 className="mb-2 ps-1 text-start font-nunito-sans font-semibold">
                   Nutrients Indicator
+                  {/* -{" "} */}
+                  {/* <span className="text-primary">
+                    {monthDayYearFormatForAPI(date.toDateString())}
+                  </span> */}
                 </h4>
-                <NutrientsVisitation
+                <NutrientsVisualization
                   recommendedIntake={recommendedIntake}
                   totalIntake={totalIntake}
                 />
               </div>
-
-              <div className="collapse collapse-arrow bg-base-200">
-                <input type="radio" name="my-accordion-2" defaultChecked />
-                <div className="collapse-title text-xl font-medium">
-                  <div className="text-lg">Daily Intakes:</div>
-                </div>
-                <div className="collapse-content">
-                  <div className="my-4 flex flex-col gap-4">
-                    {dailyIntake.length === 0 && <p>No Intakes today.</p>}
-                    {dailyIntake.map((intake, index) => (
-                      <div key={index} className="w-full rounded border p-4">
-                        <ListItemsCard
-                          title={intake.Food.name}
-                          cal={convertUnits(intake.Food.calories, "kcl")}
-                        />
-                        <h2 className="mb-2 border-b text-lg font-semibold">
-                          {intake.Food.name}&nbsp;&nbsp;&nbsp;
-                        </h2>
-                        <p>
-                          <strong>Quantity Eaten:</strong>{" "}
-                          {intake.quantity * intake.Food.serving_size}
-                        </p>
-                        <p>
-                          <strong>Serving Size:</strong>{" "}
-                          {convertUnits(intake.Food.serving_size, "g")}
-                        </p>
-                        <p>
-                          <strong>Calories:</strong>{" "}
-                          {convertUnits(intake.Food.calories, "kcal")}
-                        </p>
-                        <p>
-                          <strong>Protein:</strong>{" "}
-                          {convertUnits(intake.Food.protein, "g")}
-                        </p>
-                        <p>
-                          <strong>Total Fat:</strong>{" "}
-                          {convertUnits(intake.Food.total_fat, "g")}
-                        </p>
-                      </div>
-                    ))}
+              <div className="my-4">
+                <div className="flex items-center justify-between text-lg">
+                  <h4 className="mb-1 ps-1 text-start font-nunito-sans font-semibold">
+                    Meal
+                  </h4>
+                  <div className="group transition-all duration-300">
+                    <MdAdd className="mx-3 transition-all duration-300 group-hover:hidden group-hover:opacity-0" />
+                    <IoAddCircleOutline className="mx-3 hidden text-primary opacity-0 transition-all duration-300 group-hover:block group-hover:opacity-100" />
                   </div>
                 </div>
+                <DailyIntakeComponent dailyIntake={dailyIntake} />
               </div>
-              <div className="collapse collapse-arrow mb-20 bg-base-200">
+
+              {/* <div className="collapse collapse-arrow mb-20 bg-base-200">
                 <input type="radio" name="my-accordion-2" />
                 <div className="collapse-title text-xl font-medium">
                   <div className="text-lg">Recommendations</div>
@@ -162,19 +131,7 @@ const Dashboard: React.FC = () => {
                     ))}
                   </div>
                 </div>
-              </div>
-            </>
-          )}
-          {bottomNav === "report" && (
-            <div className="flex flex-col gap-4">
-              <div className="w-full rounded border p-4">
-                <h2 className="mb-2 border-b text-lg font-semibold">
-                  {profileRes?.name}&nbsp;&nbsp;&nbsp;
-                </h2>
-                <p>
-                  <strong>Age:</strong> {profileRes?.age}
-                </p>
-              </div>
+              </div> */}
             </div>
           )}
         </div>

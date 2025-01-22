@@ -2,12 +2,12 @@ import React from "react";
 import { RecommendedIntake, TotalIntake } from "../../types/nutrients";
 import HorizontalProgress from "./HorizontalProgress";
 
-type PNutrientsVisitation = {
+type PNutrientsVisualization = {
   totalIntake: TotalIntake;
   recommendedIntake: RecommendedIntake;
 };
 
-const NutrientsVisitation: React.FC<PNutrientsVisitation> = ({
+const NutrientsVisualization: React.FC<PNutrientsVisualization> = ({
   totalIntake,
   recommendedIntake,
 }) => {
@@ -19,19 +19,19 @@ const NutrientsVisitation: React.FC<PNutrientsVisitation> = ({
           recommended={recommendedIntake.protein}
           color="progress-error"
           name="Protein"
-          />
+        />
         <HorizontalProgress
           total={totalIntake.total_fat}
           recommended={recommendedIntake.total_fat}
           color="progress-warning"
           name="Fat"
-          />
+        />
         <HorizontalProgress
           total={totalIntake.carbohydrate}
           recommended={recommendedIntake.carbohydrate}
           color="progress-accent"
           name="Carbs"
-          />
+        />
       </div>
       <HorizontalProgress
         total={totalIntake.calories}
@@ -43,4 +43,4 @@ const NutrientsVisitation: React.FC<PNutrientsVisitation> = ({
   );
 };
 
-export default NutrientsVisitation;
+export default NutrientsVisualization;
