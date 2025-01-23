@@ -18,7 +18,7 @@ const DashboardTopNav: React.FC<PDashboardTopNav> = ({
 }) => {
   const navigate = useNavigate();
   return (
-    <div className="bg-white p-3 shadow-md ">
+    <div className="bg-base-100 p-3 shadow-md ">
       <div className="flex items-center justify-between">
         <div className="flex w-1/2 items-center gap-2">
           <img

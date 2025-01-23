@@ -20,7 +20,6 @@ interface TUserDataState {
     setUserData: (userData: Partial<TUser>) => void;
     getUserData: () => Partial<TUser>;
     setLoggedIn: (loggedIn: boolean) => void;
-    resetUserDataFromLocalStorage: () => void;
     clearUserData: () => void;
 }
 
@@ -99,32 +98,13 @@ const useUserDataStore = create<TUserDataState>()(
                     bmi: 0,
                     loggedIn: false,
                 })),
-            resetUserDataFromLocalStorage: () => {
-                try {
-                    const storedData = localStorage.getItem("user-data");
-                    if (storedData) {
-                        const parsedData = JSON.parse(storedData);
-
-                        // Validate that the parsedData has a "state" key with the expected structure
-                        if (parsedData && typeof parsedData === "object" && "state" in parsedData) {
-                            set(() => ({
-                                ...parsedData.state,
-                                loggedIn: true,
-                            }));
-                        } else {
-                            console.warn("Invalid structure in stored user data.");
-                        }
-                    } else {
-                        console.info("No user data found in local storage.");
-                    }
-                } catch (error) {
-                    console.error("Failed to load user data from localStorage:", error);
-                }
-            },
         }),
         {
             name: "user-data",
             storage: createJSONStorage(() => localStorage),
+            onRehydrateStorage: () => (state) => {
+                console.log('Rehydrated state:', state);
+            },
         }
     )
 );

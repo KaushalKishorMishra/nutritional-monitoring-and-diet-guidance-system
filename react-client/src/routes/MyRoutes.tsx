@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router";
 import { Suspense, lazy } from "react";
 
 // layout imports
-import PublicLayout from "../components/layouts/Publiclayout";
+import PublicLayout from "../components/layouts/Public.layout";
 import AuthLayout from "../components/layouts/Auth.layout";
 import { ROUTES } from "../constants/constants";
 import Loading from "../components/loading/Loading";

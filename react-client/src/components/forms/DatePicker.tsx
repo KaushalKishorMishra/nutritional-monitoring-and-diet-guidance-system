@@ -24,15 +24,15 @@ const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
     <div className="mx-auto">
       <div className="">
         {/* Display selected date */}
-        <div className="relative">
+        <div className="relative bg-base-100">
           <input
             type="text"
             value={monthDayYearFormatForAPI(date.toISOString())}
             readOnly
-            className="w-full rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+            className="w-full rounded-md bg-base-100 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
           />
           <IoCalendar
-            className="absolute right-0 top-2 transform cursor-pointer text-2xl text-primary"
+            className="absolute right-0 top-2 transform cursor-pointer text-2xl text-primary me-3"
             onClick={() => {
               openModal(
                 `Selected Data: ${monthDayYearFormatForAPI(date.toISOString())}`,
@@ -42,7 +42,7 @@ const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
                   onDayClick={handleDateChange}
                   captionLayout="dropdown"
                   weekStartsOn={1}
-                  className="h-1/2 !w-full rounded-xl bg-white shadow-xl"
+                  className="h-1/2 !w-full rounded-xl shadow-xl"
                   dir="ltr"
                   onSelect={() => {
                     closeModal(
