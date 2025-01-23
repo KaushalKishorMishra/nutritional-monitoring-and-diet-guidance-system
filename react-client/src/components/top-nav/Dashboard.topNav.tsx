@@ -7,35 +7,39 @@ interface PDashboardTopNav {
   profileRes: any;
   date: Date;
   setDate: React.Dispatch<React.SetStateAction<Date>>;
+  onPage: "food" | "report" | "diary";
 }
 
 const DashboardTopNav: React.FC<PDashboardTopNav> = ({
   profileRes,
   date,
   setDate,
+  onPage,
 }) => {
   const navigate = useNavigate();
   return (
-    <div>
+    <div className="bg-white p-3 shadow-md ">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
+        <div className="flex w-1/2 items-center gap-2">
           <img
             src="/apple.svg"
             className="aspect-square w-12 rounded-full border-2 p-1"
           />
           {profileRes && (
             <h1
-              className="font-dm-sans font-semibold capitalize hover:cursor-pointer"
+              className="font-dm-sans text-lg font-semibold capitalize hover:cursor-pointer"
               onClick={() => navigate("/user/profile")}
             >
               {" "}
-              {profileRes.name}
+              {profileRes.name.split(" ")[0]}
             </h1>
           )}
         </div>
-        <div>
-          <CustomDatePicker date={date} setDate={setDate} />
-        </div>
+        {onPage === "diary" && (
+          <div className="w-1/2">
+            <CustomDatePicker date={date} setDate={setDate} />
+          </div>
+        )}
       </div>
     </div>
   );

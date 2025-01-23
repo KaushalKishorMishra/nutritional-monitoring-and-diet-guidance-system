@@ -8,12 +8,8 @@ export type TFoodMinimal = {
   cholesterol: string;
   protein: string;
   fiber: string;
-  sugars: string;
   sodium: string;
-  vitamin_d: string;
   calcium: string;
-  iron: string;
-  caffeine: string;
 };
 
 export type TFoodRecommendationNutrients = {
@@ -23,10 +19,11 @@ export type TFoodRecommendationNutrients = {
   cholesterol: number;
   protein: number;
   fiber: number;
-  sugars: number;
   sodium: number;
-  vitamin_d: number;
   calcium: number;
-  iron: number;
-  caffeine: number;
 };
+
+export type TRecommendedFoodListFromNutrition = {
+  food: TFoodMinimal;
+  score: number;
+}

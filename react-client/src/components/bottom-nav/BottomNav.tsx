@@ -1,37 +1,58 @@
 import React from "react";
-import { FaRegUser } from "react-icons/fa";
+import { FaChartPie } from "react-icons/fa";
 import { LuApple } from "react-icons/lu";
 import { VscGraph } from "react-icons/vsc";
 
 interface PBottomNav {
   bottomNav: string;
-  setBottomNav: React.Dispatch<React.SetStateAction<string>>;
+  setBottomNav: React.Dispatch<
+    React.SetStateAction<"food" | "report" | "diary">
+  >;
 }
 
+interface NavItem {
+  id: "food" | "diary" | "report";
+  label: string;
+  Icon: React.ElementType;
+}
+
+const NavItem: React.FC<{
+  isActive: boolean;
+  onClick: () => void;
+  label: string;
+  Icon: React.ElementType;
+}> = ({ isActive, onClick, label, Icon }) => (
+  <div
+    className={`flex h-16 w-16 flex-col items-center justify-center gap-1 rounded-full transition-all duration-200 ${
+      isActive
+        ? "translate-y-[-10%] bg-[#2fcb8d] text-white shadow-[0_0_0_16px_#dbfbed]"
+        : "translate-y-0 text-[#2fcb8d]"
+    }`}
+    onClick={onClick}
+  >
+    <Icon className={`text-xl font-bold`} />
+    <span className="text-sm font-bold">{label}</span>
+  </div>
+);
+
 const BottomNav: React.FC<PBottomNav> = ({ bottomNav, setBottomNav }) => {
+  const navItems: NavItem[] = [
+    { id: "food", label: "Food", Icon: LuApple },
+    { id: "diary", label: "Diary", Icon: FaChartPie },
+    { id: "report", label: "Report", Icon: VscGraph },
+  ];
+
   return (
-    <div className="fixed bottom-0 left-0 flex h-20 w-full flex-row items-center justify-evenly bg-[#dbfbed]">
-      <div
-        className={`flex h-16 w-16 flex-col items-center justify-center gap-1 rounded-full ${bottomNav === "food" ? "bg-[#2fcb8d] text-white" : "text-[#2fcb8d]"}`}
-        onClick={() => setBottomNav("food")}
-      >
-        <LuApple className="text-xl font-bold" />
-        <span className="text-sm font-bold">Food</span>
-      </div>
-      <div
-        className={`flex h-16 w-16 flex-col items-center justify-center gap-1 rounded-full ${bottomNav === "report" ? "bg-[#2fcb8d] text-white" : "text-[#2fcb8d]"}`}
-        onClick={() => setBottomNav("report")}
-      >
-        <VscGraph className="text-xl font-bold" />
-        <span className="text-sm font-bold">Reports</span>
-      </div>
-      <div
-        className={`flex h-16 w-16 flex-col items-center justify-center gap-1 rounded-full ${bottomNav === "profile" ? "bg-[#2fcb8d] text-white" : "text-[#2fcb8d]"}`}
-        onClick={() => setBottomNav("profile")}
-      >
-        <FaRegUser className="text-xl font-bold" />
-        <span className="text-sm font-bold">Profile</span>
-      </div>
+    <div className="fixed bottom-0 left-0 flex h-20 w-full items-center justify-evenly gap-3 rounded-t-3xl bg-[#dbfbed]">
+      {navItems.map(({ id, label, Icon }) => (
+        <NavItem
+          key={id}
+          isActive={bottomNav === id}
+          onClick={() => setBottomNav(id)}
+          label={label}
+          Icon={Icon}
+        />
+      ))}
     </div>
   );
 };

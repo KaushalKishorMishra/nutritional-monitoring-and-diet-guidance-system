@@ -1,4 +1,4 @@
-export type User = {
+export type TUser = {
     id: string;
     name: string;
     email: string;
@@ -9,7 +9,10 @@ export type User = {
     age: number;
     weight: number;
     height: number;
-    activityLevel: "SEDENTARY" | "LIGHTLY_ACTIVE" | "MODERATELY_ACTIVE" | "VERY_ACTIVE"; // Adjust if needed
+    activityLevel: 'SEDENTARY' | 'LIGHTLY_ACTIVE' | 'MODERATELY_ACTIVE' | 'VERY_ACTIVE' | 'SUPER_ACTIVE'; // Adjust if needed
     calorieGoal: number;
     createdAt: string; // You could also use Date if you're working with Date objects
+    updatedAt: string; // ISO date string
+    calorie: number;
+    bmi: number;
 };

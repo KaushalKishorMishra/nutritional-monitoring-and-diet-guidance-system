@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import LoginForm from "../../../components/forms/login/LoginForm";
 import { useNavigate } from "react-router";
 import { login } from "../../../api/auth.api";
-import Loading from "../../../components/lodaing/Loading";
+import Loading from "../../../components/loading/Loading";
+import useUserDataStore from "../../../hooks/store/userData.store";
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -10,6 +11,8 @@ const Login: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+
+  const { setUserData } = useUserDataStore();
 
   const [loginFormValues, setLoginFormValues] = useState({
     email: localStorage.getItem("email") || "",
@@ -24,15 +27,18 @@ const Login: React.FC = () => {
     setSuccessMessage(null);
 
     try {
-      const response = await login(
-        loginFormValues.email,
-        loginFormValues.password,
-      );
-
-      localStorage.setItem("token", response.token);
-
-      setSuccessMessage("Logged in successful!");
-      navigate("/user/dashboard");
+      await login(loginFormValues.email, loginFormValues.password)
+        .then((response) => {
+          setUserData({ ...response.payload });
+          setSuccessMessage("Logged in successful!");
+          navigate("/user/dashboard");
+        })
+        .catch((err) => {
+          setError(
+            err?.response?.data?.message ||
+              "An error occurred. Please try again.",
+          );
+        });
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {

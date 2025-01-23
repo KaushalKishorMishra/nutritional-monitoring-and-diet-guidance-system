@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import InputField from "../InputField";
 import { reSendToken } from "../../../api/auth.api";
-import Loading from "../../lodaing/Loading";
+import Loading from "../../loading/Loading";
 
 interface PVerifyEmailForm {
   verifyEmailFormValues: {

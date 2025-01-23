@@ -19,3 +19,7 @@ export const monthDayYearTimeFormat = (date: string) => {
 export const monthDayYearFormatForAPI = (date: string) => {
     return dayjs(date).format('YYYY-MM-DD')
 }
+
+export const timeOnlyFormat = (date: string | Date ) => {
+    return dayjs(date).format('h:mm A')
+}

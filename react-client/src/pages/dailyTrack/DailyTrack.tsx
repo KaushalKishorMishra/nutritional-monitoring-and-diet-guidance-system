@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import AddFoodIntakeForm from "../../components/forms/addFoodIntake/AddFoodIntakeForm";
 import { addFoodIntake } from "../../api/user.api";
-import Loading from "../../components/lodaing/Loading";
+import Loading from "../../components/loading/Loading";
 
 const DailyTrack: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -12,6 +12,7 @@ const DailyTrack: React.FC = () => {
     foodName: "",
     quantity: "",
     date: new Date(),
+    mealTime: "BREAKFAST",
   });
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -28,6 +29,7 @@ const DailyTrack: React.FC = () => {
         foodIntakeFormValues.foodName,
         parseInt(foodIntakeFormValues.quantity, 10),
         foodIntakeFormValues.date,
+        mealTime,
       );
 
       setSuccessMessage("Food intake added successfully!");
