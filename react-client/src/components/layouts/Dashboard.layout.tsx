@@ -18,7 +18,7 @@ const RootLayout: React.FC<PRootLayout> = ({ children, setTheme, theme }) => {
           className={`btn btn-primary hidden rounded-badge border-none ${
             theme === "customLight"
               ? "bg-black text-white"
-              : "bg-white text-black"
+              : "bg-base-100 text-black"
           } p-2`}
         >
           {theme === "customLight" ? "Light" : "Dark"}

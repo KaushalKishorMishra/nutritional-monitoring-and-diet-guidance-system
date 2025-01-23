@@ -33,7 +33,7 @@ const Pagination: React.FC<IPaginationProps> = ({
     <div className="flex items-center justify-between border-t border-gray-200 px-4 py-3 sm:px-6">
       <div className="flex flex-1 justify-between sm:hidden">
         <span
-          className={`relative inline-flex items-center rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 ${pagination?.currentPage === 1 ? "cursor-not-allowed bg-gray-100" : "cursor-pointer bg-white"}`}
+          className={`relative inline-flex items-center rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 ${pagination?.currentPage === 1 ? "cursor-not-allowed bg-gray-100" : "cursor-pointer bg-base-100"}`}
           onClick={() => {
             if (pagination?.currentPage > 1) {
               setCurrentPage(pagination?.currentPage - 1);
@@ -43,7 +43,7 @@ const Pagination: React.FC<IPaginationProps> = ({
           Previous
         </span>
         <span
-          className={`relative ml-3 inline-flex items-center rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 ${pagination?.currentPage === pagination?.totalPages ? "cursor-not-allowed bg-gray-100" : "cursor-pointer bg-white"}`}
+          className={`relative ml-3 inline-flex items-center rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 ${pagination?.currentPage === pagination?.totalPages ? "cursor-not-allowed bg-gray-100" : "cursor-pointer bg-base-100"}`}
           onClick={() => {
             if (pagination?.currentPage < pagination?.totalPages) {
               setCurrentPage(pagination?.currentPage + 1);
@@ -80,7 +80,7 @@ const Pagination: React.FC<IPaginationProps> = ({
             className="isolate inline-flex -space-x-px rounded-md shadow-sm"
           >
             <span
-              className={`relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 ${pagination?.currentPage === 1 ? "cursor-not-allowed bg-gray-100" : "cursor-pointer bg-white"}`}
+              className={`relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 ${pagination?.currentPage === 1 ? "cursor-not-allowed bg-gray-100" : "cursor-pointer bg-base-100"}`}
               onClick={() => {
                 if (pagination?.currentPage > 1) {
                   setCurrentPage(pagination?.currentPage - 1);
@@ -94,7 +94,7 @@ const Pagination: React.FC<IPaginationProps> = ({
               {pagination?.currentPage}
             </span>
             <span
-              className={`relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 ${pagination?.currentPage === pagination?.totalPages ? "cursor-not-allowed bg-gray-100" : "cursor-pointer bg-white"}`}
+              className={`relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 ${pagination?.currentPage === pagination?.totalPages ? "cursor-not-allowed bg-gray-100" : "cursor-pointer bg-base-100"}`}
               onClick={() => {
                 if (pagination?.currentPage < pagination?.totalPages) {
                   setCurrentPage(pagination?.currentPage + 1);

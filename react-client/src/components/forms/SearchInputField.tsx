@@ -104,7 +104,7 @@ const SearchInputField = <T,>({
       ) : (
         !loading &&
         debouncedValue && (
-          <p className="w-full bg-white py-5 text-center font-bold">
+          <p className="w-full bg-base-100 py-5 text-center font-bold">
             No results found
           </p>
         )

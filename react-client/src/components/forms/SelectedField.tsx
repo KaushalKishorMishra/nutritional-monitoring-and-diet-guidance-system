@@ -13,7 +13,7 @@ const SelectedField: React.FC<PSelectedField> = ({
   onChange,
 }) => {
   return (
-    <div className="flex flex-col items-center justify-center bg-white">
+    <div className="flex flex-col items-center justify-center bg-base-100">
       {options.map((option, index) => (
         <button
           key={index}

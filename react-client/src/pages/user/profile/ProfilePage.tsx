@@ -18,11 +18,9 @@ import useUserDataStore from "../../../hooks/store/userData.store";
 const ProfilePage: React.FC = () => {
   const { setTheme, theme } = useAppSettingsStore();
   const navigate = useNavigate();
-  const { name, email } = useUserDataStore();
+  const { name, email, calorie } = useUserDataStore();
 
-  console.log(name, email);
-
-  const intakeCalories = 3000;
+  const intakeCalories = calorie.toFixed(2);
 
   return (
     <div className="flex h-screen flex-col justify-between">
@@ -50,11 +48,11 @@ const ProfilePage: React.FC = () => {
             Me
             <IoChevronBack className="rotate-180" />
           </div>
-          <div className="flex justify-between rounded-lg bg-[#dbfbed] px-5 py-3">
+          <div className="flex justify-between rounded-lg bg-secondary px-5 py-3">
             Calorie Intake{" "}
             <span className="text-primary">{intakeCalories} Cal</span>
           </div>
-          <div className="flex justify-between rounded-lg bg-[#dbfbed] px-5 py-3">
+          <div className="flex justify-between rounded-lg bg-secondary px-5 py-3">
             Weight Unit<span className="text-primary">Kilograms</span>
           </div>
         </div>
@@ -62,11 +60,6 @@ const ProfilePage: React.FC = () => {
         <div className="flex flex-col gap-5 px-5 font-dm-sans text-xl">
           <div className="flex items-center justify-between">
             <span className="flex items-center gap-5">
-              {/* {theme === Theme.Light ? (
-              <CiSun className="text-primary" />
-            ) : (
-              <MdOutlineDarkMode className="text-primary" />
-            )} */}
               <CgDarkMode className="text-2xl text-primary" />
               {theme === Theme.Light ? "Light" : "Dark"}
             </span>

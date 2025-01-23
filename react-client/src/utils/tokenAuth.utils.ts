@@ -1,4 +1,6 @@
-export const isValidToken = (): boolean => {
+import { toast } from "react-toastify";
+
+export const isAuthenticated = (): boolean => {
     const userData = localStorage.getItem('user-data');
     const token = userData ? JSON.parse(userData)?.state?.token : null;
 
@@ -14,7 +16,6 @@ export const isValidToken = (): boolean => {
 
         // Base64 decode the payload
         const decoded = JSON.parse(atob(payload)); // Decode base64 to JSON
-        console.log(token, decoded)
 
         // Extract the expiration (exp) time and compare with current time
         const expDate = decoded.exp * 1000; // `exp` is in seconds
@@ -22,10 +23,13 @@ export const isValidToken = (): boolean => {
 
         // Check if the token has expired
         if (currentDate > expDate) {
+            localStorage.removeItem('user-data');
+            toast.error('Token has expired. Please login again.');
             return false; // Token has expired
         }
     } catch (error) {
-        console.log(error)
+        localStorage.removeItem('user-data');
+        toast.error(`Invalid token. Please login again. ${error}`);
         return false;
     }
 

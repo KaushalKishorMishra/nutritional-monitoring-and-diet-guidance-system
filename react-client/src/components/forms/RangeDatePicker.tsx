@@ -53,7 +53,7 @@ const RangeDatePicker: React.FC<PRangeDatePicker> = ({ date, setDate }) => {
                     onDayClick={() => handleDateChange}
                     captionLayout="dropdown"
                     weekStartsOn={1}
-                    className="h-1/2 !w-full rounded-xl bg-white shadow-xl"
+                    className="h-1/2 !w-full rounded-xl bg-base-100 shadow-xl"
                     dir="ltr"
                     classNames={{
                       today: `text-primary`, // Add a border to today's date

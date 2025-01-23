@@ -20,7 +20,7 @@ const PopUpInputField: React.FC<PopUpInputField> = ({
   required,
 }) => {
   return (
-    <div className="input-container border-b-2 border-primary bg-white rounded-t-2xl">
+    <div className="input-container border-b-2 border-primary bg-base-100 rounded-t-2xl">
       {label && <label htmlFor={id}>{label}</label>}
       <input
         type={type}

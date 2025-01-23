@@ -36,7 +36,7 @@ const NutrientProgress = ({
         className="flex flex-col items-center justify-center gap-2"
       >
         <div
-          className="radial-progress bg-[#dbfbed] text-primary"
+          className="radial-progress bg-secondary text-primary"
           style={
             {
               "--value": Math.min(value, 100),
