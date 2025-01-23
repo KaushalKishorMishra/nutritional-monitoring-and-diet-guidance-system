@@ -44,9 +44,9 @@ const LoginForm: React.FC<PLoginForm> = ({
   // Helper function to handle input changes
   const handleChange =
     (field: keyof typeof loginFormValues) =>
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setLoginFromValues((prev) => ({ ...prev, [field]: e.target.value }));
-    };
+      (e: React.ChangeEvent<HTMLInputElement>) => {
+        setLoginFromValues((prev) => ({ ...prev, [field]: e.target.value }));
+      };
 
   return (
     <form onSubmit={onSubmit} className="form-container">
@@ -81,7 +81,7 @@ const LoginForm: React.FC<PLoginForm> = ({
           </p>
           <p className="text-center font-dm-sans text-[#6e7179]">
             <span
-              onClick={() => navigate("/register")}
+              onClick={() => navigate("/forgot-password")}
               className="px-2 text-primary underline-offset-2 hover:underline"
             >
               Forgot Password?{" "}
