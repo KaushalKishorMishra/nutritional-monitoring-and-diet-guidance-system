@@ -57,8 +57,16 @@ export const resetPassword = async (email: string, token: string, password: stri
     return response.data;
 };
 
-export const logout = async () => {
-    const response = await axios.post(`${BACKEND_API_URL}/logout`);
-
-    return response.data;
+export const logout = (): Promise<boolean> => {
+    return new Promise((resolve, reject) => {
+        try {
+            // Simulate an asynchronous operation with a delay
+            setTimeout(() => {
+                localStorage.removeItem("user-data");
+                resolve(true);
+            }, 1000);
+        } catch (error) {
+            reject(new Error(`Failed to logout. ${error}`));
+        }
+    });
 };

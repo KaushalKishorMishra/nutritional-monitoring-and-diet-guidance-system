@@ -15,11 +15,10 @@ const RootLayout: React.FC<PRootLayout> = ({ children, setTheme, theme }) => {
               prev === "customLight" ? "customDark" : "customLight",
             )
           }
-          className={`btn btn-primary hidden rounded-badge border-none ${
-            theme === "customLight"
+          className={`btn btn-primary hidden rounded-badge border-none ${theme === "customLight"
               ? "bg-black text-white"
               : "bg-base-100 text-black"
-          } p-2`}
+            } p-2`}
         >
           {theme === "customLight" ? "Light" : "Dark"}
         </button>

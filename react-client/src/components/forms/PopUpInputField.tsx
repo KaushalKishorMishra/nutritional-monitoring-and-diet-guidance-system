@@ -20,16 +20,17 @@ const PopUpInputField: React.FC<PopUpInputField> = ({
   required,
 }) => {
   return (
-    <div className="input-container border-b-2 border-primary bg-base-100 rounded-t-2xl">
+    <div className="input-container border-b-2 border-primary bg-base-100 rounded-t-2xl !w-32">
       {label && <label htmlFor={id}>{label}</label>}
       <input
-        type={type}
+        type="text"
+        typeof={type}
         id={id}
         name={name}
         required={required}
         value={value}
         onChange={onChange}
-        className="border-none w-full focus:outline-none"
+        className="border-none w-full text-center focus:outline-none"
       />
     </div>
   );

@@ -14,6 +14,8 @@ import { IoMdInformationCircleOutline } from "react-icons/io";
 
 import packageJson from "../../../../package.json";
 import useUserDataStore from "../../../hooks/store/userData.store";
+import { logout } from "../../../api/auth.api";
+import { toast } from "react-toastify";
 
 const ProfilePage: React.FC = () => {
   const { setTheme, theme } = useAppSettingsStore();
@@ -85,13 +87,20 @@ const ProfilePage: React.FC = () => {
             <MdOutlineSettings className="text-2xl text-primary" />
             Setting
           </div>
-          <div className="flex items-center gap-5">
+          <div className="flex items-center gap-5" onClick={() => {
+            logout().then(() => {
+              toast.success("Logged out successfully")
+              navigate("/login")
+            }).catch((err) => {
+              toast.error(err.message)
+            })
+          }}>
             <MdOutlineLogout className="text-2xl text-primary" />
             Log Out
           </div>
         </div>
       </div>
-      <div className="py-8 text-center font-nunito-sans text-lg font-semibold text-base-300">
+      <div className={`py-8 text-center font-nunito-sans font-bold text-lg ${theme === Theme.Light ? "text-black/50" : "text-white/50"}`}>
         Version {packageJson.version}
       </div>
     </div>

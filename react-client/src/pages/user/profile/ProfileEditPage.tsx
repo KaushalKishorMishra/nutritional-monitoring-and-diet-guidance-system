@@ -22,6 +22,7 @@ interface ProfileEditPageData {
   required: boolean;
   type: string;
   options?: string[];
+  unit?: string;
 }
 
 export interface FormValues {
@@ -77,6 +78,7 @@ const ProfileEditPage: React.FC = () => {
       name: "age",
       required: true,
       type: "number",
+      unit: "years",
     },
     {
       id: "Height",
@@ -84,6 +86,7 @@ const ProfileEditPage: React.FC = () => {
       name: "height",
       required: true,
       type: "number",
+      unit: "cm",
     },
     {
       id: "Weight",
@@ -91,6 +94,7 @@ const ProfileEditPage: React.FC = () => {
       name: "weight",
       required: true,
       type: "number",
+      unit: "kg",
     },
     {
       id: "Gender",
@@ -212,6 +216,9 @@ const ProfileEditPage: React.FC = () => {
                 {data.type === "dropdown"
                   ? capitalizeFirstLetter(formatString(formValues[data.id]))
                   : formValues[data.id]}
+                <span>
+                  {data.unit && ` ${data.unit}`}
+                </span>
               </span>
             </div>
           ))}

@@ -56,7 +56,7 @@ const Dashboard: React.FC = () => {
   }, [date, bottomNav]);
 
   return (
-    <div className="h-screen bg-base-100">
+    <div className="min-h-screen bg-base-100">
       <div className="mb-20">
         <div className="sticky top-0 z-10">
           <DashboardTopNav
