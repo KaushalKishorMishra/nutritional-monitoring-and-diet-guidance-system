@@ -5,6 +5,26 @@ import { NutritionResponse } from "../types/nutrients";
 // import { TUserFoodIntakeWithFood } from "../types/userFoodIntake";
 // import { TFoodMinimal, TFoodRecommendationNutrients } from "../types/food";
 
+export const updateUserDetails = async (data: {
+  gender: string;
+  weight: string;
+  height: string;
+  age: string;
+  activityLevel: string;
+}) => {
+  const token = JSON.parse(localStorage.getItem("user-data")!).state.token
+  const response = await axios.put(`${BACKEND_API_URL}/user/update`, {
+    ...data,
+
+  }, {
+    headers: {
+      "Authorization": `Bearer ${token}`
+    }
+  });
+
+  return response.data;
+}
+
 export const getProfile = async () => {
   const token = JSON.parse(localStorage.getItem("user-data")!).state.token;
   const response = await axios.get(`${BACKEND_API_URL}/user/profile`, {

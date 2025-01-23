@@ -9,7 +9,11 @@ import {
   capitalizeFirstLetter,
   formatString,
 } from "../../../utils/randomUtils.utils";
-import ConfirmSaveChanges from "../../../components/modal/confirmation/ConfirmSaveChanges";
+import ConfirmSaveChangesModal from "../../../components/modal/confirmation/ConfirmSaveChangesModal";
+import { updateUserDetails } from "../../../api/user.api";
+import { useLoadingStore } from "../../../hooks/store/loading.store";
+import Loading from "../../../components/loading/Loading";
+import { toast } from "react-toastify";
 
 interface ProfileEditPageData {
   id: keyof FormValues;
@@ -26,16 +30,17 @@ export interface FormValues {
   Weight: string;
   Gender: "MALE" | "FEMALE" | "OTHER";
   ActivityLevel:
-    | "SEDENTARY"
-    | "LIGHTLY_ACTIVE"
-    | "MODERATELY_ACTIVE"
-    | "VERY_ACTIVE"
-    | "SUPER_ACTIVE";
+  | "SEDENTARY"
+  | "LIGHTLY_ACTIVE"
+  | "MODERATELY_ACTIVE"
+  | "VERY_ACTIVE"
+  | "SUPER_ACTIVE";
 }
 
 const ProfileEditPage: React.FC = () => {
   const navigate = useNavigate();
-  const { openModal } = useModalStore();
+  const { openModal, closeModal } = useModalStore();
+  const { loading, setLoading } = useLoadingStore();
 
   const { age, height, weight, gender, activityLevel, setUserData } =
     useUserDataStore();
@@ -112,7 +117,25 @@ const ProfileEditPage: React.FC = () => {
   ];
 
   const updateProfile = async () => {
-    console.log("succesfully saved");
+    try {
+      setLoading(true);
+      await updateUserDetails({
+        age: formValues.Age,
+        height: formValues.Height,
+        weight: formValues.Weight,
+        gender: formValues.Gender,
+        activityLevel: formValues.ActivityLevel,
+      }).then(() => {
+        closeModal("Save Changes");
+        toast.success("Profile updated successfully!");
+      });
+    } catch (error) {
+      closeModal("Save Changes");
+      console.error("Error updating profile:", error);
+    }
+    finally {
+      setLoading(false);
+    }
   };
 
   const handleSave = () => {
@@ -126,8 +149,11 @@ const ProfileEditPage: React.FC = () => {
       });
       openModal(
         "Save Changes",
-        <ConfirmSaveChanges confirmation={updateProfile} id="Save Changes" navigationPathTo="/user/profile" />,
-        "bottom",
+        <ConfirmSaveChangesModal
+          confirmation={updateProfile}
+          id="Save Changes"
+        />,
+        "center",
         true,
       );
     } catch (error) {
@@ -137,11 +163,12 @@ const ProfileEditPage: React.FC = () => {
 
   return (
     <div className="flex h-screen flex-col justify-between pb-5">
+      {loading && <Loading />}
       <div className="flex h-screen flex-col gap-5">
         <div className="grid grid-cols-3 items-center p-5 font-nunito-sans text-xl font-semibold">
           <IoChevronBack
             className="col-span-1 cursor-pointer"
-            onClick={() => navigate("user/profile")}
+            onClick={() => navigate("/user/profile")}
           />
           <span className="col-span-1 text-center">Edit Profile</span>
         </div>

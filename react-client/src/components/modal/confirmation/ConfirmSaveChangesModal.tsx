@@ -1,48 +1,41 @@
 import React from "react";
 import { useModalStore } from "../../../hooks/store/modal.store";
-import { useNavigate } from "react-router";
 
-type PConfirmSaveChanges = {
+type PConfirmSaveChangesModal = {
   confirmation: () => void;
   id: string;
-  navigationPathTo: string;
 };
 
-const ConfirmSaveChanges: React.FC<PConfirmSaveChanges> = ({
+const ConfirmSaveChangesModal: React.FC<PConfirmSaveChangesModal> = ({
   confirmation,
   id,
-  navigationPathTo,
 }) => {
-  const navigate = useNavigate();
   const { closeModal } = useModalStore();
 
-  console.log(navigationPathTo);
-
   return (
-    <div>
-      <p>Are you sure you want to save these changes?</p>
+    <div className="py-3">
+      <p className="">Are you sure you want to save these changes?</p>
       <div className="mt-5 flex justify-end gap-3">
         <button
-          className="btn btn-primary"
-          onClick={() => {
-            confirmation();
-            closeModal(id);
-            navigate("user/profile");
-          }}
-        >
-          Save
-        </button>
-        <button
-          className="btn btn-primary"
+          className="btn btn-outline btn-error"
           onClick={() => {
             closeModal(id);
           }}
         >
           Cancel
         </button>
+        <button
+          className="btn btn-primary hover:bg-primary-dark"
+          onClick={() => {
+            confirmation();
+            closeModal(id);
+          }}
+        >
+          Save
+        </button>
       </div>
     </div>
   );
 };
 
-export default ConfirmSaveChanges;
+export default ConfirmSaveChangesModal;

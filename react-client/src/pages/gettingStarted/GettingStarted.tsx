@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import useGettingStartedStore from "../../hooks/store/gettingStarted.store";
 import GettingStartedForm from "../../components/forms/gettingStarted/GettingStartedForm";
-import { gettingStarted } from "../../api/gettingStarted.api";
 import { useNavigate } from "react-router";
+import { updateUserDetails } from "../../api/user.api";
 
 const GettingStarted: React.FC = () => {
   const { getAllData, clearAllData } = useGettingStartedStore();
@@ -15,12 +15,6 @@ const GettingStarted: React.FC = () => {
   const onSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const data = getAllData();
-    console.log(data); // Log the data for debugging purposes
-
-    // Assume userId is a part of the data
-    const userId: string = localStorage.getItem("userId") as string;
-
-    // Reset previous messages
     setError(null);
     setSuccessMessage(null);
 
@@ -29,7 +23,7 @@ const GettingStarted: React.FC = () => {
       setLoading(true);
 
       // Call the gettingStarted API function
-      const response = await gettingStarted(userId, data);
+      const response = await updateUserDetails(data);
       console.log("API response:", response);
 
       // Set success message
