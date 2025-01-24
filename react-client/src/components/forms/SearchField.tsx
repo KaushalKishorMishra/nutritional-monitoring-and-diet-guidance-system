@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Loading from "../loading/Loading";
 
 interface SearchFieldProps<T> {
   label?: string;
@@ -72,7 +73,7 @@ const SearchField = <T,>({
         onChange={onChange}
         placeholder="Search..."
       />
-      {loading && <p>Loading...</p>}
+      {loading && <p><Loading /></p>}
       {results.length > 0 && (
         <ul
           className="search-results mt-4 max-h-60 overflow-y-auto"

@@ -6,6 +6,8 @@ export const ROUTES = {
         verifyEmail: "/verify-email",
         welcome: "/welcome",
         gettingStarted: "/getting-started",
+        forgotPassword: "/forgot-password",
+        passwordReset: "/reset-password",
     },
     auth: {
         profile: "/user/profile",

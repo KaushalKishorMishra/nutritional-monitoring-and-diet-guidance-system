@@ -1,6 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router";
 import InputField from "../InputField";
+import { toast } from "react-toastify";
+import { forgotPassword } from "../../../api/auth.api";
 
 interface PForgotPasswordForm {
   forgotPasswordFormValues: {
@@ -35,12 +37,12 @@ const ForgotPasswordForm: React.FC<PForgotPasswordForm> = ({
   // Helper function to handle input changes
   const handleChange =
     (field: keyof typeof forgotPasswordFormValues) =>
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setForgotPasswordFormValues((prev) => ({
-        ...prev,
-        [field]: e.target.value,
-      }));
-    };
+      (e: React.ChangeEvent<HTMLInputElement>) => {
+        setForgotPasswordFormValues((prev) => ({
+          ...prev,
+          [field]: e.target.value,
+        }));
+      };
 
   return (
     <form onSubmit={onSubmit} className="form-container">
@@ -69,10 +71,35 @@ const ForgotPasswordForm: React.FC<PForgotPasswordForm> = ({
           <p className="text-center font-dm-sans text-[#6e7179]">
             Didn't get token?{" "}
             <span
-              onClick={() => navigate("/register")}
+              onClick={async () => {
+                try {
+                  const email = sessionStorage.getItem("verificationEmail");
+                  if (!email) {
+                    toast.error("Email not found. Please try again by writing your email.");
+                    navigate("/forgot-password");
+                    return
+                  }
+                  await forgotPassword(email).then(() => {
+                    toast.success("Email sent successfully. Please check your inbox.");
+                  })
+                } catch (err) {
+                  toast.error(`An error occurred. Please try again.: ${err}`);
+                }
+              }}
               className="px-2 text-primary underline-offset-2 hover:underline"
             >
               Resend Token
+            </span>
+          </p>
+          <p className="text-center font-dm-sans text-[#6e7179]">
+            Wanna go back?{" "}
+            <span
+              onClick={() => {
+                history.back()
+              }}
+              className="px-2 text-primary underline-offset-2 hover:underline"
+            >
+              Go Back.
             </span>
           </p>
         </div>

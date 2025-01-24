@@ -47,3 +47,18 @@
 .rdp-month_grid {
   @apply !w-full;
 }
+
+
+/* Animation */
+@keyframes rotate {
+  from {
+    transform: rotateZ(360deg);
+  }
+  to {
+    transform: rotateZ(0deg);
+  }
+}
+
+.animate-rotate {
+  animation: rotate linear infinite;
+}

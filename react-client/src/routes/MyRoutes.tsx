@@ -6,6 +6,8 @@ import PublicLayout from "../components/layouts/Public.layout";
 import AuthLayout from "../components/layouts/Auth.layout";
 import { ROUTES } from "../constants/constants";
 import Loading from "../components/loading/Loading";
+import ForgotPassword from "../pages/authPages/forgotPassword/ForgotPassword";
+import PasswordReset from "../pages/authPages/passwordReset/PassowrdReset";
 
 // Lazy loading components
 const Login = lazy(() => import("../pages/authPages/login/Login"));
@@ -42,6 +44,8 @@ const MyRoutes = () => {
             <Route path={ROUTES.public.register} element={<Register />} />
             <Route path={ROUTES.public.verifyEmail} element={<VerifyEmail />} />
             <Route path={ROUTES.public.welcome} element={<OnBoarding />} />
+            <Route path={ROUTES.public.forgotPassword} element={<ForgotPassword />} />
+            <Route path={ROUTES.public.passwordReset} element={<PasswordReset />} />
             <Route
               path={ROUTES.public.gettingStarted}
               element={<GettingStarted />}

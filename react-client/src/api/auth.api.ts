@@ -40,15 +40,15 @@ export const reSendToken = async (email: string) => {
 }
 
 export const forgotPassword = async (email: string) => {
-    const response = await axios.post(`${BACKEND_API_URL}/forgot-password`, {
+    const response = await axios.post(`${BACKEND_API_URL}/auth/forgot-password`, {
         email,
     });
-
+    console.log(response.data)
     return response.data;
 };
 
 export const resetPassword = async (email: string, token: string, password: string) => {
-    const response = await axios.post(`${BACKEND_API_URL}/reset-password`, {
+    const response = await axios.post(`${BACKEND_API_URL}/auth/reset-password`, {
         email,
         token,
         password,

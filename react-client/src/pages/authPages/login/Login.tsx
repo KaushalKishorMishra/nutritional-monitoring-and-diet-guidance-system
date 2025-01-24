@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import LoginForm from "../../../components/forms/login/LoginForm";
 import { useNavigate } from "react-router";
 import { login } from "../../../api/auth.api";
-import Loading from "../../../components/loading/Loading";
+// import Loading from "../../../components/loading/Loading";
 import useUserDataStore from "../../../hooks/store/userData.store";
+import { useLoadingStore } from "../../../hooks/store/loading.store";
+import Loading from "../../../components/loading/Loading";
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
 
-  const [loading, setLoading] = useState(false);
+  const { loading, setLoading } = useLoadingStore()
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
@@ -36,7 +38,7 @@ const Login: React.FC = () => {
         .catch((err) => {
           setError(
             err?.response?.data?.message ||
-              "An error occurred. Please try again.",
+            "An error occurred. Please try again.",
           );
         });
 
@@ -52,7 +54,7 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="form">
+    <div className="form relative">
       <div className="form-header">
         <h2 className="title">Login</h2>
       </div>
@@ -67,7 +69,11 @@ const Login: React.FC = () => {
         )}
         {error && <p className="text-center text-red-600">{error}</p>}
       </div>
-      {loading && <Loading />}
+      {loading && (
+        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <Loading />
+        </div>
+      )}
     </div>
   );
 };
