@@ -7,6 +7,7 @@ type PUserListView = {
 }
 
 const UserListView: React.FC<PUserListView> = ({ users }) => {
+	console.log(users);
 	const mapRows = () => {
 		if (!users || users.length === 0) {
 			return (
