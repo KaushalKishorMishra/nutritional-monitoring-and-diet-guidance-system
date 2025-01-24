@@ -8,6 +8,7 @@ import MainLayout from "../components/layouts/main.layout"
 import Dashboard from "../pages/Dashboard"
 import GenderAnalytics from "../pages/GenderAnalytics"
 import UsersList from "../pages/UsersList"
+import FoodsList from "../pages/FoodsList"
 
 // Lazy loading components
 const NotFound = lazy(() => import("../components/error/NotFound"))
@@ -29,6 +30,7 @@ const MyRoutes = () => {
 							element={<Dashboard />}
 						/>
 						<Route path={ROUTES.users} element={<UsersList />} />
+						<Route path={ROUTES.foods} element={<FoodsList />} />
 						<Route
 							path={ROUTES.genderAnalytics}
 							element={<GenderAnalytics />}

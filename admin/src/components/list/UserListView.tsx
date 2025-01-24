@@ -7,7 +7,6 @@ type PUserListView = {
 }
 
 const UserListView: React.FC<PUserListView> = ({ users }) => {
-	console.log(users);
 	const mapRows = () => {
 		if (!users || users.length === 0) {
 			return (
@@ -20,6 +19,7 @@ const UserListView: React.FC<PUserListView> = ({ users }) => {
 		}
 		return users.map((user, index) => (
 			<tr key={index} className="border-b border-[#191e24]">
+				<td>{index + 1}</td>
 				<td>
 					<div className="flex items-center space-x-3">
 						<div className="avatar">
@@ -47,6 +47,7 @@ const UserListView: React.FC<PUserListView> = ({ users }) => {
 			<table className="table w-full">
 				<thead>
 					<tr>
+						<th></th>
 						<th>Name</th>
 						<th>Email</th>
 						<th>Age</th>

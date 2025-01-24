@@ -1,10 +1,13 @@
 import { RxDashboard } from "react-icons/rx"
 import { FiUsers } from "react-icons/fi"
-import { PiBowlFood } from "react-icons/pi"
+import {
+	MdOutlineFastfood,
+	MdOutlineFeedback,
+	MdOutlineAnalytics,
+} from "react-icons/md"
 import React from "react"
 import { IoMdTransgender } from "react-icons/io"
 import { FaRegCalendarAlt } from "react-icons/fa"
-import { MdOutlineAnalytics } from "react-icons/md"
 
 const iconClasses = `h-6 w-6`
 const submenuIconClasses = `h-5 w-5`
@@ -22,8 +25,17 @@ const routes = [
 	},
 	{
 		path: "/admin/foods",
-		icon: React.createElement(PiBowlFood, { className: iconClasses }),
+		icon: React.createElement(MdOutlineFastfood, {
+			className: iconClasses,
+		}),
 		name: "Foods",
+	},
+	{
+		path: "/admin/feedbacks",
+		icon: React.createElement(MdOutlineFeedback, {
+			className: iconClasses,
+		}),
+		name: "Feedbacks",
 	},
 	{
 		path: "", //no url needed as this has submenu
