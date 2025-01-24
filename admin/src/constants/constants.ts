@@ -1,6 +1,7 @@
 export const ROUTES = {
-	overview: "/overview",
-	dashboard: "/dashboard",
-	users: "/users",
-};
+	dashboard: "dashboard",
+	users: "users",
+	foods: "foods",
+	genderAnalytics: "analytics/gender",
+}
 

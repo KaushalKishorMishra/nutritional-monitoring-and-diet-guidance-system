@@ -2,7 +2,7 @@ import MyRoutes from "./routes/MyRoutes";
 
 const App = () => {
 	return (
-		<div data-theme={"light"}>
+		<div data-theme={"dark"}>
 			<MyRoutes />
 		</div>
 	);
