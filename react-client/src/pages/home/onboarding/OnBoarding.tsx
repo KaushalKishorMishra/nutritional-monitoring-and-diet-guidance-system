@@ -1,5 +1,5 @@
 import React from "react";
-import OnboardingData from "../../utils/json/onboardingData.json";
+import OnboardingData from "../../../utils/json/onboardingData.json";
 import { FaAngleRight } from "react-icons/fa";
 import { useNavigate } from "react-router";
 

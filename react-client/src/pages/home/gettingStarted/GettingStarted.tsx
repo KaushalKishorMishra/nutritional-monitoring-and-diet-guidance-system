@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import useGettingStartedStore from "../../hooks/store/gettingStarted.store";
-import GettingStartedForm from "../../components/forms/gettingStarted/GettingStartedForm";
+import useGettingStartedStore from "../../../hooks/store/gettingStarted.store";
 import { useNavigate } from "react-router";
-import { updateUserDetails } from "../../api/user.api";
+import { updateUserDetails } from "../../../api/user.api";
+import GettingStartedForm from "../../../components/forms/gettingStarted/GettingStartedForm";
+
 
 const GettingStarted: React.FC = () => {
   const { getAllData, clearAllData } = useGettingStartedStore();
