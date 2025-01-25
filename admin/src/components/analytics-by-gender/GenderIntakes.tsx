@@ -56,7 +56,11 @@ function GenderIntakes() {
 		fetchUsers()
 	}, [])
 	if (!ready) {
-		return <div>Loading...</div>
+		return (
+			<div className="skeleton grid h-[400px] w-full place-items-center">
+				Loading
+			</div>
+		)
 	}
 	if (!activityData) {
 		return <div>No data found</div>

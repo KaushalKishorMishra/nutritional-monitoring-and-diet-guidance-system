@@ -92,7 +92,11 @@ const NutritionByGender = () => {
 	}
 
 	if (!ready) {
-		return <div>Loading...</div>
+		return (
+			<div className="skeleton grid h-[600px] w-full place-items-center">
+				Loading
+			</div>
+		)
 	}
 	if (!nutrientData) {
 		return <div>No data found</div>
