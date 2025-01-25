@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Theme } from "../../hooks/store/appSettings.store";
 
 interface PInputField {
   label?: string;

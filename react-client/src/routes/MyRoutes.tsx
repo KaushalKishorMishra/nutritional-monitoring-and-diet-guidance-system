@@ -8,6 +8,9 @@ import { ROUTES } from "../constants/constants";
 import Loading from "../components/loading/Loading";
 import ForgotPassword from "../pages/authPages/forgotPassword/ForgotPassword";
 import PasswordReset from "../pages/authPages/passwordReset/PassowrdReset";
+import AddFood from "../pages/user/dashboard/foods/addFood/AddFood";
+import ContactUsPage from "../pages/user/profile/contact-us/ContactUsPage";
+import AboutUsPage from "../pages/aboutUs/AboutUsPage";
 
 // Lazy loading components
 const Login = lazy(() => import("../pages/authPages/login/Login"));
@@ -17,10 +20,10 @@ const VerifyEmail = lazy(
 );
 const Home = lazy(() => import("../pages/home/Home"));
 const GettingStarted = lazy(
-  () => import("../pages/gettingStarted/GettingStarted"),
+  () => import("../pages/home/gettingStarted/GettingStarted"),
 );
-const OnBoarding = lazy(() => import("../pages/onboarding/OnBoarding"));
-const Dashboard = lazy(() => import("../pages/Dashboard/Dashboard"));
+const OnBoarding = lazy(() => import("../pages/home/onboarding/OnBoarding"));
+const Dashboard = lazy(() => import("../pages/user/dashboard/Dashboard"));
 const ProfilePage = lazy(() => import("../pages/user/profile/ProfilePage"));
 const ProfileEditPage = lazy(
   () => import("../pages/user/profile/ProfileEditPage"),
@@ -58,6 +61,9 @@ const MyRoutes = () => {
               path={ROUTES.auth.profileEdit}
               element={<ProfileEditPage />}
             />
+            <Route path={ROUTES.auth.addFoodIntake} element={<AddFood />} />
+            <Route path={ROUTES.auth.contactUs} element={<ContactUsPage />} />
+            <Route path={ROUTES.auth.aboutUs} element={<AboutUsPage />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

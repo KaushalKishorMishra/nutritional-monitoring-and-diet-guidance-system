@@ -1,5 +1,5 @@
 import React from "react";
-import NutritionFacts from "../../components/cards/NutrientsFact";
+import NutritionFacts from "../../../../components/cards/NutrientsFact";
 
 const ShowFood: React.FC = () => {
   return (

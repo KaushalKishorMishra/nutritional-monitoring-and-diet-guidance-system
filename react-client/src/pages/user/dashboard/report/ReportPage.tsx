@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import RangeDatePicker from "../../components/forms/RangeDatePicker";
+import RangeDatePicker from "../../../../components/forms/RangeDatePicker";
 
 const ReportPage: React.FC = () => {
   const [date, setDate] = useState<{

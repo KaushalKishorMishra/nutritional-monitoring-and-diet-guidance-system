@@ -14,10 +14,13 @@ const HorizontalProgress: React.FC<PHorizontalProgress> = ({
   color,
 }) => {
   const value = Math.min((total / recommended) * 100, 100);
+  const recommendedValue = recommended.toFixed(1);
+  const totalValue = total.toFixed(1);
+
   return (
     <div className="min-w-1/3 flex w-full flex-col items-center gap-2 font-nunito-sans">
       <div className="text-sm font-bold">
-        {Math.floor(total).toFixed(1)} / {(recommended).toFixed(1)}
+        {totalValue} / {recommendedValue}
       </div>
       <progress
         className={`progress ${color} w-full`}

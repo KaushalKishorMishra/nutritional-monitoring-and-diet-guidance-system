@@ -45,13 +45,12 @@ const PasswordReset: React.FC = () => {
         setLoading(true);
         setError(null);
         setSuccessMessage(null);
-
         try {
-            await resetPassword(passwordResetFormValues.email, passwordResetFormValues.newPassword, passwordResetFormValues.token)
+            await resetPassword({ email: passwordResetFormValues.email, token: passwordResetFormValues.token, password: passwordResetFormValues.newPassword })
                 .then((response) => {
                     setUserData({ ...response.payload });
-                    toast.success("Logged in successful!");
-                    navigate("/user/dashboard");
+                    toast.success("Successfully password reset!");
+                    navigate("/login");
                 })
                 .catch((err) => {
                     toast.error(
@@ -74,7 +73,7 @@ const PasswordReset: React.FC = () => {
     return (
         <div className="form relative">
             <div className="form-header">
-                <h2 className="title">Login</h2>
+                <h2 className="title">Reset Password</h2>
             </div>
             <div className="form-body">
                 <PasswordResetForm

@@ -35,10 +35,10 @@ const PasswordResetForm: React.FC<PPasswordResetForm> = ({
             value: passwordResetFormValues.token,
         },
         {
-            label: "Password:",
+            label: "New Password:",
             type: "password",
-            id: "password",
-            name: "password",
+            id: "newPassword",
+            name: "newPassword",
             value: passwordResetFormValues.newPassword,
         },
     ];

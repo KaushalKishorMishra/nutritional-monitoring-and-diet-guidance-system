@@ -1,28 +1,32 @@
 import React, { useEffect, useState } from "react";
-import { getDailyIntake, getProfile } from "../../api/user.api";
-import { TUser } from "../../types/user";
+import { getDailyIntake, getProfile } from "../../../api/user.api";
+import { TUser } from "../../../types/user";
 import {
   DailyIntake,
   NutritionResponse,
   // Recommendation,
   RecommendedIntake,
   TotalIntake,
-} from "../../types/nutrients";
-import FoodList from "../foods/FoodList";
-import BottomNav from "../../components/bottom-nav/BottomNav";
-import DashboardTopNav from "../../components/top-nav/Dashboard.topNav";
-import useUserDataStore from "../../hooks/store/userData.store";
-import DailyIntakeComponent from "../../components/meals/DailyIntake";
+} from "../../../types/nutrients";
+import FoodList from "./foods/FoodList";
+import BottomNav from "../../../components/bottom-nav/BottomNav";
+import DashboardTopNav from "../../../components/top-nav/Dashboard.topNav";
+import useUserDataStore from "../../../hooks/store/userData.store";
+import DailyIntakeComponent from "../../../components/meals/DailyIntake";
 import { MdAdd } from "react-icons/md";
 import { IoAddCircleOutline } from "react-icons/io5";
-import NutrientsVisualization from "../../components/visualization/NutrientsVisualization";
+import NutrientsVisualization from "../../../components/visualization/NutrientsVisualization";
+import { useNavigate } from "react-router";
+import useRecommendedFoodStore from "../../../hooks/store/recommendedFood.store";
 
 const Dashboard: React.FC = () => {
   const [date, setDate] = useState<Date>(new Date());
   const [profileRes, setProfileRes] = useState<TUser>();
   const [dashboardRes, setDashboardRes] = useState<NutritionResponse>();
 
+  const { setRecommendedFood } = useRecommendedFoodStore()
   const { setUserData } = useUserDataStore();
+  const navigate = useNavigate();
 
   const recommendedIntake: RecommendedIntake | null =
     dashboardRes?.recommendedIntake || null;
@@ -51,9 +55,22 @@ const Dashboard: React.FC = () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const dashBoardResponse: any = await getDailyIntake(date);
       setDashboardRes(dashBoardResponse);
+      setRecommendedFood({
+        calories: dashBoardResponse.recommendedIntake.calories,
+        carbohydrate: dashBoardResponse.recommendedIntake.carbohydrate,
+        total_fat: dashBoardResponse.recommendedIntake.total_fat,
+        cholesterol: dashBoardResponse.recommendedIntake.cholesterol,
+        protein: dashBoardResponse.recommendedIntake.protein,
+        fiber: dashBoardResponse.recommendedIntake.fiber,
+        sodium: dashBoardResponse.recommendedIntake.sodium,
+        calcium: dashBoardResponse.recommendedIntake.calcium,
+      })
+
     };
     fetchDashboardData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [date, bottomNav]);
+
 
   return (
     <div className="min-h-screen bg-base-100">
@@ -89,7 +106,7 @@ const Dashboard: React.FC = () => {
                   <h4 className="mb-1 ps-1 text-start font-nunito-sans font-semibold">
                     Meal
                   </h4>
-                  <div className="group transition-all duration-300">
+                  <div className="group transition-all duration-300" onClick={() => navigate("/user/add-food")}>
                     <MdAdd className="mx-3 transition-all duration-300 group-hover:hidden group-hover:opacity-0" />
                     <IoAddCircleOutline className="mx-3 hidden text-primary opacity-0 transition-all duration-300 group-hover:block group-hover:opacity-100" />
                   </div>
