@@ -10,6 +10,7 @@ import GenderAnalytics from "../pages/GenderAnalytics"
 import UsersList from "../pages/UsersList"
 import FoodsList from "../pages/FoodsList"
 import FeedbacksList from "../pages/FeedbacksList"
+import AgeAnalytics from "../pages/AgeAnalytics"
 
 // Lazy loading components
 const NotFound = lazy(() => import("../components/error/NotFound"))
@@ -39,6 +40,10 @@ const MyRoutes = () => {
 						<Route
 							path={ROUTES.genderAnalytics}
 							element={<GenderAnalytics />}
+						/>
+						<Route
+							path={ROUTES.ageAnalytics}
+							element={<AgeAnalytics />}
 						/>
 						{/* <Route path={ROUTES.dashboard} element={<Dashboard />} /> */}
 						{/* <Route path={ROUTES.users} element={<ProfileEditPage />} /> */}

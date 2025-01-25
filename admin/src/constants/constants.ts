@@ -4,5 +4,6 @@ export const ROUTES = {
 	foods: "foods",
 	feedbacks: "feedbacks",
 	genderAnalytics: "analytics/gender",
+	ageAnalytics: "analytics/age",
 }
 

@@ -14,7 +14,7 @@ import config from "../../constants/config"
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
-const NutritionByGender = () => {
+const NutritionByAge = () => {
 	type TRecommendedIntake = {
 		calories: number
 		carbohydrate: number
@@ -26,9 +26,10 @@ const NutritionByGender = () => {
 		calcium: number
 	}
 	type TGenderNutrients = {
-		maleNutrients: TRecommendedIntake
-		femaleNutrients: TRecommendedIntake
-		otherNutrients: TRecommendedIntake
+		youngNutrients: TRecommendedIntake
+		middleNutrients: TRecommendedIntake
+		adultNutrients: TRecommendedIntake
+		oldNutrients: TRecommendedIntake
 	}
 	const [nutrientData, setNutrientData] = useState<TGenderNutrients | null>(
 		null
@@ -39,7 +40,7 @@ const NutritionByGender = () => {
 		const fetchUsers = async () => {
 			try {
 				const response = await fetch(
-					`${config.backendUrl}/admin/monthly-intake/gender`
+					`${config.backendUrl}/admin/monthly-intake/age`
 				)
 				const data: {
 					payload: TGenderNutrients
@@ -102,29 +103,34 @@ const NutritionByGender = () => {
 		labels,
 		datasets: [
 			{
-				label: "Male",
-				data: generateDataSet(nutrientData.maleNutrients),
-				backgroundColor: "rgba(53, 162, 235, 1)",
+				label: "Young",
+				data: generateDataSet(nutrientData.youngNutrients),
+				backgroundColor: "rgba(75, 192, 192, 0.8)",
 			},
 			{
-				label: "Female",
-				data: generateDataSet(nutrientData.femaleNutrients),
-				backgroundColor: "rgba(255, 99, 132, 1)",
+				label: "Middle-aged",
+				data: generateDataSet(nutrientData.middleNutrients),
+				backgroundColor: "rgba(255, 159, 64, 0.8)",
 			},
 			{
-				label: "Other",
-				data: generateDataSet(nutrientData.otherNutrients),
-				backgroundColor: "rgb(128, 128, 128)",
+				label: "Adult",
+				data: generateDataSet(nutrientData.adultNutrients),
+				backgroundColor: "rgba(255, 205, 86, 0.8)",
+			},
+			{
+				label: "Old",
+				data: generateDataSet(nutrientData.oldNutrients),
+				backgroundColor: "rgba(153, 102, 255, 0.8)",
 			},
 		],
 	}
 
 	return (
-		<TitleCard title={"Nutrition By Gender"}>
+		<TitleCard title={"Nutrition By Age"}>
 			<Bar options={options} data={data} />
 		</TitleCard>
 	)
 }
 
-export default NutritionByGender
+export default NutritionByAge
 
