@@ -1,5 +1,4 @@
 import React from "react";
-import useGettingStartedStore from "../../../hooks/store/gettingStarted.store";
 import GettingStartedData from "../../../utils/json/gettingStartedData.json";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import SelectedField from "../SelectedField";
@@ -8,6 +7,7 @@ import {
   formatString,
 } from "../../../utils/randomUtils.utils";
 import { useNavigate } from "react-router";
+import useGettingStartedStore from "../../../hooks/store/gettingStarted.store";
 
 interface PGettingStartedForm {
   onSubmit: (e: React.MouseEvent<HTMLButtonElement>) => void;
