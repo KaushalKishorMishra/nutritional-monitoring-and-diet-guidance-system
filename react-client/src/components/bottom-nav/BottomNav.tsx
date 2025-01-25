@@ -1,7 +1,6 @@
 import React from "react";
-import { FaChartPie } from "react-icons/fa";
+import { FaChartBar, FaChartPie } from "react-icons/fa";
 import { LuApple } from "react-icons/lu";
-import { VscGraph } from "react-icons/vsc";
 import useAppSettingsStore, { Theme } from "../../hooks/store/appSettings.store";
 
 interface PBottomNav {
@@ -42,7 +41,7 @@ const BottomNav: React.FC<PBottomNav> = ({ bottomNav, setBottomNav }) => {
   const navItems: NavItem[] = [
     { id: "food", label: "Food", Icon: LuApple },
     { id: "diary", label: "Diary", Icon: FaChartPie },
-    { id: "report", label: "Report", Icon: VscGraph },
+    { id: "report", label: "Report", Icon: FaChartBar },
   ];
 
   return (

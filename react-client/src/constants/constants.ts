@@ -14,5 +14,7 @@ export const ROUTES = {
         dashboard: "/user/dashboard",
         profileEdit: "/user/profile/edit",
         addFoodIntake: "/user/add-food",
+        contactUs: "/user/contact-us",
+        aboutUs: "/user/about-us"
     }
 };

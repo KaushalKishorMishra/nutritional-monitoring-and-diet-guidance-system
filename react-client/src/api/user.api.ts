@@ -71,3 +71,17 @@ export const addFoodIntake = async (
 
   return responseData;
 };
+
+export const userFeedback = async (data: {
+  comment: string
+}) => {
+  const response = await axios.post(`${BACKEND_API_URL}/user/feedback`, {
+    ...data
+  }, {
+    headers: {
+      "Authorization": `Bearer ${token}`
+    }
+  });
+
+  return response.data;
+}

@@ -17,12 +17,14 @@ import { MdAdd } from "react-icons/md";
 import { IoAddCircleOutline } from "react-icons/io5";
 import NutrientsVisualization from "../../../components/visualization/NutrientsVisualization";
 import { useNavigate } from "react-router";
+import useRecommendedFoodStore from "../../../hooks/store/recommendedFood.store";
 
 const Dashboard: React.FC = () => {
   const [date, setDate] = useState<Date>(new Date());
   const [profileRes, setProfileRes] = useState<TUser>();
   const [dashboardRes, setDashboardRes] = useState<NutritionResponse>();
 
+  const { setRecommendedFood } = useRecommendedFoodStore()
   const { setUserData } = useUserDataStore();
   const navigate = useNavigate();
 
@@ -53,9 +55,22 @@ const Dashboard: React.FC = () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const dashBoardResponse: any = await getDailyIntake(date);
       setDashboardRes(dashBoardResponse);
+      setRecommendedFood({
+        calories: dashBoardResponse.recommendedIntake.calories,
+        carbohydrate: dashBoardResponse.recommendedIntake.carbohydrate,
+        total_fat: dashBoardResponse.recommendedIntake.total_fat,
+        cholesterol: dashBoardResponse.recommendedIntake.cholesterol,
+        protein: dashBoardResponse.recommendedIntake.protein,
+        fiber: dashBoardResponse.recommendedIntake.fiber,
+        sodium: dashBoardResponse.recommendedIntake.sodium,
+        calcium: dashBoardResponse.recommendedIntake.calcium,
+      })
+
     };
     fetchDashboardData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [date, bottomNav]);
+
 
   return (
     <div className="min-h-screen bg-base-100">
