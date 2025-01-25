@@ -4,10 +4,13 @@ import routes from "../../constants/routes"
 import { NavLink, useLocation } from "react-router"
 
 const Sidebar: React.FC = () => {
-	const location = useLocation();
+	const location = useLocation()
 
 	return (
-		<div className="h-screen w-[320px] bg-blue-200">
+		<div className="h-screen w-[320px]">
+			<h1 className="my-2 w-full text-center text-xl font-semibold">
+				NutriTrack
+			</h1>
 			<ul className="menu min-h-full w-full bg-base-100 pt-2 text-base-content">
 				{routes.map((route, k) => {
 					return (

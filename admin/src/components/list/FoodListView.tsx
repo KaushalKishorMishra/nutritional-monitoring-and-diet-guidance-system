@@ -1,5 +1,6 @@
 import React from "react"
 import { TFoodMinimal } from "../../types/food"
+import { formatNutrientString } from "../../utils/nutrient"
 
 type PFoodListView = {
 	foods: TFoodMinimal[] | null
@@ -21,14 +22,14 @@ const FoodListView: React.FC<PFoodListView> = ({ foods }) => {
 				<td>{index + 1}</td>
 				<td>{food.id}</td>
 				<td>{food.name}</td>
-				<td>{food.calories}</td>
-				<td>{food.carbohydrate}</td>
-				<td>{food.total_fat}</td>
-				<td>{food.cholesterol}</td>
-				<td>{food.protein}</td>
-				<td>{food.fiber}</td>
-				<td>{food.sodium}</td>
-				<td>{food.calcium}</td>
+				<td>{formatNutrientString(food.calories)}</td>
+				<td>{formatNutrientString(food.carbohydrate)}</td>
+				<td>{formatNutrientString(food.total_fat)}</td>
+				<td>{formatNutrientString(food.cholesterol)}</td>
+				<td>{formatNutrientString(food.protein)}</td>
+				<td>{formatNutrientString(food.fiber)}</td>
+				<td>{formatNutrientString(food.sodium)}</td>
+				<td>{formatNutrientString(food.calcium)}</td>
 			</tr>
 		))
 	}
@@ -42,13 +43,13 @@ const FoodListView: React.FC<PFoodListView> = ({ foods }) => {
 						<th>ID</th>
 						<th>Name</th>
 						<th>Calories</th>
-						<th>Carbohydrate</th>
-						<th>Total Fat</th>
-						<th>Cholesterol</th>
-						<th>Protein</th>
-						<th>Fiber</th>
-						<th>Sodium</th>
-						<th>Calcium</th>
+						<th>Carbohydrate (g)</th>
+						<th>Total Fat (g)</th>
+						<th>Cholesterol (mg)</th>
+						<th>Protein (g)</th>
+						<th>Fiber (g)</th>
+						<th>Sodium (mg)</th>
+						<th>Calcium (mg)</th>
 					</tr>
 				</thead>
 				<tbody>{mapRows()}</tbody>

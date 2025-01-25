@@ -2,14 +2,16 @@ import React, { useEffect } from "react"
 import TitleCard from "../components/Cards/TitleCard"
 import Pagination, { IPagination } from "../components/pagination/Pagination"
 import config from "../constants/config"
-import { TFoodMinimal } from "../types/food"
-import FoodListView from "../components/list/FoodListView"
+import { TFeedbackWithUser } from "../types/feedback"
+import FeedbackListView from "../components/list/FeedbackListView"
 
-const FoodsList: React.FC = () => {
+const FeedbacksList: React.FC = () => {
 	const [currentPage, setCurrentPage] = React.useState(1)
 	const [pageSize, setPageSize] = React.useState(10)
 
-	const [foods, setFoods] = React.useState<TFoodMinimal[] | null>(null)
+	const [feedbacks, setFeedbacks] = React.useState<
+		TFeedbackWithUser[] | null
+	>(null)
 	const [pagination, setPagination] = React.useState<IPagination>({
 		currentPage: 1,
 		pageSize: 10,
@@ -22,15 +24,15 @@ const FoodsList: React.FC = () => {
 		const fetchUsers = async () => {
 			try {
 				const response = await fetch(
-					`${config.backendUrl}/admin/foods?page=${currentPage}&limit=${pageSize}&sort_by=id&sort_order=ASC`
+					`${config.backendUrl}/admin/feedbacks?page=${currentPage}&limit=${pageSize}&sort_by=id&sort_order=ASC`
 				)
 				const data: {
 					payload: {
-						rows: TFoodMinimal[]
+						rows: TFeedbackWithUser[]
 						pagination: IPagination
 					}
 				} = await response.json()
-				setFoods(data.payload.rows)
+				setFeedbacks(data.payload.rows)
 				setPagination(data.payload.pagination)
 				setReady(true)
 			} catch (error) {
@@ -47,8 +49,8 @@ const FoodsList: React.FC = () => {
 
 	return (
 		<div className="w-full bg-[#191e24] p-6">
-			<TitleCard title="Foods">
-				<FoodListView foods={foods} />
+			<TitleCard title="Feedbacks">
+				<FeedbackListView feedbacks={feedbacks} />
 				<Pagination
 					pagination={pagination}
 					setCurrentPage={setCurrentPage}
@@ -59,5 +61,5 @@ const FoodsList: React.FC = () => {
 	)
 }
 
-export default FoodsList
+export default FeedbacksList
 
