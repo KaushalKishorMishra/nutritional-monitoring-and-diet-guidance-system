@@ -8,6 +8,7 @@ import { ROUTES } from "../constants/constants";
 import Loading from "../components/loading/Loading";
 import ForgotPassword from "../pages/authPages/forgotPassword/ForgotPassword";
 import PasswordReset from "../pages/authPages/passwordReset/PassowrdReset";
+import AddFood from "../pages/addFood/AddFood";
 
 // Lazy loading components
 const Login = lazy(() => import("../pages/authPages/login/Login"));
@@ -58,6 +59,7 @@ const MyRoutes = () => {
               path={ROUTES.auth.profileEdit}
               element={<ProfileEditPage />}
             />
+            <Route path={ROUTES.auth.addFoodIntake} element={<AddFood />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

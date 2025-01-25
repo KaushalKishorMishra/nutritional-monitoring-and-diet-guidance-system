@@ -47,10 +47,14 @@ export const forgotPassword = async (email: string) => {
     return response.data;
 };
 
-export const resetPassword = async (email: string, token: string, password: string) => {
+export const resetPassword = async ({ email, token, password }: {
+    email: string,
+    token: string,
+    password: string
+}) => {
     const response = await axios.post(`${BACKEND_API_URL}/auth/reset-password`, {
         email,
-        token,
+        passwordResetToken: token,
         password,
     });
 

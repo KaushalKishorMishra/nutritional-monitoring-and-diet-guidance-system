@@ -16,6 +16,7 @@ import DailyIntakeComponent from "../../components/meals/DailyIntake";
 import { MdAdd } from "react-icons/md";
 import { IoAddCircleOutline } from "react-icons/io5";
 import NutrientsVisualization from "../../components/visualization/NutrientsVisualization";
+import { useNavigate } from "react-router";
 
 const Dashboard: React.FC = () => {
   const [date, setDate] = useState<Date>(new Date());
@@ -23,6 +24,7 @@ const Dashboard: React.FC = () => {
   const [dashboardRes, setDashboardRes] = useState<NutritionResponse>();
 
   const { setUserData } = useUserDataStore();
+  const navigate = useNavigate();
 
   const recommendedIntake: RecommendedIntake | null =
     dashboardRes?.recommendedIntake || null;
@@ -89,7 +91,7 @@ const Dashboard: React.FC = () => {
                   <h4 className="mb-1 ps-1 text-start font-nunito-sans font-semibold">
                     Meal
                   </h4>
-                  <div className="group transition-all duration-300">
+                  <div className="group transition-all duration-300" onClick={() => navigate("/user/add-food")}>
                     <MdAdd className="mx-3 transition-all duration-300 group-hover:hidden group-hover:opacity-0" />
                     <IoAddCircleOutline className="mx-3 hidden text-primary opacity-0 transition-all duration-300 group-hover:block group-hover:opacity-100" />
                   </div>

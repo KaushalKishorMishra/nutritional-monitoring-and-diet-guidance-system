@@ -13,5 +13,6 @@ export const ROUTES = {
         profile: "/user/profile",
         dashboard: "/user/dashboard",
         profileEdit: "/user/profile/edit",
+        addFoodIntake: "/user/add-food",
     }
 };
