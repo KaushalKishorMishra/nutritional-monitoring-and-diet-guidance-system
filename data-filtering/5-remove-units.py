@@ -49,6 +49,12 @@ expected_units = {
 
 
 def remove_units(df, units_dict):
+    conversion_factors = {
+        "g": 1,
+        "mg": 0.001,
+        "mcg": 0.000001
+    }
+    
     for column, unit in units_dict.items():
         if column in df.columns:
             # Convert the column to strings first, but only if it isn't already
@@ -57,6 +63,8 @@ def remove_units(df, units_dict):
             df[column] = df[column].str.replace(unit, "", regex=False)
             # Convert the cleaned column back to float
             df[column] = pd.to_numeric(df[column], errors='coerce')
+            # Multiply by the conversion factor to convert to grams
+            df[column] = df[column] * conversion_factors[unit]
     return df
 
 
