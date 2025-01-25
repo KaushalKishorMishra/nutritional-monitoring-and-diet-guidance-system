@@ -27,12 +27,12 @@ const UserListView: React.FC<PUserListView> = ({ users }) => {
 								<UserAvatar name={user.name} />
 							</div>
 						</div>
-						<div>
+						<div className="flex flex-col">
 							<div className="font-bold">{user.name}</div>
+							<div>{user.email}</div>
 						</div>
 					</div>
 				</td>
-				<td>{user.email}</td>
 				<td>{user.age}</td>
 				<td>{user.gender}</td>
 				<td>{user.weight}</td>
@@ -49,7 +49,6 @@ const UserListView: React.FC<PUserListView> = ({ users }) => {
 					<tr>
 						<th></th>
 						<th>Name</th>
-						<th>Email</th>
 						<th>Age</th>
 						<th>Gender</th>
 						<th>Weight</th>

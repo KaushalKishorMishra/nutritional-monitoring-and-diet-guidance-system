@@ -46,6 +46,7 @@ const NutritionByGender = () => {
 				} = await response.json()
 				setNutrientData(data.payload)
 				setReady(true)
+				console.log(data.payload)
 			} catch (error) {
 				console.error("Error fetching users:", error)
 			}
@@ -68,7 +69,7 @@ const NutritionByGender = () => {
 		"Carbohydrate  (g)",
 		"Total Fat (g)",
 		"Protein (g)",
-		"Fiber (g)",
+		"Fiber (Fg)",
 		"Cholesterol (dg)",
 		"Sodium (dg)",
 		"Calcium (dg)",
@@ -113,7 +114,7 @@ const NutritionByGender = () => {
 			{
 				label: "Other",
 				data: generateDataSet(nutrientData.otherNutrients),
-				backgroundColor: "gray",
+				backgroundColor: "rgb(128, 128, 128)",
 			},
 		],
 	}

@@ -7,11 +7,11 @@ const Sidebar: React.FC = () => {
 	const location = useLocation()
 
 	return (
-		<div className="h-screen w-[320px]">
+		<div className="sticky top-0 h-screen max-h-screen w-[320px]">
 			<h1 className="my-2 w-full text-center text-xl font-semibold">
 				NutriTrack
 			</h1>
-			<ul className="menu min-h-full w-full bg-base-100 pt-2 text-base-content">
+			<ul className="menu w-full bg-base-100 pt-2 text-base-content">
 				{routes.map((route, k) => {
 					return (
 						<li className="" key={k}>

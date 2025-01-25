@@ -32,10 +32,10 @@ const FeedbackListView: React.FC<PFeedbackListView> = ({ feedbacks }) => {
 							<div className="font-bold">
 								{feedback.User.name}
 							</div>
+							<div>{feedback.User.email}</div>
 						</div>
 					</div>
 				</td>
-				<td>{feedback.User.email}</td>
 				<td>{feedback.comment}</td>
 				<td>{monthDayYearFormat(feedback.createdAt)}</td>
 			</tr>
@@ -49,7 +49,6 @@ const FeedbackListView: React.FC<PFeedbackListView> = ({ feedbacks }) => {
 					<tr>
 						<th></th>
 						<th>Name</th>
-						<th>Email</th>
 						<th>Comment</th>
 						<th>Created On</th>
 					</tr>
