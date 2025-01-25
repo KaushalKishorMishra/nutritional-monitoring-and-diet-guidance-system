@@ -34,6 +34,7 @@ const FeedbacksList: React.FC = () => {
 				} = await response.json()
 				setFeedbacks(data.payload.rows)
 				setPagination(data.payload.pagination)
+				console.log("data.payload.pagination ==> ", data.payload.pagination);
 				setReady(true)
 			} catch (error) {
 				console.error("Error fetching users:", error)

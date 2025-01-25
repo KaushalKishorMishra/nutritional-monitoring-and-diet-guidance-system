@@ -1,40 +1,20 @@
-import { ReactNode } from "react"
+import { Link } from "react-router"
 
 const DashboardStats: React.FC<{
 	title: string
-	icon: ReactNode
+	icon: JSX.Element
 	value: string
 	description: string
-	colorIndex: number
-}> = ({ title, icon, value, description, colorIndex }) => {
-	const COLORS = ["primary", "primary"]
-
-	const getDescStyle = () => {
-		if (description.includes("↗︎"))
-			return "font-bold text-green-700 dark:text-green-300"
-		else if (description.includes("↙"))
-			return "font-bold text-rose-500 dark:text-red-400"
-		else return ""
-	}
-
+	link: string
+}> = ({ title, icon, value, description, link }) => {
 	return (
-		<div className="stats shadow">
-			<div className="stat">
-				<div
-					className={`stat-figure dark:text-slate-300 text-${COLORS[colorIndex % 2]}`}
-				>
-					{icon}
-				</div>
+		<div className="stats shadow hover:outline hover:outline-white/10">
+			<Link to={link} className="stat cursor-pointer">
+				<div className="stat-figure dark:text-primary">{icon}</div>
 				<div className="stat-title dark:text-slate-300">{title}</div>
-				<div
-					className={`stat-value dark:text-slate-300 text-${COLORS[colorIndex % 2]}`}
-				>
-					{value}
-				</div>
-				<div className={"stat-desc " + getDescStyle()}>
-					{description}
-				</div>
-			</div>
+				<div className="stat-value dark:text-primary">{value}</div>
+				<div>{description}</div>
+			</Link>
 		</div>
 	)
 }

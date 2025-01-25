@@ -1,44 +1,89 @@
-import React from "react"
+import React, { useEffect } from "react"
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon"
-import UsersIcon from "@heroicons/react/24/outline/UsersIcon"
-import CircleStackIcon from "@heroicons/react/24/outline/CircleStackIcon"
-import CreditCardIcon from "@heroicons/react/24/outline/CreditCardIcon"
+import { IoFastFoodOutline } from "react-icons/io5"
 import DashboardStats from "../components/dashboard/DashboardStats"
-
-const statsData = [
-	{
-		title: "New Users",
-		value: "34.7k",
-		icon: <UserGroupIcon className="h-8 w-8" />,
-		description: "↗︎ 2300 (22%)",
-	},
-	{
-		title: "Total Sales",
-		value: "$34,545",
-		icon: <CreditCardIcon className="h-8 w-8" />,
-		description: "Current month",
-	},
-	{
-		title: "Pending Leads",
-		value: "450",
-		icon: <CircleStackIcon className="h-8 w-8" />,
-		description: "50 in hot leads",
-	},
-	{
-		title: "Active Users",
-		value: "5.6k",
-		icon: <UsersIcon className="h-8 w-8" />,
-		description: "↙ 300 (18%)",
-	},
-]
+import { MdOutlineFeedback } from "react-icons/md"
+import { LiaDrumstickBiteSolid } from "react-icons/lia"
+import config from "../constants/config"
+import Intakes from "../components/dashboard/Intakes"
 
 const Dashboard: React.FC = () => {
+	const [overview, setOverview] = React.useState({
+		userCount: "0",
+		foodCount: "0",
+		intakeCount: "0",
+		feedbackCount: "0",
+	})
+	const [ready, setReady] = React.useState(false)
+
+	useEffect(() => {
+		const fetchUsers = async () => {
+			try {
+				const response = await fetch(
+					`${config.backendUrl}/admin/overview`
+				)
+				const data: {
+					payload: {
+						userCount: string
+						foodCount: string
+						intakeCount: string
+						feedbackCount: string
+					}
+				} = await response.json()
+				setOverview(data.payload)
+				setReady(true)
+			} catch (error) {
+				console.error("Error fetching data:", error)
+			}
+		}
+
+		fetchUsers()
+	}, [])
+
+	if (!ready) {
+		return <div>Loading...</div>
+	}
+	const iconSize = "h-20 w-20"
+
+	const statsData = [
+		{
+			title: "Total Users",
+			value: overview.userCount,
+			icon: <UserGroupIcon className={iconSize} />,
+			description: "Number of registered users",
+			link: "/admin/users",
+		},
+		{
+			title: "Total Foods",
+			value: overview.foodCount,
+			icon: <IoFastFoodOutline className={iconSize} />,
+			description: "Number of food items",
+			link: "/admin/foods",
+		},
+		{
+			title: "Total Intakes",
+			value: overview.intakeCount,
+			icon: <LiaDrumstickBiteSolid className={iconSize} />,
+			description: "Number of food intakes recorded",
+			link: "/admin/analytics/gender",
+		},
+		{
+			title: "Total Feedbacks",
+			value: overview.feedbackCount,
+			icon: <MdOutlineFeedback className={iconSize} />,
+			description: "Number of feedback entries",
+			link: "/admin/feedbacks",
+		},
+	]
 	return (
 		<div className="w-full bg-[#191e24] p-6">
-			<div className="mt-2 grid h-32 grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+			<div className="mt-2 grid h-40 grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
 				{statsData.map((d, k) => {
-					return <DashboardStats key={k} {...d} colorIndex={k} />
+					return <DashboardStats key={k} {...d} />
 				})}
+			</div>
+			<div className="mt-6">
+				<Intakes />
 			</div>
 		</div>
 	)
