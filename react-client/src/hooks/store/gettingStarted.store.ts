@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 interface TGettingStartedState {
     gender: string;
@@ -17,39 +18,50 @@ interface TGettingStartedState {
     clearAllData: () => void;
 };
 
-const useGettingStartedStore = create<TGettingStartedState>((set) => ({
-    gender: '',
-    weight: '',
-    height: '',
-    age: '',
-    activityLevel: '',
-    currentStep: 1,
-    setGender: (gender) => set({ gender }),
-    setWeight: (weight) => set({ weight }),
-    setHeight: (height) => set({ height }),
-    setAge: (age) => set({ age }),
-    setActivityLevel: (activityLevel) => set({ activityLevel }),
-    setStep: (step) => set({ currentStep: step }),
-    getAllData: () => {
-        const state: Partial<TGettingStartedState> = useGettingStartedStore.getState();
-        return {
-            gender: state.gender || '',
-            weight: state.weight || '',
-            height: state.height || '',
-            age: state.age || '',
-            activityLevel: state.activityLevel || '',
-        };
-    },
-    clearAllData: () => {
-        set({
+const useGettingStartedStore = create<TGettingStartedState>()(
+    persist(
+        (set, get) => ({
             gender: '',
             weight: '',
             height: '',
             age: '',
             activityLevel: '',
             currentStep: 1,
-        })
-    },
-}));
+            setGender: (gender) => set({ gender }),
+            setWeight: (weight) => set({ weight }),
+            setHeight: (height) => set({ height }),
+            setAge: (age) => set({ age }),
+            setActivityLevel: (activityLevel) => set({ activityLevel }),
+            setStep: (step) => set({ currentStep: step }),
+            getAllData: () => {
+                const state = get();
+                return {
+                    gender: state.gender,
+                    weight: state.weight,
+                    height: state.height,
+                    age: state.age,
+                    activityLevel: state.activityLevel,
+                };
+            },
+            clearAllData: () => {
+                set({
+                    gender: '',
+                    weight: '',
+                    height: '',
+                    age: '',
+                    activityLevel: '',
+                    currentStep: 1,
+                });
+            },
+        }),
+        {
+            name: 'getting-started-storage', // unique name for the storage
+            storage: createJSONStorage(() => localStorage), // or sessionStorage
+            onRehydrateStorage: (state) => {
+                console.log('Rehydrated state:', state);
+            }
+        }
+    )
+);
 
 export default useGettingStartedStore;

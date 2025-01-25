@@ -2,19 +2,22 @@ import React, { useState } from "react";
 import LoginForm from "../../../components/forms/login/LoginForm";
 import { useNavigate } from "react-router";
 import { login } from "../../../api/auth.api";
-// import Loading from "../../../components/loading/Loading";
 import useUserDataStore from "../../../hooks/store/userData.store";
 import { useLoadingStore } from "../../../hooks/store/loading.store";
 import Loading from "../../../components/loading/Loading";
+import { updateUserDetails } from "../../../api/user.api";
+import useGettingStartedStore from "../../../hooks/store/gettingStarted.store";
+import { toast } from "react-toastify";
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
 
-  const { loading, setLoading } = useLoadingStore()
+  const { loading, setLoading } = useLoadingStore();
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const { setUserData } = useUserDataStore();
+  const { getAllData } = useGettingStartedStore();
 
   const [loginFormValues, setLoginFormValues] = useState({
     email: localStorage.getItem("email") || "",
@@ -29,24 +32,26 @@ const Login: React.FC = () => {
     setSuccessMessage(null);
 
     try {
-      await login(loginFormValues.email, loginFormValues.password)
-        .then((response) => {
-          setUserData({ ...response.payload });
-          setSuccessMessage("Logged in successful!");
-          navigate("/user/dashboard");
-        })
-        .catch((err) => {
-          setError(
-            err?.response?.data?.message ||
-            "An error occurred. Please try again.",
-          );
-        });
+      // Perform login
+      const response = await login(loginFormValues.email, loginFormValues.password);
+      setUserData({ ...response.payload });
 
+      // Check if getting-started data exists and update user details
+      const gettingStartedData = getAllData();
+      if (gettingStartedData.gender || gettingStartedData.weight || gettingStartedData.height || gettingStartedData.age || gettingStartedData.activityLevel) {
+        await updateUserDetails(gettingStartedData).then(() => {
+          toast.success("User details updated successfully!");
+          localStorage.removeItem("getting-started-storage");
+        })
+      }
+
+      setSuccessMessage("Logged in successfully!");
+      navigate("/user/dashboard");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       console.error("Error:", err);
       setError(
-        err?.response?.data?.message || "An error occurred. Please try again.",
+        err?.response?.data?.message || "An error occurred. Please try again."
       );
     } finally {
       setLoading(false);

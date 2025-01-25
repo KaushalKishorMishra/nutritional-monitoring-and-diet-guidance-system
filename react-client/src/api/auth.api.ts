@@ -16,11 +16,11 @@ export const register = async (name: string, email: string, password: string) =>
         email,
         password,
     });
-
+    console.log(response.data.payload)
     localStorage.setItem("email", response.data.payload.email)
     localStorage.setItem("name", response.data.payload.name)
     localStorage.setItem("userId", response.data.payload.id)
-
+    localStorage.setItem("token", response.data.payload.token)
     return response.data;
 };
 
@@ -29,7 +29,6 @@ export const verifyEmail = async (email: string, token: string) => {
         email,
         emailVerificationToken: token,
     });
-
     return response.data;
 };
 
