@@ -79,7 +79,7 @@ const SearchField = <T,>({
         value={value}
         onChange={onChange}
         placeholder="Search..."
-        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
       />
       {loading && (
         <div className="absolute inset-y-0 right-0 flex items-center pr-3">
@@ -89,16 +89,17 @@ const SearchField = <T,>({
       {results.length > 0 && (
         <ul className="absolute -bottom-100 left-0 z-10 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto">
           {results.map((result, index) => {
-            console.log("result",result)
+            console.log("result", result)
             return (
-            <li
-              key={index}
-              className="cursor-pointer px-4 py-2 hover:bg-gray-100"
-              onClick={() => handleSelect(result)}
-            >
-              {renderResults(result)}
-            </li>
-          )})}
+              <li
+                key={index}
+                className="cursor-pointer px-4 py-2 hover:bg-gray-100"
+                onClick={() => handleSelect(result)}
+              >
+                {renderResults(result)}
+              </li>
+            )
+          })}
         </ul>
       )}
     </div>

@@ -66,7 +66,7 @@ export const logout = (): Promise<boolean> => {
         try {
             // Simulate an asynchronous operation with a delay
             setTimeout(() => {
-                localStorage.removeItem("user-data");
+                localStorage.clear();
                 resolve(true);
             }, 1000);
         } catch (error) {

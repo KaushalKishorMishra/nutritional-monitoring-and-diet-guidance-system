@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import {
   TFoodMinimal,
   TRecommendedFoodListFromNutrition,
-} from "../../types/food";
-import { getFoodByNameFromDataBase } from "../../api/food.api";
-import ListItemsCard from "../../components/cards/ListItemsCard";
-import SearchInputField from "../../components/forms/SearchInputField";
-import { getRecommendationByNutrition } from "../../api/recommendation.api";
-import Loading from "../../components/loading/Loading";
+} from "../../../../types/food";
+import { getFoodByNameFromDataBase } from "../../../../api/food.api";
+import ListItemsCard from "../../../../components/cards/ListItemsCard";
+import SearchInputField from "../../../../components/forms/SearchInputField";
+import { getRecommendationByNutrition } from "../../../../api/recommendation.api";
+import Loading from "../../../../components/loading/Loading";
 
 const FoodList: React.FC = () => {
   const [foods, setFoods] = useState<TRecommendedFoodListFromNutrition[]>([]);

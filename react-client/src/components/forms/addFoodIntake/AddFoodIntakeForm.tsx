@@ -1,6 +1,6 @@
 import React from "react";
 import SearchField from "../SearchField";
-import InputField from "../InputField";
+import InputWithUnit from "../InputWithUnit"; // Import the InputWithUnit component
 import CustomDatePicker from "../DatePicker";
 import { getFoodByNameFromDataBase } from "../../../api/food.api";
 import CustomTimePicker from "../TimePicker";
@@ -11,6 +11,7 @@ interface PAddFoodIntakeForm {
     foodName?: string; // Make foodName optional
     foodId?: string; // Make foodId optional
     quantity: string;
+    unit: string; // Add unit field
     date: Date;
     mealTime: string; // Make mealTime optional
   };
@@ -19,48 +20,51 @@ interface PAddFoodIntakeForm {
       foodName?: string; // Make foodName optional
       foodId?: string; // Make foodId optional
       quantity: string;
+      unit: string; // Add unit field
       date: Date;
       mealTime: string; // Make mealTime optional
     }>
   >;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onSubmit: (e: any) => void;
-  modalName: string
+  modalName: string;
 }
 
 const AddFoodIntakeForm: React.FC<PAddFoodIntakeForm> = ({
   onSubmit,
   setAddFoodIntakeFormValues,
   addFoodIntakeFormValues,
-  modalName
+  modalName,
 }) => {
-  const inputFields = [
-    {
-      label: "Food:",
-      type: "text",
-      id: "food",
-      name: "foodName",
-      value: addFoodIntakeFormValues.foodName || "", // Handle undefined case
-    },
-    {
-      label: "Quantity:",
-      type: "number",
-      id: "quantity",
-      name: "quantity",
-      value: addFoodIntakeFormValues.quantity,
-    },
-  ];
+  const { closeModal } = useModalStore();
 
-  const { closeModal } = useModalStore()
+  // List of available units
+  const units = ["g", "mg", "kg", "ml", "L", "cups", "tablespoons", "teaspoons"];
 
+  // Handle changes for the quantity and unit
+  const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAddFoodIntakeFormValues((prev) => ({
+      ...prev,
+      quantity: e.target.value,
+    }));
+  };
+
+  const handleUnitChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setAddFoodIntakeFormValues((prev) => ({
+      ...prev,
+      unit: e.target.value,
+    }));
+  };
+
+  // Handle changes for other fields
   const handleChange =
     (field: keyof typeof addFoodIntakeFormValues) =>
-      (e: React.ChangeEvent<HTMLInputElement>) => {
-        setAddFoodIntakeFormValues((prev) => ({
-          ...prev,
-          [field]: e.target.value,
-        }));
-      };
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setAddFoodIntakeFormValues((prev) => ({
+        ...prev,
+        [field]: e.target.value,
+      }));
+    };
 
   const handleFoodSelect = (foodId: string, foodName: string) => {
     setAddFoodIntakeFormValues((prev) => ({
@@ -102,21 +106,18 @@ const AddFoodIntakeForm: React.FC<PAddFoodIntakeForm> = ({
         onSelect={handleFoodSelect} // Pass the handler with two arguments
       />
 
-      {/* Quantity Field */}
-      {inputFields.slice(1).map((field) => (
-        <InputField
-          key={field.id}
-          label={field.label}
-          type={field.type}
-          id={field.id}
-          name={field.name}
-          value={String(field.value)}
-          onChange={handleChange(
-            field.name as keyof typeof addFoodIntakeFormValues,
-          )}
-          required
-        />
-      ))}
+      {/* Quantity Field with Unit */}
+      <InputWithUnit
+        label="Quantity"
+        id="quantity"
+        name="quantity"
+        value={addFoodIntakeFormValues.quantity}
+        unit={addFoodIntakeFormValues.unit}
+        onChange={handleQuantityChange}
+        onUnitChange={handleUnitChange}
+        units={units}
+        required
+      />
 
       <div className="flex flex-row justify-between gap-2">
         {/* CustomDatePicker for Date */}

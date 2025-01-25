@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { getDailyIntake, getProfile } from "../../api/user.api";
-import { TUser } from "../../types/user";
+import { getDailyIntake, getProfile } from "../../../api/user.api";
+import { TUser } from "../../../types/user";
 import {
   DailyIntake,
   NutritionResponse,
   // Recommendation,
   RecommendedIntake,
   TotalIntake,
-} from "../../types/nutrients";
-import FoodList from "../foods/FoodList";
-import BottomNav from "../../components/bottom-nav/BottomNav";
-import DashboardTopNav from "../../components/top-nav/Dashboard.topNav";
-import useUserDataStore from "../../hooks/store/userData.store";
-import DailyIntakeComponent from "../../components/meals/DailyIntake";
+} from "../../../types/nutrients";
+import FoodList from "./foods/FoodList";
+import BottomNav from "../../../components/bottom-nav/BottomNav";
+import DashboardTopNav from "../../../components/top-nav/Dashboard.topNav";
+import useUserDataStore from "../../../hooks/store/userData.store";
+import DailyIntakeComponent from "../../../components/meals/DailyIntake";
 import { MdAdd } from "react-icons/md";
 import { IoAddCircleOutline } from "react-icons/io5";
-import NutrientsVisualization from "../../components/visualization/NutrientsVisualization";
+import NutrientsVisualization from "../../../components/visualization/NutrientsVisualization";
 import { useNavigate } from "react-router";
 
 const Dashboard: React.FC = () => {

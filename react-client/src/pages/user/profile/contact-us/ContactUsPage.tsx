@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Recommendation: React.FC = () => {
+const ContactUsPage = () => {
   return (
     <div>
       
@@ -8,4 +8,4 @@ const Recommendation: React.FC = () => {
   )
 }
 
-export default Recommendation
+export default ContactUsPage

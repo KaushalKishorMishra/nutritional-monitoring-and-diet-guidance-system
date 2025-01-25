@@ -8,7 +8,7 @@ import { ROUTES } from "../constants/constants";
 import Loading from "../components/loading/Loading";
 import ForgotPassword from "../pages/authPages/forgotPassword/ForgotPassword";
 import PasswordReset from "../pages/authPages/passwordReset/PassowrdReset";
-import AddFood from "../pages/addFood/AddFood";
+import AddFood from "../pages/user/dashboard/foods/addFood/AddFood";
 
 // Lazy loading components
 const Login = lazy(() => import("../pages/authPages/login/Login"));
@@ -18,10 +18,10 @@ const VerifyEmail = lazy(
 );
 const Home = lazy(() => import("../pages/home/Home"));
 const GettingStarted = lazy(
-  () => import("../pages/gettingStarted/GettingStarted"),
+  () => import("../pages/home/gettingStarted/GettingStarted"),
 );
-const OnBoarding = lazy(() => import("../pages/onboarding/OnBoarding"));
-const Dashboard = lazy(() => import("../pages/Dashboard/Dashboard"));
+const OnBoarding = lazy(() => import("../pages/home/onboarding/OnBoarding"));
+const Dashboard = lazy(() => import("../pages/user/dashboard/Dashboard"));
 const ProfilePage = lazy(() => import("../pages/user/profile/ProfilePage"));
 const ProfileEditPage = lazy(
   () => import("../pages/user/profile/ProfileEditPage"),
