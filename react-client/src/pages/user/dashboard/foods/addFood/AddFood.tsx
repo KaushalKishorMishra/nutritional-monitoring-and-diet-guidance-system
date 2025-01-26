@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RxCross2 } from "react-icons/rx";
 import { toast } from 'react-toastify';
 import { CgAdd } from 'react-icons/cg';
@@ -12,6 +12,8 @@ import { monthDayYearFormat } from '../../../../../utils/dateFormator.utils';
 import { getMealTime } from '../../../../../utils/getTime.utils';
 import { capitalizeFirstLetter } from '../../../../../utils/randomUtils.utils';
 import useRecommendedFoodStore from '../../../../../hooks/store/recommendedFood.store';
+import { getRecommendationByHistory } from '../../../../../api/recommendation.api';
+import ListItemsCard from '../../../../../components/cards/ListItemsCard';
 
 // Define types for better type safety
 type FoodIntakeItem = {
@@ -33,6 +35,7 @@ const AddFood: React.FC = () => {
     const { openModal } = useModalStore();
     const { loading, setLoading } = useLoadingStore();
     const [error, setError] = useState<string | null>(null);
+    const [foodHistory, setFoodHistory] = useState([]);
 
     // Global state for recommended nutrients intake amount
     const { calories, carbohydrate, total_fat, cholesterol, protein, fiber, sodium, calcium } = useRecommendedFoodStore();
@@ -77,6 +80,18 @@ const AddFood: React.FC = () => {
             setLoading(false);
         }
     };
+
+    useEffect(() => {
+        try {
+            getRecommendationByHistory().then((data) => {
+                setFoodHistory(data);
+            }).catch(() => {
+                toast.error("Failed to load recommended food.");
+            })
+        } catch (err) {
+            toast.error("Failed to load recommended food.");
+        }
+    }, [])
 
     // Function to open the DailyTrack modal
     const handleDailyTrack = () => {
@@ -172,6 +187,17 @@ const AddFood: React.FC = () => {
                     {renderRecommendedNutrients()}
                 </div>
                 <div className="divider m-0"></div>
+
+                {/* Recommendation From History */}
+                <div className='px-5'>
+                    <span className='text-xl font-bold font-dm-sans'>Recommendation for Food</span>
+                    {foodHistory && foodHistory.map((food) => {
+                        return (<>
+                            <ListItemsCard id={food.id} title={food.name} cal={food.cal} /></>)
+                    })
+
+                    }
+                </div>
 
                 {/* Food Intake List */}
                 <div className="px-5">
