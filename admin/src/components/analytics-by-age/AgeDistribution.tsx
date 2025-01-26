@@ -20,7 +20,11 @@ function AgeDistribution() {
 		const fetchUsers = async () => {
 			try {
 				const response = await fetch(
-					`${config.backendUrl}/admin/analytics/age/count`
+					`${config.backendUrl}/admin/analytics/age/count`, {
+					headers: {
+						"Authorization": localStorage.getItem("token") || "",
+					},
+				}
 				)
 				const data: {
 					payload: TAgeCount

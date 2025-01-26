@@ -36,7 +36,11 @@ function GenderIntakes() {
 		const fetchUsers = async () => {
 			try {
 				const response = await fetch(
-					`${config.backendUrl}/admin/activity/gender`
+					`${config.backendUrl}/admin/activity/gender`, {
+						headers: {
+							"Authorization": localStorage.getItem("token") || "",
+						},
+					}
 				)
 				const data: {
 					payload: {

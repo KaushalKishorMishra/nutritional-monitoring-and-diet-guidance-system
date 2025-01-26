@@ -39,7 +39,11 @@ const NutritionByGender = () => {
 		const fetchUsers = async () => {
 			try {
 				const response = await fetch(
-					`${config.backendUrl}/admin/monthly-intake/gender`
+					`${config.backendUrl}/admin/monthly-intake/gender`, {
+						headers: {
+							"Authorization": localStorage.getItem("token") || "",
+						},
+					}
 				)
 				const data: {
 					payload: TGenderNutrients

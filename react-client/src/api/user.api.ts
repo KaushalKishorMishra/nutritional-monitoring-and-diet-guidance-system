@@ -63,14 +63,13 @@ export const addFoodIntake = async (
   mealTime: string,
 ) => {
   const token = JSON.parse(localStorage.getItem("user-data")!).state.token;
-
+  const quantityDivided = quantity / 100;
   mealTime = getMealTime(mealTime);
-  console.log(mealTime);
   const response = await axios.post(
     `${BACKEND_API_URL}/user/track`,
     {
       foodId: foodId.toString(),
-      quantity: quantity,
+      quantity: quantityDivided,
       date: date.toISOString(),
       mealType: mealTime,
     },

@@ -37,7 +37,11 @@ function AgeIntakes() {
 		const fetchUsers = async () => {
 			try {
 				const response = await fetch(
-					`${config.backendUrl}/admin/activity/age`
+					`${config.backendUrl}/admin/activity/age`,{
+						headers: {
+							"Authorization": localStorage.getItem("token") || "",
+						},
+					}
 				)
 				const data: {
 					payload: {

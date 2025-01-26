@@ -11,6 +11,7 @@ import UsersList from "../pages/UsersList"
 import FoodsList from "../pages/FoodsList"
 import FeedbacksList from "../pages/FeedbacksList"
 import AgeAnalytics from "../pages/AgeAnalytics"
+import Login from "../pages/Login"
 
 // Lazy loading components
 const NotFound = lazy(() => import("../components/error/NotFound"))
@@ -26,6 +27,7 @@ const MyRoutes = () => {
 				}
 			>
 				<Routes>
+					<Route path="/" element={<Login />} />
 					<Route path="admin" element={<MainLayout />}>
 						<Route
 							path={ROUTES.dashboard}
