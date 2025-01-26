@@ -19,7 +19,11 @@ function GenderDistribution() {
 		const fetchUsers = async () => {
 			try {
 				const response = await fetch(
-					`${config.backendUrl}/admin/analytics/gender/count`
+					`${config.backendUrl}/admin/analytics/gender/count`, {
+						headers: {
+							"Authorization": localStorage.getItem("token") || "",
+						},
+					}
 				)
 				const data: {
 					payload: TGenderCount

@@ -20,7 +20,11 @@ const Dashboard: React.FC = () => {
 		const fetchUsers = async () => {
 			try {
 				const response = await fetch(
-					`${config.backendUrl}/admin/overview`
+					`${config.backendUrl}/admin/overview`, {
+						headers: {
+							"Authorization": localStorage.getItem("token") || "",
+						},
+					}
 				)
 				const data: {
 					payload: {

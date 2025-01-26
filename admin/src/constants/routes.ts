@@ -8,6 +8,7 @@ import {
 import React from "react"
 import { IoMdTransgender } from "react-icons/io"
 import { FaRegCalendarAlt } from "react-icons/fa"
+import { RiLogoutCircleRLine } from "react-icons/ri";
 
 const iconClasses = `h-6 w-6`
 const submenuIconClasses = `h-5 w-5`
@@ -60,6 +61,11 @@ const routes = [
 			},
 		],
 	},
+	{
+		path: "/",
+		icon: React.createElement(RiLogoutCircleRLine, { className: iconClasses }),
+		name: "Logout"
+	}
 ]
 
 export default routes

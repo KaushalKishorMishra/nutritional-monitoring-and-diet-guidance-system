@@ -22,7 +22,11 @@ const UsersList: React.FC = () => {
 		const fetchUsers = async () => {
 			try {
 				const response = await fetch(
-					`${config.backendUrl}/admin/users?page=${currentPage}&limit=${pageSize}`
+					`${config.backendUrl}/admin/users?page=${currentPage}&limit=${pageSize}`, {
+					headers: {
+						"Authorization": localStorage.getItem("token") || "",
+					},
+				}
 				)
 				const data: {
 					payload: {

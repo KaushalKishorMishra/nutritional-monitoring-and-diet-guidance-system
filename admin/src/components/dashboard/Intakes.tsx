@@ -35,7 +35,11 @@ function Intakes() {
 		const fetchUsers = async () => {
 			try {
 				const response = await fetch(
-					`${config.backendUrl}/admin/activity`
+					`${config.backendUrl}/admin/activity`, {
+					headers: {
+						"Authorization": localStorage.getItem("token") || "",
+					},
+				}
 				)
 				const data: {
 					payload: Record<string, number>

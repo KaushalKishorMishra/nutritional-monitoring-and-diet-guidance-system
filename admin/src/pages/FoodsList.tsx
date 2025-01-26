@@ -22,7 +22,11 @@ const FoodsList: React.FC = () => {
 		const fetchUsers = async () => {
 			try {
 				const response = await fetch(
-					`${config.backendUrl}/admin/foods?page=${currentPage}&limit=${pageSize}&sort_by=id&sort_order=ASC`
+					`${config.backendUrl}/admin/foods?page=${currentPage}&limit=${pageSize}&sort_by=id&sort_order=ASC`, {
+					headers: {
+						"Authorization": localStorage.getItem("token") || "",
+					},
+				}
 				)
 				const data: {
 					payload: {
