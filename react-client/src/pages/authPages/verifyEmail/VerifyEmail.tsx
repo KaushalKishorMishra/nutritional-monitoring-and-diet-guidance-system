@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import VerifyEmailForm from "../../../components/forms/verifyEmail/VerifyEmailForm";
 import { verifyEmail } from "../../../api/auth.api";
 import Loading from "../../../components/loading/Loading";
@@ -15,6 +15,32 @@ const VerifyEmail: React.FC = () => {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setVerifyEmailFormValues((prev) => ({
+      ...prev,
+      email: sessionStorage.getItem("verificationEmail") || "",
+    }));
+
+    const urlParams = new URLSearchParams(window.location.search);
+    // converted to base64 just to hide it from the url
+    const encryptedOtp = urlParams.get("otp");
+    const otp = atob(encryptedOtp || "");
+    const encryptedEmail = urlParams.get("email");
+    const email = atob(encryptedEmail || "");
+    if (otp && otp.length === 6) {
+      setVerifyEmailFormValues((prev) => ({
+        ...prev,
+        emailVerificationToken: otp,
+      }));
+    }
+    if (email) {
+      setVerifyEmailFormValues((prev) => ({
+        ...prev,
+        email: email,
+      }));
+    }
+  }, []);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
