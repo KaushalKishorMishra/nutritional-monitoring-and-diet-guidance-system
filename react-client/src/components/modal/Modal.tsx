@@ -60,7 +60,7 @@ const Modal: React.FC = () => {
         >
           {/* Background div stays full height */}
           <div
-            className={`flex h-fit w-screen flex-col ${theme === Theme.Light ? "bg-neutral" : "bg-neutral"} shadow-lg ${type === "bottom"
+            className={`flex h-fit w-screen flex-col ${theme === Theme.Light ? "bg-base-200" : "bg-neutral"} shadow-lg ${type === "bottom"
               ? "fixed bottom-0 left-0 rounded-t-2xl"
               : "fixed left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center"
               }`}

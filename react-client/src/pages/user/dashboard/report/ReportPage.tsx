@@ -12,6 +12,9 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import Gauge from "react-svg-gauge";
+import useAppSettingsStore, {
+  Theme,
+} from "../../../../hooks/store/appSettings.store";
 
 ChartJS.register(
   CategoryScale,
@@ -23,6 +26,8 @@ ChartJS.register(
 );
 
 const ReportPage: React.FC = () => {
+  const { theme } = useAppSettingsStore();
+
   const [report, setReport] = useState<ReportResponse>({
     bmi: 0,
     bmiCategory: "",
@@ -80,7 +85,7 @@ const ReportPage: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <div className="flex w-full flex-col items-center justify-center my-6">
+      <div className="my-6 flex w-full flex-col items-center justify-center">
         <Gauge
           value={report.bmi}
           width={400}
@@ -90,17 +95,17 @@ const ReportPage: React.FC = () => {
           max={60}
           valueLabelStyle={{
             fontSize: "50px",
-            fill: "black",
+            fill: theme === Theme.Light ? "black" : "gray",
           }}
           topLabelStyle={{
             fontSize: "30px",
             color: "gray",
           }}
         />
-        <div className="text-center -mt-10">{report.bmiCategory}</div>
+        <div className="-mt-10 text-center">{report.bmiCategory}</div>
       </div>
 
-      <div className="card w-full bg-base-100 p-6 shadow-xl border">
+      <div className="card w-full border bg-base-100 p-6 shadow-xl">
         <div className="text-xl font-semibold">Daily Calorie Intakes</div>
 
         <div className="divider mt-2"></div>

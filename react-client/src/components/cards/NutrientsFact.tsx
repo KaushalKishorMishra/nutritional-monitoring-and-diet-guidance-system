@@ -6,16 +6,26 @@ interface PNutritionFacts {
 }
 
 // Helper function to render a nutrition fact row
-const renderNutritionFact = (label: string, value: string | number | null, unit: string = "") => {
-  if (value === 0 || value === null || value === undefined) {
+const renderNutritionFact = (
+  label: string,
+  value: number | string,
+  unit: string = "",
+) => {
+  if (typeof value === "number") {
+    value = value.toString();
+  }
+  const parsedValue = parseFloat(parseFloat(value).toFixed(2));
+  if (!parsedValue || parsedValue == 0) {
     return null;
   }
+
+  console.log(typeof value);
 
   return (
     <div className="flex justify-between">
       <span>{label}</span>
       <span className="font-bold">
-        {value ?? "0"}
+        {parsedValue ?? "0"}
         {unit && ` ${unit}`}
       </span>
     </div>
@@ -28,12 +38,14 @@ const NutritionFacts: React.FC<PNutritionFacts> = ({ data }) => {
   }
 
   return (
-    <div className="nutrition-facts bg-white p-6 rounded-lg shadow-md max-w-sm">
-      <h2 className="text-2xl font-bold mb-4 flex">Nutrition Facts</h2>
+    <div className="nutrition-facts w-full rounded-lg bg-white p-6 shadow-md">
+      <h2 className="mb-4 flex text-2xl font-bold">Nutrition Facts</h2>
       <div className="mb-4">
-        <p className="text-sm text-base-300">Serving size: {data.serving_size}g</p>
+        <p className="text-sm text-base-300">
+          Serving size: {data.serving_size}g
+        </p>
       </div>
-      <div className="border-t border-b border-gray-300 py-2">
+      <div className="border-b border-t border-gray-300 py-2">
         <p className="font-bold">Amount per serving</p>
       </div>
       <div className="mt-4 space-y-2">
@@ -71,8 +83,16 @@ const NutritionFacts: React.FC<PNutritionFacts> = ({ data }) => {
         {renderNutritionFact("Maltose", data.maltose, "g")}
         {renderNutritionFact("Sucrose", data.sucrose, "g")}
         {renderNutritionFact("Fat", data.fat, "g")}
-        {renderNutritionFact("Saturated Fatty Acids", data.saturated_fatty_acids, "g")}
-        {renderNutritionFact("Trans Fatty Acids", data.fatty_acids_total_trans, "g")}
+        {renderNutritionFact(
+          "Saturated Fatty Acids",
+          data.saturated_fatty_acids,
+          "g",
+        )}
+        {renderNutritionFact(
+          "Trans Fatty Acids",
+          data.fatty_acids_total_trans as unknown as number,
+          "g",
+        )}
         {renderNutritionFact("Alcohol", data.alcohol, "g")}
         {renderNutritionFact("Ash", data.ash, "g")}
         {renderNutritionFact("Caffeine", data.caffeine, "mg")}

@@ -1,9 +1,10 @@
 import React from "react";
 import { MdChevronRight, MdOutlineWatchLater } from "react-icons/md";
 import { useNavigate } from "react-router";
+import useAppSettingsStore, { Theme } from "../../hooks/store/appSettings.store";
 
 interface PListItemsCard {
-  id: string
+  id: string;
   title: string;
   time?: string;
   cal?: string;
@@ -19,10 +20,12 @@ const ListItemsCard: React.FC<PListItemsCard> = ({
   type = "dailyIntake",
   desc,
 }) => {
-  const navigate = useNavigate()
+  const { theme } = useAppSettingsStore();
+
+  const navigate = useNavigate();
   return (
     <div
-      className="group card h-32 w-full bg-neutral shadow-sm text-base-content transition-all duration-300 hover:shadow-2xl"
+      className={`group card h-32 w-full ${theme === Theme.Light ? "bg-base-200" : "bg-neutral"} text-base-content shadow-sm transition-all duration-300 hover:shadow-2xl`}
       onClick={() => navigate(`/user/food-details/${id}`)}
     >
       <div className="flex h-full gap-4 px-5 py-3">

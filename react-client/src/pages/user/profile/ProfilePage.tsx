@@ -1,6 +1,6 @@
 import React from "react";
 import { IoChevronBack } from "react-icons/io5";
-import { MdMailOutline, MdOutlineLogout, MdOutlineSettings } from "react-icons/md";
+import { MdMailOutline, MdOutlineLogout, } from "react-icons/md";
 import { CgDarkMode } from "react-icons/cg";
 import { IoMdInformationCircleOutline } from "react-icons/io";
 import { useNavigate } from "react-router";
@@ -56,7 +56,7 @@ const ProfilePage: React.FC = () => {
           <ThemeToggle theme={theme} setTheme={setTheme} />
           <ProfileLink icon={<MdMailOutline className="text-2xl text-primary" />} label="Contact Us" onClick={() => navigate("/user/contact-us")} />
           <ProfileLink icon={<IoMdInformationCircleOutline className="text-2xl text-primary" />} label="About App" onClick={() => navigate("/user/about-us")} />
-          <ProfileLink icon={<MdOutlineSettings className="text-2xl text-primary" />} label="Setting" />
+          {/* <ProfileLink icon={<MdOutlineSettings className="text-2xl text-primary" />} label="Setting" /> */}
           <ProfileLink icon={<MdOutlineLogout className="text-2xl text-primary" />} label="Log Out" onClick={handleLogout} />
         </div>
       </div>
