@@ -38,7 +38,7 @@ function GenderIntakes() {
 				const response = await fetch(
 					`${config.backendUrl}/admin/activity/gender`, {
 						headers: {
-							"Authorization": localStorage.getItem("token") || "",
+							Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
 						},
 					}
 				)

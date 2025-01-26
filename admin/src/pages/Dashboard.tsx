@@ -20,9 +20,10 @@ const Dashboard: React.FC = () => {
 		const fetchUsers = async () => {
 			try {
 				const response = await fetch(
-					`${config.backendUrl}/admin/overview`, {
+					`${config.backendUrl}/admin/overview`,
+					{
 						headers: {
-							"Authorization": localStorage.getItem("token") || "",
+							Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
 						},
 					}
 				)
@@ -46,6 +47,14 @@ const Dashboard: React.FC = () => {
 
 	if (!ready) {
 		return <div>Loading...</div>
+	}
+	if (
+		overview.userCount === "0" &&
+		overview.foodCount === "0" &&
+		overview.intakeCount === "0" &&
+		overview.feedbackCount === "0"
+	) {
+		return <div>Something went wrong</div>
 	}
 	const iconSize = "h-20 w-20"
 

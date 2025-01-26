@@ -26,7 +26,7 @@ const FeedbacksList: React.FC = () => {
 				const response = await fetch(
 					`${config.backendUrl}/admin/feedbacks?page=${currentPage}&limit=${pageSize}&sort_by=id&sort_order=ASC`, {
 						headers: {
-							"Authorization": localStorage.getItem("token") || "",
+							Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
 						},
 					}
 				)

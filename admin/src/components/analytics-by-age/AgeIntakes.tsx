@@ -39,7 +39,7 @@ function AgeIntakes() {
 				const response = await fetch(
 					`${config.backendUrl}/admin/activity/age`,{
 						headers: {
-							"Authorization": localStorage.getItem("token") || "",
+							Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
 						},
 					}
 				)

@@ -24,7 +24,7 @@ const UsersList: React.FC = () => {
 				const response = await fetch(
 					`${config.backendUrl}/admin/users?page=${currentPage}&limit=${pageSize}`, {
 					headers: {
-						"Authorization": localStorage.getItem("token") || "",
+						Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
 					},
 				}
 				)

@@ -37,7 +37,7 @@ function Intakes() {
 				const response = await fetch(
 					`${config.backendUrl}/admin/activity`, {
 					headers: {
-						"Authorization": localStorage.getItem("token") || "",
+						Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
 					},
 				}
 				)
