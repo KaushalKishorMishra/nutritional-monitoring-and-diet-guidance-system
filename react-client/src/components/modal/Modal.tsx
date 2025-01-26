@@ -1,8 +1,11 @@
 import React, { useEffect } from "react";
 import { useModalStore } from "../../hooks/store/modal.store";
+import useAppSettingsStore, { Theme } from "../../hooks/store/appSettings.store";
 
 const Modal: React.FC = () => {
   const { modals, closeModal } = useModalStore();
+
+  const { theme } = useAppSettingsStore()
 
   // Get all visible modals
   const visibleModals = Object.keys(modals)
@@ -48,7 +51,7 @@ const Modal: React.FC = () => {
       {visibleModals.map(({ id, content, padding, type }, index) => (
         <div
           key={id}
-          className={`fixed inset-0 ${getModalZIndex(index)} bg-[#DBE0E4]/80`}
+          className={`fixed inset-0 ${getModalZIndex(index)} ${theme === Theme.Light ? "bg-[#DBE0E4]/80" : "bg-black/80"}`}
           onClick={(e) => handleBackgroundClick(e, id)}
           tabIndex={0}
           style={{
@@ -57,11 +60,10 @@ const Modal: React.FC = () => {
         >
           {/* Background div stays full height */}
           <div
-            className={`flex h-fit w-screen flex-col bg-base-200 shadow-lg ${
-              type === "bottom"
-                ? "fixed bottom-0 left-0 rounded-t-2xl"
-                : "fixed left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center"
-            }`}
+            className={`flex h-fit w-screen flex-col ${theme === Theme.Light ? "bg-neutral" : "bg-neutral"} shadow-lg ${type === "bottom"
+              ? "fixed bottom-0 left-0 rounded-t-2xl"
+              : "fixed left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center"
+              }`}
           >
             {/* top draggable notch */}
             {type === "bottom" && (

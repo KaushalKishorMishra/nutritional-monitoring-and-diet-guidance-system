@@ -21,7 +21,7 @@ const DropdownField: React.FC<PDropdownField> = ({
 }) => {
   return (
     <div className="input-container">
-      <label htmlFor={id}>{label}</label>
+      <label htmlFor={id} className="text-secondary-content">{label}</label>
       <select
         id={id}
         name={name}

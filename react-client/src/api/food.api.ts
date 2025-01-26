@@ -1,5 +1,6 @@
 import axios from "axios";
 import { BACKEND_API_URL, VITE_NUTRITIONIX_APP_ID, VITE_NUTRITIONIX_APP_KEY } from "../config";
+import { TDetailedFoodForShowPage } from "../types/food";
 
 const headersObject = {
     'Content-Type': 'application/json',
@@ -38,6 +39,15 @@ export const getFoodByNameFromDataBase = async (query: string) => {
                 name: query
             }
         }
+    );
+    const responseData = response.data.payload;
+    return responseData;
+}
+
+
+export const getOneFoodById = async (id: string): Promise<TDetailedFoodForShowPage> => {
+    const response = await axios.get(
+        `${BACKEND_API_URL}/f/food/${id}`,
     );
     const responseData = response.data.payload;
     return responseData;

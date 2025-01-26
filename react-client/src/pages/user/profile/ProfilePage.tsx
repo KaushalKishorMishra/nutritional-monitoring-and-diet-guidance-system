@@ -14,7 +14,7 @@ const ProfilePage: React.FC = () => {
   const { setTheme, theme } = useAppSettingsStore();
   const navigate = useNavigate();
   const { name, email, calorie } = useUserDataStore();
-  const intakeCalories = calorie.toFixed(2);
+  const intakeCalories = parseFloat(calorie.toFixed(2));
 
   const handleLogout = () => {
     logout()

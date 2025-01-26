@@ -1,7 +1,9 @@
 import React from "react";
 import { MdChevronRight, MdOutlineWatchLater } from "react-icons/md";
+import { useNavigate } from "react-router";
 
 interface PListItemsCard {
+  id: string
   title: string;
   time?: string;
   cal?: string;
@@ -10,16 +12,18 @@ interface PListItemsCard {
 }
 
 const ListItemsCard: React.FC<PListItemsCard> = ({
+  id,
   title,
   time,
   cal,
   type = "dailyIntake",
   desc,
 }) => {
+  const navigate = useNavigate()
   return (
     <div
-      className="group card h-32 w-full bg-base-200 shadow-xl transition-all duration-300 hover:shadow-2xl"
-      onClick={() => console.log("Card clicked!")}
+      className="group card h-32 w-full bg-neutral shadow-sm text-base-content transition-all duration-300 hover:shadow-2xl"
+      onClick={() => navigate(`/user/food-details/${id}`)}
     >
       <div className="flex h-full gap-4 px-5 py-3">
         {/* Left Section */}

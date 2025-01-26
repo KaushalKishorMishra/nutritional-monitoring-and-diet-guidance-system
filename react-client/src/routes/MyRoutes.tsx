@@ -11,6 +11,7 @@ import PasswordReset from "../pages/authPages/passwordReset/PassowrdReset";
 import AddFood from "../pages/user/dashboard/foods/addFood/AddFood";
 import ContactUsPage from "../pages/user/profile/contact-us/ContactUsPage";
 import AboutUsPage from "../pages/aboutUs/AboutUsPage";
+import ShowFood from "../pages/user/dashboard/foods/ShowFood";
 
 // Lazy loading components
 const Login = lazy(() => import("../pages/authPages/login/Login"));
@@ -64,6 +65,7 @@ const MyRoutes = () => {
             <Route path={ROUTES.auth.addFoodIntake} element={<AddFood />} />
             <Route path={ROUTES.auth.contactUs} element={<ContactUsPage />} />
             <Route path={ROUTES.auth.aboutUs} element={<AboutUsPage />} />
+            <Route path={ROUTES.auth.foodDetails} element={<ShowFood />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

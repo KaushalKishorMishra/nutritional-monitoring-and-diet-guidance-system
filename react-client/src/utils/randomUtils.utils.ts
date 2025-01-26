@@ -20,7 +20,7 @@ export const convertUnits = (value: number | string, unit: string): string => {
     }
     switch (unit) {
         case "g":
-            return `${value.toFixed(2)} g`;
+            return `${parseFloat(value.toFixed(2))} g`;
         case "kcal":
             return `${value} kcal`;
         default:

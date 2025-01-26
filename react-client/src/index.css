@@ -48,6 +48,9 @@
   @apply !w-full;
 }
 
+input {
+  @apply font-bold text-black;
+}
 
 /* Animation */
 @keyframes rotate {

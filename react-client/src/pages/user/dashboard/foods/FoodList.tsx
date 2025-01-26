@@ -79,6 +79,7 @@ const FoodList: React.FC = () => {
                     <Loading />
                   ) : (
                     <ListItemsCard
+                      id={food.food.id}
                       title={food.food.name}
                       key={food.food.id}
                       cal={food.food.calories}
@@ -88,9 +89,7 @@ const FoodList: React.FC = () => {
                 </div>
               ))
             ) : (
-              <div className="w-full py-5 text-center font-nunito-sans text-lg font-semibold">
-                No foods found.
-              </div>
+              <Loading />
             )}
           </div>
         </div>

@@ -115,44 +115,6 @@ const Dashboard: React.FC = () => {
                 </div>
                 <DailyIntakeComponent dailyIntake={dailyIntake} />
               </div>
-
-              {/* <div className="collapse collapse-arrow mb-20 bg-base-200">
-                <input type="radio" name="my-accordion-2" />
-                <div className="collapse-title text-xl font-medium">
-                  <div className="text-lg">Recommendations</div>
-                </div>
-                <div className="collapse-content">
-                  <div className="my-4 flex flex-col gap-4">
-                    {recommendation.length === 0 && <p>No recommendations.</p>}
-                    {recommendation.map((recommendation, index) => (
-                      <div key={index} className="w-full rounded border p-4">
-                        <h2 className="mb-2 border-b text-lg font-semibold">
-                          {recommendation.food.name}&nbsp;&nbsp;&nbsp;
-                          <span className="text-sm font-normal">
-                            {recommendation.score.toFixed(2)}
-                          </span>
-                        </h2>
-                        <p>
-                          <strong>Serving Size:</strong>{" "}
-                          {convertUnits(recommendation.food.serving_size, "g")}
-                        </p>
-                        <p>
-                          <strong>Calories:</strong>{" "}
-                          {convertUnits(recommendation.food.calories, "kcal")}
-                        </p>
-                        <p>
-                          <strong>Protein:</strong>{" "}
-                          {convertUnits(recommendation.food.protein, "g")}
-                        </p>
-                        <p>
-                          <strong>Total Fat:</strong>{" "}
-                          {convertUnits(recommendation.food.total_fat, "g")}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div> */}
             </div>
           )}
           {bottomNav === "report" && <ReportPage />}
