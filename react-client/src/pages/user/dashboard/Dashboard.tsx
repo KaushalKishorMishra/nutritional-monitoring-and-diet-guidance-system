@@ -18,13 +18,14 @@ import { IoAddCircleOutline } from "react-icons/io5";
 import NutrientsVisualization from "../../../components/visualization/NutrientsVisualization";
 import { useNavigate } from "react-router";
 import useRecommendedFoodStore from "../../../hooks/store/recommendedFood.store";
+import ReportPage from "./report/ReportPage";
 
 const Dashboard: React.FC = () => {
   const [date, setDate] = useState<Date>(new Date());
   const [profileRes, setProfileRes] = useState<TUser>();
   const [dashboardRes, setDashboardRes] = useState<NutritionResponse>();
 
-  const { setRecommendedFood } = useRecommendedFoodStore()
+  const { setRecommendedFood } = useRecommendedFoodStore();
   const { setUserData } = useUserDataStore();
   const navigate = useNavigate();
 
@@ -64,13 +65,11 @@ const Dashboard: React.FC = () => {
         fiber: dashBoardResponse.recommendedIntake.fiber,
         sodium: dashBoardResponse.recommendedIntake.sodium,
         calcium: dashBoardResponse.recommendedIntake.calcium,
-      })
-
+      });
     };
     fetchDashboardData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [date, bottomNav]);
-
 
   return (
     <div className="min-h-screen bg-base-100">
@@ -106,7 +105,10 @@ const Dashboard: React.FC = () => {
                   <h4 className="mb-1 ps-1 text-start font-nunito-sans font-semibold">
                     Meal
                   </h4>
-                  <div className="group transition-all duration-300" onClick={() => navigate("/user/add-food")}>
+                  <div
+                    className="group transition-all duration-300"
+                    onClick={() => navigate("/user/add-food")}
+                  >
                     <MdAdd className="mx-3 transition-all duration-300 group-hover:hidden group-hover:opacity-0" />
                     <IoAddCircleOutline className="mx-3 hidden text-primary opacity-0 transition-all duration-300 group-hover:block group-hover:opacity-100" />
                   </div>
@@ -153,6 +155,7 @@ const Dashboard: React.FC = () => {
               </div> */}
             </div>
           )}
+          {bottomNav === "report" && <ReportPage />}
         </div>
       </div>
       {/* bottom nav */}

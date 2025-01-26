@@ -96,3 +96,9 @@ export interface NutritionResponse {
     recommendedIntake: RecommendedIntake;
     recommendation: Recommendation[];
 }
+
+export interface ReportResponse {
+    bmi:number
+    bmiCategory:string,
+    dailyCalories:Record<string, number>,
+}
