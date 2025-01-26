@@ -52,6 +52,9 @@ const Sidebar: React.FC = () => {
 								className={({ isActive }) =>
 									`${isActive ? "bg-base-200 font-semibold" : "font-normal"}`
 								}
+								onClick={() =>
+									localStorage.clear()
+								}
 							>
 								{route.icon} {route.name}
 								{location.pathname === route.path ? (
