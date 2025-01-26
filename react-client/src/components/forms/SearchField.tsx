@@ -30,7 +30,6 @@ const SearchField = <T,>({
 }: SearchFieldProps<T>) => {
   const [results, setResults] = useState<T[]>([]);
   const [loading, setLoading] = useState(false);
-  console.log(results)
 
   useEffect(() => {
     const fetchResults = async () => {
@@ -67,7 +66,7 @@ const SearchField = <T,>({
   return (
     <div className="input-container relative">
       {label && (
-        <label htmlFor={id} className="block text-sm font-medium text-gray-700">
+        <label htmlFor={id} className="block text-sm font-medium text-secondary-content">
           {label}
         </label>
       )}

@@ -147,7 +147,7 @@ const AddFood: React.FC = () => {
                 {nutrients.map((nutrient, index) => (
                     nutrient.value && (
                         <span key={index} className='text-secondary-content text-sm flex flex-col-reverse items-center'>
-                            {nutrient.label} <span className='font-semibold'>{nutrient.value}</span>
+                            {nutrient.label} <span className='font-semibold'>{parseFloat(nutrient.value.toFixed(2))}</span>
                         </span>
                     )
                 ))}

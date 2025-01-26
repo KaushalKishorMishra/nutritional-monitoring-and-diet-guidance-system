@@ -9,7 +9,7 @@ interface SearchInputFieldProps<T> {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
   fetchData: (query: string) => Promise<T[]>; // Function to fetch data
-  renderResults: (result: T) => string; // Function to display result as string
+  renderResults: (result: T) => React.ReactNode; // Function to render result as JSX
   getId: (result: T) => string; // Function to get the ID from result
   onSelect: (id: string) => void; // Callback with the selected ID
 }
@@ -66,9 +66,13 @@ const SearchInputField = <T,>({
 
   const handleSelect = (result: T) => {
     const selectedId = getId(result);
+    const displayValue = renderResults(result);
+
+    // Ensure displayValue is not null or undefined before calling toString()
     onChange({
-      target: { value: renderResults(result), name },
+      target: { value: displayValue?.toString() || "", name },
     } as React.ChangeEvent<HTMLInputElement>);
+
     onSelect(selectedId);
     setResults([]);
   };
@@ -88,10 +92,10 @@ const SearchInputField = <T,>({
           onChange={onChange}
         />
       </label>
-      {/* {loading && <Loading />} */}
-      {results?.length > 0 ? (
+      {loading && <p className="mt-2 text-sm text-gray-500">Loading...</p>}
+      {results && results?.length > 0 ? (
         <ul className="search-results mt-4 max-h-60 overflow-y-auto transition-all duration-300">
-          {results?.map((result, index) => (
+          {results.map((result, index) => (
             <li
               key={index}
               className="cursor-pointer border-b py-2 transition-all duration-300 hover:bg-gray-100"

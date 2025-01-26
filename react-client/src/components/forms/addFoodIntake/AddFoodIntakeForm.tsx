@@ -59,12 +59,12 @@ const AddFoodIntakeForm: React.FC<PAddFoodIntakeForm> = ({
   // Handle changes for other fields
   const handleChange =
     (field: keyof typeof addFoodIntakeFormValues) =>
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setAddFoodIntakeFormValues((prev) => ({
-        ...prev,
-        [field]: e.target.value,
-      }));
-    };
+      (e: React.ChangeEvent<HTMLInputElement>) => {
+        setAddFoodIntakeFormValues((prev) => ({
+          ...prev,
+          [field]: e.target.value,
+        }));
+      };
 
   const handleFoodSelect = (foodId: string, foodName: string) => {
     setAddFoodIntakeFormValues((prev) => ({
@@ -122,7 +122,7 @@ const AddFoodIntakeForm: React.FC<PAddFoodIntakeForm> = ({
       <div className="flex flex-row justify-between gap-2">
         {/* CustomDatePicker for Date */}
         <div className="input-container">
-          <label className="block text-sm font-medium text-gray-700">Date:</label>
+          <label className="block text-sm font-medium text-secondary-content">Date:</label>
           <CustomDatePicker
             date={addFoodIntakeFormValues.date}
             setDate={handleDateChange} // Pass the handleDateChange function
@@ -131,7 +131,7 @@ const AddFoodIntakeForm: React.FC<PAddFoodIntakeForm> = ({
 
         {/* CustomTimePicker for Time */}
         <div className="input-container">
-          <label className="block text-sm font-medium text-gray-700">Time:</label>
+          <label className="block text-sm font-medium text-secondary-content">Time:</label>
           <div className="w-full">
             <CustomTimePicker
               value={addFoodIntakeFormValues.mealTime || "10:00"} // Default to "10:00" if mealTime is undefined

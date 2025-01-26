@@ -28,7 +28,7 @@ const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
           type="text"
           value={monthDayYearFormatForAPI(date.toISOString())}
           readOnly
-          className="w-full rounded-md bg-base-100 ps-2 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+          className="w-full rounded-md ps-2 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
           onClick={() => {
             openModal(
               `Selected Data: ${monthDayYearFormatForAPI(date.toISOString())}`,

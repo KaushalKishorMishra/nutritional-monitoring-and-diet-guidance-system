@@ -21,7 +21,7 @@ const PopUpInputField: React.FC<PopUpInputField> = ({
 }) => {
   return (
     <div className="input-container border-b-2 border-primary bg-base-100 rounded-t-2xl !w-32">
-      {label && <label htmlFor={id}>{label}</label>}
+      {label && <label htmlFor={id} className="text-secondary-content">{label}</label>}
       <input
         type="text"
         typeof={type}

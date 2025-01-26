@@ -15,6 +15,7 @@ export const ROUTES = {
         profileEdit: "/user/profile/edit",
         addFoodIntake: "/user/add-food",
         contactUs: "/user/contact-us",
-        aboutUs: "/user/about-us"
+        aboutUs: "/user/about-us",
+        foodDetails: "/user/food-details/:id",
     }
 };
