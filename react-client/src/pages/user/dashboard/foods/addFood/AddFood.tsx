@@ -99,10 +99,11 @@ const AddFood: React.FC = () => {
           setFoodHistory(data);
         })
         .catch(() => {
-          toast.error("Failed to load recommended food.");
+          console.log("Failed to load recommended food.");
         });
     } catch (err) {
-      toast.error("Failed to load recommended food.");
+      //   toast.error("Failed to load recommended food.");
+      console.log("Failed to load recommended food.", err);
     }
   }, []);
 
@@ -229,6 +230,7 @@ const AddFood: React.FC = () => {
           </span>
           <div className="flex flex-col gap-6">
             {foodHistory &&
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               foodHistory.map((food: any) => {
                 return (
                   <>
