@@ -88,7 +88,6 @@ const SearchField = <T,>({
       {results.length > 0 && (
         <ul className="absolute -bottom-100 left-0 z-10 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto">
           {results.map((result, index) => {
-            console.log("result", result)
             return (
               <li
                 key={index}

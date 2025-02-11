@@ -36,17 +36,6 @@ const FoodVisualization: React.FC<PFoodVisualization> = ({
     Object.prototype.hasOwnProperty.call(recommendedIntake, key),
   );
 
-  console.log(sharedKeys);
-  console.log(
-    sharedKeys.map((key) => totalIntake[key as keyof TotalIntake] ?? 0),
-  );
-
-  console.log(
-    sharedKeys.map(
-      (key: string) => recommendedIntake[key as keyof RecommendedIntake] ?? 0,
-    ),
-  );
-
   const data = {
     labels: sharedKeys,
     datasets: [

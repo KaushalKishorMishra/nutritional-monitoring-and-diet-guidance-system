@@ -19,7 +19,6 @@ const PopUpSelectedField: React.FC<PPopUpSelectedField> = ({
   onChange,
 }) => {
   const [isSelected, setIsSelected] = useState(selectedOption);
-  console.log(selectedOption)
 
   const { closeModal } = useModalStore();
 

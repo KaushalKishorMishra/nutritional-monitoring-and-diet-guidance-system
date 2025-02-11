@@ -243,7 +243,6 @@ const GettingStartedForm: React.FC<PGettingStartedForm> = ({ onSubmit }) => {
           <button
             onClick={() => {
               handleNextStep();
-              console.log(getAllData());
             }}
             className="cursor-pointer rounded-full bg-primary p-5 text-xl text-white"
           >
