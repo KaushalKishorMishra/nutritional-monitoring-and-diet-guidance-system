@@ -31,7 +31,6 @@ function AgeDistribution() {
 				} = await response.json()
 				setAgeData(data.payload)
 				setReady(true)
-				console.log(data.payload)
 			} catch (error) {
 				console.error("Error fetching data:", error)
 			}

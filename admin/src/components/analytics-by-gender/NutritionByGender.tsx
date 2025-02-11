@@ -50,7 +50,6 @@ const NutritionByGender = () => {
 				} = await response.json()
 				setNutrientData(data.payload)
 				setReady(true)
-				console.log(data.payload)
 			} catch (error) {
 				console.error("Error fetching users:", error)
 			}

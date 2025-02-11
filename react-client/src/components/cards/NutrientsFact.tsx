@@ -19,8 +19,6 @@ const renderNutritionFact = (
     return null;
   }
 
-  console.log(typeof value);
-
   return (
     <div className="flex justify-between">
       <span>{label}</span>

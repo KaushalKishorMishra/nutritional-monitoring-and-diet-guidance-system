@@ -30,7 +30,6 @@ function GenderDistribution() {
 				} = await response.json()
 				setGenderData(data.payload)
 				setReady(true)
-				console.log(data.payload)
 			} catch (error) {
 				console.error("Error fetching data:", error)
 			}

@@ -30,7 +30,6 @@ const Register: React.FC = () => {
         registerFromValues.email,
         registerFromValues.password,
       ); // Call the API
-      console.log("Success:", response);
 
       // Handle success response
       setSuccessMessage("Registration successful!");

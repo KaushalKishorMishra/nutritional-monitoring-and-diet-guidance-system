@@ -24,7 +24,8 @@ const FeedbacksList: React.FC = () => {
 		const fetchUsers = async () => {
 			try {
 				const response = await fetch(
-					`${config.backendUrl}/admin/feedbacks?page=${currentPage}&limit=${pageSize}&sort_by=id&sort_order=ASC`, {
+					`${config.backendUrl}/admin/feedbacks?page=${currentPage}&limit=${pageSize}&sort_by=id&sort_order=ASC`,
+					{
 						headers: {
 							Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
 						},
@@ -38,7 +39,6 @@ const FeedbacksList: React.FC = () => {
 				} = await response.json()
 				setFeedbacks(data.payload.rows)
 				setPagination(data.payload.pagination)
-				console.log("data.payload.pagination ==> ", data.payload.pagination);
 				setReady(true)
 			} catch (error) {
 				console.error("Error fetching users:", error)

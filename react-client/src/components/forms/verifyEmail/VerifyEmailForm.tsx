@@ -68,7 +68,6 @@ const VerifyEmailForm: React.FC<PVerifyEmailForm> = ({
     try {
       const response = await reSendToken(email);
       setSuccessMessage("Verification token resent successfully!");
-      console.log("Success:", response);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setErrorMessage(

@@ -46,7 +46,6 @@ function Intakes() {
 				} = await response.json()
 				setActivityData(data.payload)
 				setReady(true)
-				console.log(data.payload)
 			} catch (error) {
 				console.error("Error fetching data:", error)
 			}

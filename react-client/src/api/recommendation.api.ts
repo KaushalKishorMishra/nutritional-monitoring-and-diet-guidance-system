@@ -26,6 +26,6 @@ export const getRecommendationByHistory = async () => {
         }
     }
     );
-    const responseData = response.data.payload.recommendation;
+    const responseData = response.data.payload;
     return responseData;
 }

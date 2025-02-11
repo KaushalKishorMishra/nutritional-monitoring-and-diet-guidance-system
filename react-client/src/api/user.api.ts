@@ -37,7 +37,6 @@ export const getProfile = async () => {
     },
   });
   const responseData: Partial<TUser> = response.data.payload;
-  console.log(responseData);
   return responseData;
 };
 

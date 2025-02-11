@@ -26,7 +26,6 @@ export const searchFoodWithNutritionix = async (query: string) => {
         headers: headersObject
     }
     );
-    console.log(response.data)
     const responseData = response.data
     return responseData;
 }

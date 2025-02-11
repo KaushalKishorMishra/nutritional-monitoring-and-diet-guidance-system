@@ -16,7 +16,6 @@ export const register = async (name: string, email: string, password: string) =>
         email,
         password,
     });
-    console.log(response.data.payload)
     localStorage.setItem("email", response.data.payload.email)
     localStorage.setItem("name", response.data.payload.name)
     localStorage.setItem("userId", response.data.payload.id)
@@ -42,7 +41,6 @@ export const forgotPassword = async (email: string) => {
     const response = await axios.post(`${BACKEND_API_URL}/auth/forgot-password`, {
         email,
     });
-    console.log(response.data)
     return response.data;
 };
 

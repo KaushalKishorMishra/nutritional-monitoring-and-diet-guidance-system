@@ -24,7 +24,6 @@ const ShowFood: React.FC = () => {
     }
     fetchFood()
   }, [id])
-  console.log(foodDetails)
   const navigate = useNavigate();
   return (
     <div className="">

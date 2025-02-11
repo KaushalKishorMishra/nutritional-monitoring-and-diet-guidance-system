@@ -31,8 +31,6 @@ const PopUpForm: React.FC<PPopUpForm> = ({
   const { closeModal } = useModalStore();
 
   const handleSubmit = () => {
-    console.log(1)
-    console.log(id, value);
     setFormValues((prev) => ({ ...prev, [id]: value }));
     closeModal(`${id}`);
   };
