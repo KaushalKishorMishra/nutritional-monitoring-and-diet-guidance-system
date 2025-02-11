@@ -68,9 +68,8 @@ const ReportPage: React.FC = () => {
       },
     },
   };
-
-  const labels: string[] = Object.keys(report.dailyCalories).slice(0, 7);
-  const values: number[] = Object.values(report.dailyCalories).slice(0, 7);
+  const labels: string[] = Object.keys(report.dailyCalories).slice(-7);
+  const values: number[] = Object.values(report.dailyCalories).slice(-7);
 
   const data = {
     labels, // Use the labels directly
