@@ -14,6 +14,7 @@ import { capitalizeFirstLetter } from "../../../../../utils/randomUtils.utils";
 import useRecommendedFoodStore from "../../../../../hooks/store/recommendedFood.store";
 import { getRecommendationByHistory } from "../../../../../api/recommendation.api";
 import ListItemsCard from "../../../../../components/cards/ListItemsCard";
+import { TFoodMinimal } from "../../../../../types/food";
 
 // Define types for better type safety
 type FoodIntakeItem = {
@@ -23,6 +24,17 @@ type FoodIntakeItem = {
   unit: string; // Add unit field
   date: Date;
   mealTime: string;
+};
+type AssociationRuleWithSupport = {
+  antecedent: number[];
+  consequent: number[];
+  confidence: number;
+  support: number;
+};
+type RecommendationByHistory = {
+  matchedRules: AssociationRuleWithSupport[];
+  recommendations: number[];
+  recommendation: TFoodMinimal[];
 };
 
 const AddFood: React.FC = () => {
@@ -35,7 +47,8 @@ const AddFood: React.FC = () => {
   const { openModal } = useModalStore();
   const { loading, setLoading } = useLoadingStore();
   const [error, setError] = useState<string | null>(null);
-  const [foodHistory, setFoodHistory] = useState([]);
+  const [historyRecommendation, setHistoryRecommendation] =
+    useState<RecommendationByHistory | null>(null);
 
   // Global state for recommended nutrients intake amount
   const {
@@ -96,13 +109,14 @@ const AddFood: React.FC = () => {
     try {
       getRecommendationByHistory()
         .then((data) => {
-          setFoodHistory(data);
+          setHistoryRecommendation(data);
         })
         .catch(() => {
-          toast.error("Failed to load recommended food.");
+          console.log("Failed to load recommended food.");
         });
     } catch (err) {
-      toast.error("Failed to load recommended food.");
+      //   toast.error("Failed to load recommended food.");
+      console.log("Failed to load recommended food.", err);
     }
   }, []);
 
@@ -224,18 +238,27 @@ const AddFood: React.FC = () => {
 
         {/* Recommendation From History */}
         <div className="px-5">
-          <span className="font-dm-sans text-xl font-bold">
-            Recommendation for Food
-          </span>
+          <div className="my-4 font-dm-sans text-xl font-semibold">
+            Recommendation By History
+          </div>
           <div className="flex flex-col gap-6">
-            {foodHistory &&
-              foodHistory.map((food: any) => {
+            {historyRecommendation &&
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              historyRecommendation.recommendation.map((food: TFoodMinimal) => {
+                const rule = historyRecommendation.matchedRules.find((rule) => {
+                  return rule.consequent.includes(parseInt(food.id));
+                });
+                const confidence = rule?.confidence
+                  ? parseFloat(rule.confidence.toFixed(2))
+                  : 0;
                 return (
                   <>
                     <ListItemsCard
                       id={food.id}
                       title={food.name}
-                      cal={food.cal}
+                      cal={food.calories}
+                      type="foodList"
+                      desc={`confidence: ${confidence}%`}
                     />
                   </>
                 );
@@ -244,7 +267,7 @@ const AddFood: React.FC = () => {
         </div>
 
         {/* Food Intake List */}
-        <div className="px-5">
+        <div className="my-4 px-5">
           <h3 className="font-dm-sans text-xl font-semibold">Food Intake</h3>
           {renderFoodIntakeList()}
         </div>

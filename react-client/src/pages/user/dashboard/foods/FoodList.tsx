@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  TRecommendedFoodListFromNutrition,
-} from "../../../../types/food";
+import { TRecommendedFoodListFromNutrition } from "../../../../types/food";
 import ListItemsCard from "../../../../components/cards/ListItemsCard";
 import { getRecommendationByNutrition } from "../../../../api/recommendation.api";
 import Loading from "../../../../components/loading/Loading";
@@ -28,15 +26,14 @@ const FoodList: React.FC = () => {
     fetchData();
   }, []);
 
-
   if (error) return <div>{error}</div>;
 
   return (
     <div className="mx-5">
       <div className="my-4 flex flex-col gap-4">
-        <div className="mt-4 mb-48 w-full">
-          <h1 className="mb-2 ps-1 text-start font-nunito-sans font-semibold text-xl">
-            Recommended Foods For You
+        <div className="mb-48 mt-4 w-full">
+          <h1 className="mb-2 ps-1 text-start font-nunito-sans text-xl font-semibold">
+            Recommended By Nutrition
           </h1>
           <div className="flex flex-col gap-4">
             {foods?.length > 0 ? (
@@ -51,6 +48,7 @@ const FoodList: React.FC = () => {
                       key={food.food.id}
                       cal={food.food.calories}
                       type={"foodList"}
+                      desc={`score: ${food.score.toFixed(2)}`}
                     />
                   )}
                 </div>

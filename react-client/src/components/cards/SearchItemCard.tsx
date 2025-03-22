@@ -12,7 +12,6 @@ const SearchItemCard: React.FC<PSearchItemCard> = ({
   name,
   calories,
 }) => {
-  console.log(image, name, calories);
   return (
     <div className="card card-compact w-full bg-base-100 shadow-xl">
       <figure>

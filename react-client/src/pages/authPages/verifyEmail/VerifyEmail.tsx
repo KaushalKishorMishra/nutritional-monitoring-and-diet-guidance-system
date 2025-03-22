@@ -53,7 +53,6 @@ const VerifyEmail: React.FC = () => {
         verifyEmailFormValues.email,
         verifyEmailFormValues.emailVerificationToken,
       ); // Call the API
-      console.log("Success:", response);
 
       // Handle success response
       setSuccessMessage("Email verification successful!");
